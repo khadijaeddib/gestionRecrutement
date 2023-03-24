@@ -23,35 +23,35 @@
                         <form method="POST" class="register-form" id="register-form">
                             <div class="form-group">
                                 <label for="lName"><i class="zmdi zmdi-account"></i></label>
-                                <input type="text" name="lName" id="lName" placeholder="Votre nom"/>
+                                <input type="text" name="lName" id="lName" placeholder="Votre nom *" required/>
                             </div>
                             <div class="form-group">
                               <label for="fName"><i class="zmdi zmdi-account"></i></label>
-                              <input type="text" name="fName" id="fName" placeholder="Votre prénom"/>
+                              <input type="text" name="fName" id="fName" placeholder="Votre prénom *" required/>
                             </div>
                             <div class="form-group">
                               <label for="age"><i class="zmdi zmdi-calendar"></i></label>
-                              <input type="number" name="age" id="age" placeholder="Votre âge"/>
+                              <input type="number" name="age" id="age" placeholder="Votre âge *" required/>
                             </div>
                             <div class="form-group">
                               <label for="email"><i class="zmdi zmdi-email"></i></label>
-                              <input type="email" name="email" id="email" placeholder="Votre email"/>
+                              <input type="email" name="email" id="email" placeholder="Votre email *" required/>
                             </div>
                             <div class="form-group-tel ">
                               <label for="phone"><i class="zmdi zmdi-phone-sip"></i></label>
-                              <input type="text" name="phone" id="phone" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'ma'}"/>
+                              <input type="text" name="phone" id="phone" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'ma'}" required/>
                             </div>
                             <div class="form-group">
                               <label for="address"><i class="zmdi zmdi-pin"></i></label>
-                              <input type="text" name="address" id="address" placeholder="Votre adresse"/>
+                              <input type="text" name="address" id="address" placeholder="Votre adresse *" required/>
                             </div>
                             <div class="form-group">
                               <label for="diploma"><i class="zmdi zmdi-assignment"></i></label>
-                              <input type="text" name="diploma" id="diploma" placeholder="Votre diplôme"/>
+                              <input type="text" name="diploma" id="diploma" placeholder="Votre diplôme *" required/>
                             </div>
                             <div class="form-group">
-                              <select name="expYears" id="expYears" >
-                                <option value="" id="default-experience">Nombre d'année d'expérience</option>
+                              <select name="expYears" id="expYears" required>
+                                <option value="" id="default-experience">Nombre d'année d'expérience *</option>
                                 <option value="0">Débutant</option>
                                 <option value="-1">Moins d'un an</option>
                                 <option value="1-3">De 1 à 3 ans</option>
@@ -62,20 +62,20 @@
                               <label for="expYears"><i class="zmdi zmdi-chevron-down"></i></label>
                             </div>
                             <div class="form-group">
-                              <input type="file" name="LM" id="LM"/>
+                              <input type="file" name="LM" id="LM" required/>
                               <label for="LM"><i class="zmdi zmdi-upload "></i></label>
                             </div>
                             <div class="form-group">
-                              <input type="file" name="CV" id="CV"/>
+                              <input type="file" name="CV" id="CV" required/>
                               <label for="CV"><i class="zmdi zmdi-upload "></i></label>
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="Mot de passe"/>
+                                <input type="password" name="pass" id="pass" placeholder="Mot de passe *" required/>
                             </div>
                             <div class="form-group">
                                 <label for="rePass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="rePass" id="rePass" placeholder="Répéter mot de passe"/>
+                                <input type="password" name="rePass" id="rePass" placeholder="Répéter mot de passe *" required/>
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" name="agreeTerm" id="agreeTerm" class="agree-term" />
@@ -95,8 +95,5 @@
         </section>
     </div>
 
-    <!-- JS -->
-    <!-- <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/main.js"></script> -->
 </body>
 </html>

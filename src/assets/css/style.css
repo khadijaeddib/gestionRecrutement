@@ -403,12 +403,12 @@ input[type=file]::-webkit-file-upload-button {
 }
 
 #LM::before {
-  content: "Select votre LM          ";
+  content: "Attachement du LM (pdf) *                                                     ";
   color: #999!important ;
 }
 
 #CV::before {
-  content: "Select votre CV                                                     ";
+  content: "Attachement du CV (pdf) *                                                     ";
   color: #999!important ;
 }
 
