@@ -7,6 +7,7 @@ import { SignupComponent } from './components/account/signup/signup.component';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { LoginComponent } from './components/account/login/login.component';
 import { LockScreenComponent } from './components/account/lock-screen/lock-screen.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LockScreenComponent } from './components/account/lock-screen/lock-scree
   imports: [
     BrowserModule,
     AppRoutingModule,
-    Ng2TelInputModule
+    Ng2TelInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
