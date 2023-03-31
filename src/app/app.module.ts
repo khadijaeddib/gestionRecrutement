@@ -8,13 +8,15 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
 import { LoginComponent } from './components/account/login/login.component';
 import { LockScreenComponent } from './components/account/lock-screen/lock-screen.component';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './components/admin/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
     LoginComponent,
-    LockScreenComponent
+    LockScreenComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
