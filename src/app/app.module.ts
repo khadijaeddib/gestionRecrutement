@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -21,6 +23,7 @@ import { OffersComponent } from './components/admin/home/home/offers/offers.comp
 import { CandidaturesComponent } from './components/admin/home/home/candidatures/candidatures.component';
 import { InterviewsComponent } from './components/admin/home/home/interviews/interviews.component';
 import { CompaniesComponent } from './components/admin/home/home/companies/companies.component';
+import { ShowCandidateComponent } from './components/admin/home/home/candidates/show-candidate/show-candidate.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { CompaniesComponent } from './components/admin/home/home/companies/compa
     OffersComponent,
     CandidaturesComponent,
     InterviewsComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    ShowCandidateComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,8 @@ import { CompaniesComponent } from './components/admin/home/home/companies/compa
         useFactory: httpTranslateLoader,
         deps: [HttpClient]
       }
-    })
+    }),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
