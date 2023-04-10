@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/../../assets/css/account.css">
+    <title>Formulaire d'inscription </title>
+</head>
+<body>
+    <div class="main">
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">S'inscrire </h2>
+                        <form #form="ngForm" (ngSubmit)="signup()" class="register-form" id="register-form">
+                            <div class="form-group">
+                                <label for="lName" class="bi bi-person-fill"></label>
+                                <input type="text" name="lName" id="lName" placeholder="Votre nom *" required/>
+                            </div>
+                            <div class="form-group">
+                              <label for="fName" class="bi bi-person-fill"></label>
+                              <input type="text" name="fName" id="fName" placeholder="Votre prénom *" required/>
+                            </div>
+                            <div class="form-group">
+                              <label for="age" class="bi bi-calendar-event"></label>
+                              <input type="number" name="age" id="age" placeholder="Votre âge (20) *" required/>
+                            </div>
+                            <div class="form-group">
+                              <label for="email" class="bi bi-envelope-fill"></label>
+                              <input type="email" name="email" id="email" placeholder="Votre email *" required/>
+                            </div>
+                            <div class="form-group-tel ">
+                              <label for="phone"><i class="zmdi zmdi-phone-sip"></i></label>
+                              <input type="text" name="phone" id="phone" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'ma'}" required/>
+                            </div>
+                            <div class="form-group">
+                              <label for="address" class="bi bi-geo-alt-fill"></label>
+                              <input type="text" name="address" id="address" placeholder="Votre adresse *" required/>
+                            </div>
+                            <div class="form-group">
+                              <label for="diploma" class="bi bi-pass-fill"></label>
+                              <input type="text" name="diploma" id="diploma" placeholder="Votre diplôme (Ingénieur logiciel) *" required/>
+                            </div>
+                            <div class="form-group">
+                              <select name="expYears" id="expYears" required>
+                                <option value="" id="default-experience">Nombre d'année d'expérience *</option>
+                                <option value="0">Débutant</option>
+                                <option value="-1">Moins d'un an</option>
+                                <option value="1-3">De 1 à 3 ans</option>
+                                <option value="3-5">De 3 à 5 ans</option>
+                                <option value="5-10">De 5 à 10 ans</option>
+                                <option value="+10">+10 ans</option>
+                              </select>
+                              <label for="expYears" class="bi bi-caret-down-fill"></label>
+                            </div>
+                            <div class="form-group">
+                              <input type="file" name="LM" id="LM" required/>
+                              <label for="LM" class="bi bi-cloud-arrow-up-fill"></label>
+                            </div>
+                            <div class="form-group">
+                              <input type="file" name="CV" id="CV" required/>
+                              <label for="CV" class="bi bi-cloud-arrow-up-fill"></label>
+                            </div>
+                            <div class="form-group">
+                              <label for="pass" class="bi bi-lock-fill"></label>
+                                <input [type]="type" name="pass" id="pass" placeholder="Mot de passe *" required/>
+                                <i (click)="hideShowPass()" class="bi {{eyeIcon}}"></i>
+                            </div>
+                            <div class="form-group">
+                                <label for="rePass" class="bi bi-lock-fill"></label>
+                                <input [type]="type" name="rePass" id="rePass" placeholder="Répéter mot de passe *" required/>
+                                <i (click)="hideShowrePass()" class="bi {{eyeIcon}}"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="agreeTerm" id="agreeTerm" class="agree-term" />
+                                <label for="agreeTerm" class="label-agree-term"><span><span></span></span>Je suis d'accord avec toutes les déclarations contenues dans <a href="#" class="term-service">les conditions d'utilisation</a></label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="S'inscrire"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="/../../assets/images/signup.jpg" alt="sing up image"></figure>
+                        <a routerLink="/login" class="signup-image-link">Je suis déjà membre</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

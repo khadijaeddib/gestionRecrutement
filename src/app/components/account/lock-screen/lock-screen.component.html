@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/../../assets/css/account.css">
+    <title>Page de verrouillage</title>
+</head>
+<body>
+  <div class="main">
+    <section class="sign-in">
+      <div class="container">
+          <div class="signin-content-center">
+            <div class="signin-image">
+              <figure><img src="/../../assets/images/user.png" alt="user image" width="150px" height="150px"></figure>
+              <span class="label-agree-term">{{userName}}</span>
+            </div>
+
+              <div class="signin-form">
+                  <form #form="ngForm" (ngSubmit)="login()" class="register-form" id="login-form">
+                      <div class="form-group">
+                          <label for="pass" class="bi bi-lock-fill"></label>
+                          <input type="password" name="pass" id="pass" placeholder="Entrer votre mot de passe"/>
+                      </div>
+                      <div class="form-group form-button">
+                          <input type="submit" name="signin" id="signin" class="form-submit" value="Se connecter"/>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

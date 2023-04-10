@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/../../assets/css/adminHome.css">
+    <title>Admin dashboard</title>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <section id="sidebar" [ngClass]="status ? 'hide' : ''">
+    <a routerLink="/admin" class="brand">
+      <span class="text">ULTIHIRE</span>
+    </a>
+    <ul class="side-menu top">
+      <li routerLinkActive="active" >
+        <a routerLinkActive="active" routerLink="/admin/dashboard">
+          <i class='bx bxs-dashboard' ></i>
+          <span class="text">Tableau de bord</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLinkActive="active" routerLink="/admin/recruiters" >
+          <i class='bx bxs-group' ></i>
+          <span class="text">Gestion recruteurs</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLinkActive="active" routerLink="/admin/candidates">
+          <i class='bx bxs-group' ></i>
+          <span class="text">Gestion candidats </span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLinkActive="active" routerLink="/admin/offers">
+          <i class='bx bxs-offer'></i>
+          <span class="text">Gestion offres</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLinkActive="active" routerLink="/admin/companies">
+          <i class='bx bxs-business'></i>
+          <span class="text">Entreprises</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLinkActive="active" routerLink="/admin/candidatures">
+          <i class='bx bx-table'></i>
+          <span class="text">Gestion candidatures</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLinkActive="active" routerLink="/admin/interviews">
+          <i class='bx bxs-calendar-event'></i>
+          <span class="text">Gestion entretiens</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="side-menu">
+      <li>
+        <a href="#" class="logout">
+          <i class='bx bxs-log-out-circle' ></i>
+          <span class="text">Déconnexion</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- CONTENT -->
+  <section id="content">
+    <!-- NAVBAR -->
+    <nav>
+      <i (click)="addToggle()" class='bx bx-menu' ></i>
+      <form action="#">
+        <div class="form-input">
+          <input type="search" placeholder="Chercher...">
+          <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
+        </div>
+      </form>
+      <!-- <a href="#" class="notification">
+        <i class='bx bxs-bell' ></i>
+        <span class="num">8</span>
+      </a> -->
+
+      <div class="langage-dropdown">
+        <a  href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fi fi-fr fis"></i></a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#"><i class="fi fi-fr fis"></i>Français</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#"><i class="fi fi-us fis"></i>English</a></li>
+          <li><a class="dropdown-item" href="#"><i class="fi fi-ma fis"></i>Arabe</a></li>
+        </ul>
+      </div>
+
+      <a href="#" class="profile">
+        <span class="text">User</span>
+          <img src="/../../assets/images/user.png" data-bs-toggle="dropdown" aria-expanded="false">
+          <ul class="dropdown-menu ">
+            <li><i class='bx bxs-user'></i><a class="dropdown-item" href="#">Profil</a></li>
+            <li><i class='bx bx-log-out-circle'></i><a class="dropdown-item" href="#">Se déconnecter</a></li>
+          </ul>
+      </a>
+    </nav>
+    <!-- NAVBAR -->
+
+
+    <!-- MAIN -->
+    <main>
+
+      <!-- <div class="head-title">
+        <div class="left">
+          <h1>Tableau de bord</h1>
+          <ul class="breadcrumb">
+            <li>
+              <a routerLink="/admin">Tableau de bord</a>
+            </li>
+            <li><i class='bx bx-chevron-right' ></i></li>
+            <li>
+              <a class="active" routerLink="/admin">Acceuil</a>
+            </li>
+          </ul>
+        </div>
+        <a href="#" class="btn-download">
+          <i class='bx bxs-cloud-download' ></i>
+          <span class="text">Download PDF</span>
+        </a>
+      </div> -->
+
+      <ul class="box-info">
+        <li>
+          <i class='bx bx-trending-up'></i>
+          <span class="text">
+            <h3>120</h3>
+            <p>Nouveau Candidats</p>
+          </span>
+        </li>
+        <li>
+          <i class='bx bxs-group' ></i>
+          <span class="text">
+            <h3>2834</h3>
+            <p>Visiteurs</p>
+          </span>
+        </li>
+        <li>
+          <i class='bx bx-list-plus'></i>
+          <span class="text">
+            <h3>5</h3>
+            <p>Offres Publiées</p>
+          </span>
+        </li>
+        <li>
+          <i class='bx bxs-calendar-check' ></i>
+          <span class="text">
+            <h3>54</h3>
+            <p>Total Candidatures</p>
+          </span>
+        </li>
+      </ul>
+
+      <router-outlet></router-outlet>
+
+    </main>
+    <!-- MAIN -->
+  </section>
+  <!-- CONTENT -->
+</body>
+</html>

@@ -1,0 +1,130 @@
+<div class="head-title">
+  <div class="show-line">
+    <p>Afficher par page :</p>
+    <select id="form-select-coins">
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+    </select>
+  </div>
+  <!-- <form action="#">
+    <div class="form-input">
+      <input type="search" placeholder="Chercher...">
+      <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
+    </div>
+  </form> -->
+
+    <form class="form-inline">
+        <select id="Categorie" name="Categorie" class="input-categorie">
+          <option selected="selected" value="0">Chercher par <i class="bi bi-caret-down-fill"></i></option>
+          <option value="expYears">Nombre d'expérience</option>
+          <option value="diploma">Diplôme</option>
+          <option value="spec">Spécialité</option>
+        </select>
+      <input id="keySearch" name="keySearch" type="text" class="form-control" placeholder="Saisie de mots clés" required="required">
+
+         <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
+
+    </form>
+
+    <!-- <form action="#">
+      <div class="form-input">
+        <input type="search" placeholder="Chercher...">
+        <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
+      </div>
+    </form> -->
+
+  <button href="#" class="btn-download">
+    <i class="bi bi-person-plus-fill"></i>
+    <span class="text">Ajouter candidat</span>
+  </button>
+</div>
+
+
+
+<div class="table-data">
+  <div class="order">
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nom</th>
+          <th>Age</th>
+          <th>Téléphone</th>
+          <th>Adresse</th>
+          <th>Diplôme</th>
+          <th>Expériences</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01</td>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="/../../assets/images/user.png" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
+              <div class="ms-3">
+                <p class="fw-bold mb-1">John Doe</p>
+                <p class="text-muted mb-0">john.doe@gmail.com</p>
+              </div>
+            </div>
+          </td>
+          <td> 23 ans </td>
+          <td> 0667349823 </td>
+          <td> Agadir, N43 </td>
+          <td>
+            <p class="fw-normal mb-1">Software engineer</p>
+            <p class="text-muted mb-0">Web developement</p>
+          </td>
+          <td> 2 ans </td>
+          <td>
+            <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="showCandidate()">
+              <i class="bi bi-eye-fill"></i>
+            </button>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>02</td>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="/../../assets/images/user.png" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
+              <div class="ms-3">
+                <p class="fw-bold mb-1">John Doe</p>
+                <p class="text-muted mb-0">john.doe@gmail.com</p>
+              </div>
+            </div>
+          </td>
+          <td> 23 ans </td>
+          <td> 0667349823 </td>
+          <td> Agadir, N43 </td>
+          <td>
+            <p class="fw-normal mb-1">Software engineer</p>
+            <p class="text-muted mb-0">Web developement</p>
+          </td>
+          <td> 2 ans </td>
+          <td>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <i class="bi bi-eye-fill"></i>
+            </button>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

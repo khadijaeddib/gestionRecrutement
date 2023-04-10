@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/../../assets/css/account.css">
+    <title>Formulaire d'inscription </title>
+</head>
+<body>
+  <div class="main">
+    <section class="sign-in">
+      <div class="container">
+          <div class="signin-content">
+              <div class="signin-image">
+                  <figure><img src="/../../assets/images/login.jpg" alt="login image"></figure>
+                  <a routerLink="/signup" class="signup-image-link">Créer un compte</a>
+              </div>
+
+              <div class="signin-form">
+                  <h2 class="form-title">Se connecter</h2>
+                  <form #form="ngForm" (ngSubmit)="login()" class="register-form" id="login-form">
+                      <div class="form-group">
+                          <label for="email" class="bi bi-person-fill"></label>
+                          <input type="email" name="email" id="email" placeholder="Votre email" required/>
+                      </div>
+                      <div class="form-group">
+                          <label for="pass" class="bi bi-lock-fill"></label>
+                            <input [type]="type" name="pass" id="pass" placeholder="Mot de passe" required/>
+                            <i (click)="hideShowPass()" class="bi {{eyeIcon}}"></i>
+                      </div>
+                      <div class="form-group">
+                        <a routerLink="#" class="signup-image-link" >Mot de passe oublié</a>
+                      </div>
+                      <div class="form-group">
+                          <input type="checkbox" name="rememberMe" id="rememberMe" class="agree-term" (click)="rememberMe()"/>
+                          <label for="rememberMe" class="label-agree-term"><span></span>Se souvenir de moi</label>
+                      </div>
+
+                      <div class="form-group form-button">
+                          <input type="submit" name="signin" id="signin" class="form-submit" value="Se connecter"/>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

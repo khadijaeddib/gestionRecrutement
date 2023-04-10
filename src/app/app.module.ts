@@ -24,6 +24,7 @@ import { CandidaturesComponent } from './components/admin/home/home/candidatures
 import { InterviewsComponent } from './components/admin/home/home/interviews/interviews.component';
 import { CompaniesComponent } from './components/admin/home/home/companies/companies.component';
 import { ShowCandidateComponent } from './components/admin/home/home/candidates/show-candidate/show-candidate.component';
+import { ShowRecruiterComponent } from './components/admin/home/home/recruiters/show-recruiter/show-recruiter.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ShowCandidateComponent } from './components/admin/home/home/candidates/
     CandidaturesComponent,
     InterviewsComponent,
     CompaniesComponent,
-    ShowCandidateComponent
+    ShowCandidateComponent,
+    ShowRecruiterComponent
   ],
   imports: [
     BrowserModule,
