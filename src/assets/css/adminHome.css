@@ -29,7 +29,7 @@ li {
   --yellow: #FFCE26;
   --light-yellow: #FFF2C6;
   --orange: #FD7238;
-  --medium-orange: #ECAC76;
+  --medium-orange: #FFA500;
   --light-orange: #FFE0D3;
   --green: #00AF37;
   --light-green:  #bcf5bc;
@@ -388,7 +388,7 @@ body {
   color: var(--blue);
   pointer-events: unset;
 }
-#content main .head-title .btn-download {
+.btn-download {
   height: 36px;
   padding: 0 16px;
   border: none;
@@ -511,6 +511,9 @@ body {
   align-items: center;
   grid-gap: 12px;
   padding-left: 6px;
+}
+#content main .table-data .order table tr .flex-td p{
+  margin-bottom: 0!important;
 }
 #content main .table-data .order table td img {
   width: 36px;

@@ -187,3 +187,9 @@ body{
 .col-4 p {
   margin-bottom: 0;
 }
+
+.head-btn-add {
+  display: flex;
+  justify-content: end;
+  /* margin-bottom: 24px; */
+}
