@@ -1,1 +1,99 @@
-<p>candidatures works!</p>
+<div class="head-title">
+  <div class="show-line">
+    <p>Afficher par page :</p>
+    <select id="form-select-coins">
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+    </select>
+  </div>
+  <!-- <form action="#">
+    <div class="form-input">
+      <input type="search" placeholder="Chercher...">
+      <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
+    </div>
+  </form> -->
+
+    <form class="form-inline">
+        <select id="Categorie" name="Categorie" class="input-categorie">
+          <option selected="selected" value="0">Chercher par <i class="bi bi-caret-down-fill"></i></option>
+          <option value="offerTitle">Titre d'offre d'emploi</option>
+          <option value="status">Statut</option>
+        </select>
+      <input id="keySearch" name="keySearch" type="text" class="form-control" placeholder="Saisie de mots clés" required="required">
+
+         <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
+
+    </form>
+
+    <!-- <form action="#">
+      <div class="form-input">
+        <input type="search" placeholder="Chercher...">
+        <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
+      </div>
+    </form> -->
+<!--
+  <button href="#" class="btn-download">
+    <i class="bi bi-person-plus-fill"></i>
+    <span class="text">Ajouter candidature</span>
+  </button> -->
+</div>
+
+
+
+<div class="table-data">
+  <div class="order">
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Candidat</th>
+          <th>Titre d'offre</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01</td>
+          <td>
+            <select id="status" name="status" class="input-categorie" [ngClass]="classColors[mySelectedValue]" (change)="onStatusChange($event)">
+              <option selected="selected" value="received" class="status received">Reçu</option>
+              <option value="pending" class="status pending">Encours</option>
+              <option value="called" class="status called">Convoqué</option>
+              <option value="hiring" class="status hiring">Embauché</option>
+              <option value="refusal" class="status refusal">Refusé</option>
+            </select>
+          </td>
+          <td> 21/03/2023</td>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="/../../assets/images/user.png" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
+              <div class="ms-3">
+                <p class="fw-bold mb-1">John Doe</p>
+                <p class="text-muted mb-0">john.doe@gmail.com</p>
+              </div>
+            </div>
+          </td>
+          <td> Développeur(se) Frontend Vue/Angular/Reactjs </td>
+          <td>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <i class="bi bi-eye-fill"></i>
+            </button>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
