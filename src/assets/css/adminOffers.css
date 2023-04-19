@@ -1,0 +1,227 @@
+/* html {
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+} */
+
+/* h5 {
+  font-size: 1.28571429em;
+  font-weight: 700;
+  line-height: 1.2857em;
+  margin: 0;
+} */
+
+.card-offer {
+  font-size: 1em;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+  border-radius: .28571429rem;
+  box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  background-color: var(--light);
+  font-family: var(--lato);
+}
+
+.card-offer .card-block {
+  font-size: 1em;
+  position: relative;
+  margin: 0;
+  padding: 1em;
+  border: none;
+  border-top: 1px solid rgba(34, 36, 38, .1);
+  box-shadow: none;
+}
+
+.card-img-top {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card-offer .card-block .title{
+  font-size: 1.2em;
+}
+
+.card-text div {
+  margin-top: .5em;
+  color: rgba(0, 0, 0, .68);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--poppins)!important;
+}
+
+.card-text div p{
+  font-size: 0.85em;
+  margin-bottom: 0;
+}
+
+.card-text div .card-title {
+  font-size: 0.85em;
+  font-weight: 700;
+  line-height: 1.2857em;
+}
+
+.card-footer {
+  font-size: 1em;
+  position: static;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  padding: .75em 1em;
+  color: rgba(0, 0, 0, .4);
+  border-top: 1px solid rgba(0, 0, 0, .05) !important;
+  background: var(--grey)!important;
+}
+
+.card-footer-date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1em;
+  padding: 0 .7em!important;
+  color: #737373!important;
+  border-top: 1px solid rgba(0, 0, 0, .05) !important;
+  background: var(--grey)!important;
+  text-align: end!important;
+}
+.card-footer-date .row{
+  margin-left: 0!important;
+  color: var(--dark)!important;
+}
+/* .card-footer-date .user-social-link .btn-action{
+  color: var(--dark)!important;
+} */
+.card-footer-date .user-social-link .col-auto{
+  padding: .3em!important;
+}
+
+.card-inverse .btn {
+  border: 1px solid rgba(0, 0, 0, .05);
+}
+
+.card-offer .card-block .profile {
+  position: absolute;
+  top: -12px;
+  display: inline-block;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+
+.card-offer .card-block .profile .profile-avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.profile-inline {
+  position: relative;
+  top: 0;
+  display: inline-block;
+}
+
+.profile-inline ~ .card-title {
+  display: inline-block;
+  margin-left: 4px;
+  vertical-align: top;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.meta {
+  font-size: 0.9em;
+  color: var(--dark-grey);
+}
+
+.meta p{
+  margin-bottom: 0.5rem!important;
+}
+
+/* .meta a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, .4);
+} */
+
+/* .meta a:hover {
+  color: rgba(0, 0, 0, .87);
+} */
+
+/* Tabs Card */
+.tab-card {
+border:1px solid #eee;
+}
+
+.tab-card-header {
+background:none;
+}
+/* Default mode */
+.tab-card-header > .nav-tabs {
+border: none;
+margin: 0px;
+}
+.tab-card-header > .nav-tabs > li {
+margin-right: 2px;
+}
+
+.card-text ul li {
+  position: relative;
+  list-style-type: none;
+  padding-left: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-text ul li:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 5px;
+  height: 11px;
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  border-color: var(--dark-grey);
+  transform-origin: bottom left;
+  transform: rotate(45deg);
+}
+
+
+.tab-card-header > .nav-tabs > li > button {
+border: 0;
+border-bottom:2px solid transparent;
+margin-right: 0;
+color: #737373;
+padding: 2px 15px;
+}
+
+.card-header-tabs .nav-link.active {
+  color: var(--blue)!important;
+  border-bottom-color: var(--blue)!important;
+}
+
+/* .tab-card-header > .nav-tabs > li > button.show {
+  border-bottom:2px solid #007bff;
+  color: #007bff;
+} */
+.tab-card-header > .nav-tabs > li > button:hover {
+  color: var(--blue);
+}
+
+.tab-card-header > .tab-content {
+padding-bottom: 0;
+}
+
+.tab-content .tab-pane .card-text {
+  font-size: 1em;
+  font-family: var(--lato);
+  color: var(--dark);
+  text-align: justify;
+  text-justify: inter-word;
+}
