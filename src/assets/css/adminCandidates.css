@@ -1,7 +1,9 @@
 
 th, td {
   text-align: center!important;
+  max-width: 250px;
 }
+
 
 .btn-link {
   color: var(--dark)!important;
