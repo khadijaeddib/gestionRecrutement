@@ -40,10 +40,44 @@
                               <input type="text" name="address" id="address" placeholder="Votre adresse *" required/>
                             </div>
                             <div class="form-group">
-                              <label for="diploma" class="bi bi-pass-fill"></label>
-                              <input type="text" name="diploma" id="diploma" placeholder="Votre diplôme (Ingénieur logiciel) *" required/>
+                              <label for="StudyDegree" class="bi bi-caret-down-fill"></label>
+                              <select name="StudyDegree" id="StudyDegree" required>
+                                <option value="" id="default-degree">Niveau d'étude *</option>
+                                <option value="Bac+2">Bac+2</option>
+                                <option value="Bac+3">Bac+3</option>
+                                <option value="Bac+4">Bac+4</option>
+                                <option value="Bac+5">Bac+5</option>
+                                <option value="Bac+7">Bac+7</option>
+                              </select>
                             </div>
                             <div class="form-group">
+                              <label for="diploma" class="bi bi-caret-down-fill"></label>
+                              <select name="diploma" id="diploma" required>
+                                <option value="" id="default-degree">Votre diplôme *</option>
+                                <option value="Bachelor">Bachelor : Bachelor</option>
+                                <option value="DEUG">DEUG : Diplôme d'études universitaires générales</option>
+                                <option value="DEUST">DEUST : Diplôme d’Etudes Universitaires Scientifiques et Techniques</option>
+                                <option value="DUT">DUT : Diplôme universitaire de Technologie</option>
+                                <option value="BTS">BTS : Brevet de Technicien Supérieur</option>
+                                <option value="DTS">DTS : Diplôme de Technicien Spécialisé</option>
+                                <option value="DT">DT : Diplôme de Technicien</option>
+                                <option value="LF">LF : Licence Fondamentale</option>
+                                <option value="LP">LP : Licence Professionnelle</option>
+                                <option value="LST">LST : Licence Sciences et Techniques</option>
+                                <option value="MS">MS : Master Spécialisé</option>
+                                <option value="MR">MR : Master Recherche</option>
+                                <option value="MST">MST : Master Sciences et Techniques</option>
+                                <option value="IE">IE : Ingénieur d'Etat</option>
+                                <option value="MBA">MBA : Master of Business Administration</option>
+                                <option value="Doctorat">Doctorat : Doctorat</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="spec" class="bi bi-pass-fill"></label>
+                              <input type="text" name="spec" id="spec" placeholder="Votre spécialité (Ex: Ingénieur logiciel) *" required/>
+                            </div>
+                            <div class="form-group">
+                              <label for="expYears" class="bi bi-caret-down-fill"></label>
                               <select name="expYears" id="expYears" required>
                                 <option value="" id="default-experience">Nombre d'année d'expérience *</option>
                                 <option value="0">Débutant</option>
@@ -53,7 +87,11 @@
                                 <option value="5-10">De 5 à 10 ans</option>
                                 <option value="+10">+10 ans</option>
                               </select>
-                              <label for="expYears" class="bi bi-caret-down-fill"></label>
+                            </div>
+
+                            <div class="form-group">
+                              <input type="file" name="userImage" id="userImage" required/>
+                              <label for="userImage" class="bi bi-cloud-arrow-up-fill"></label>
                             </div>
                             <div class="form-group">
                               <input type="file" name="LM" id="LM" required/>

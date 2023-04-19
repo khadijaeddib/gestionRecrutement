@@ -309,11 +309,15 @@ figure {
 
 .signup-form {
   margin-left: 75px;
-  margin-right: 75px;
+  margin-right: 65px;
   padding-left: 34px; }
 
 .register-form {
   width: 100%; }
+
+.register-form .form-group{
+  width: 320px;
+}
 
 .form-group {
   position: relative;
@@ -407,13 +411,18 @@ input[type=file]::-webkit-file-upload-button {
   display: none;
 }
 
+#userImage::before {
+  content: "Votre image *                                                                             ";
+  color: #999!important ;
+}
+
 #LM::before {
-  content: "Attachement du LM (pdf) *                                                     ";
+  content: "Attachement du LM (pdf) *                                                                 ";
   color: #999!important ;
 }
 
 #CV::before {
-  content: "Attachement du CV (pdf) *                                                     ";
+  content: "Attachement du CV (pdf) *                                                                ";
   color: #999!important ;
 }
 
