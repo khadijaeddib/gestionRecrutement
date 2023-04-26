@@ -281,7 +281,7 @@ figure {
   display: inline-block;
   background: var(--blue);
   color: #fff;
-  border-bottom: none;
+  border: none;
   width: auto;
   padding: 15px 39px;
   border-radius: 5px;
@@ -293,6 +293,14 @@ figure {
   cursor: pointer; }
   .form-submit:hover {
     background: var(--medium-blue); }
+
+  .form-submit[disabled]{
+    opacity: 75%;
+    border: none;
+  }
+.error label {
+  color: var(--red);
+}
 
 #signin {
   margin-top: 16px; }
@@ -316,7 +324,7 @@ figure {
   width: 100%; }
 
 .register-form .form-group{
-  width: 320px;
+  width: 100%;
 }
 
 .form-group {
@@ -411,7 +419,7 @@ input[type=file]::-webkit-file-upload-button {
   display: none;
 }
 
-#userImage::before {
+#imageCand::before {
   content: "Votre image *                                                                             ";
   color: #999!important ;
 }

@@ -15,7 +15,7 @@ import { SignupComponent } from './components/account/signup/signup.component';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { LoginComponent } from './components/account/login/login.component';
 import { LockScreenComponent } from './components/account/lock-screen/lock-screen.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/admin/home/home.component';
 import { DashboardComponent } from './components/admin/home/home/dashboard/dashboard.component';
 import { CandidatesComponent } from './components/admin/home/home/candidates/candidates.component';
@@ -57,7 +57,8 @@ import { ShowRecruiterComponent } from './components/admin/home/home/recruiters/
         deps: [HttpClient]
       }
     }),
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -19,16 +19,18 @@
 
               <div class="signin-form">
                   <h2 class="form-title">Se connecter</h2>
-                  <form #form="ngForm" (ngSubmit)="login()" class="register-form" id="login-form">
-                      <div class="form-group">
+                  <form [formGroup]="loginForm" #form="ngForm" (ngSubmit)="login()" class="register-form" id="login-form">
+                      <div class="form-group" [class.error]="loginForm.controls['email'].dirty && loginForm.hasError('required','email')">
                           <label for="email" class="bi bi-person-fill"></label>
-                          <input type="email" name="email" id="email" placeholder="Votre email" required/>
+                          <input formControlName="email" type="email" name="email" id="email" placeholder="Votre email" required/>
                       </div>
-                      <div class="form-group">
+                      <small *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" class="text-danger">* Email est nécessaire </small>
+                      <div class="form-group" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
                           <label for="pass" class="bi bi-lock-fill"></label>
-                            <input [type]="type" name="pass" id="pass" placeholder="Mot de passe" required/>
+                            <input formControlName="password" [type]="type" name="pass" id="pass" placeholder="Mot de passe" required/>
                             <i (click)="hideShowPass()" class="bi {{eyeIcon}}"></i>
                       </div>
+                      <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')"  class="text-danger">* Mot de passe est nécessaire </small>
                       <div class="form-group">
                         <a routerLink="#" class="signup-image-link" >Mot de passe oublié</a>
                       </div>
@@ -38,7 +40,7 @@
                       </div>
 
                       <div class="form-group form-button">
-                          <input type="submit" name="signin" id="signin" class="form-submit" value="Se connecter"/>
+                          <button (click)="onSubmit()" type="submit" id="signin" class="form-submit">Se connecter</button>
                       </div>
                   </form>
               </div>
