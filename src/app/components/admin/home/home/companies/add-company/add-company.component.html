@@ -1,0 +1,126 @@
+<div class="container-xl px-4 mt-4">
+    <form #addCompanyForm="ngForm" (ngSubmit)="addCompany()">
+        <div class="row">
+            <div class="div-btn-close">
+                <button class="btn-close" data-dismiss="modal" (click)="close()"></button>
+            </div>
+            <div *ngIf="successMessage" class="alert alert-success alert-dismissible d-flex align-items-center fade show">
+                <i class="bi-check-circle-fill"></i>
+                <strong class="mx-2">Succès!</strong> {{ successMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                <i class="bi-exclamation-triangle-fill"></i>
+                <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div class="col-xl-4">
+                <!-- Profile picture card-->
+                <div class="card mb-4 mb-xl-0">
+                    <h6 class="card-header">Logo d'entreprise</h6>
+                    <div class="card-body text-center">
+                        <!-- Profile picture image-->
+                        <img class="img-account-profile rounded-circle mb-2" [src]="prevImageSrc" width="150px" height="150px" alt="logo" id="prevImage">
+                        <!-- Profile picture help block-->
+                        <div class="small font-italic text-muted mb-4">Format PNG </div>
+                        <!-- Profile picture upload button-->
+                        <input type="file" id="logoImage" accept=".png" (change)="onFileSelected($event)" name="logoImage"  [(ngModel)]="company.logoImage" #logoImage="ngModel" required>
+                        <div *ngIf="logoImage.invalid && (logoImage.dirty || logoImage.touched)" class="text-danger">
+                            <small *ngIf="logoImage.errors?.['required']">
+                                * L'image d'entreprise est nécessaire
+                            </small>
+                            <small *ngIf="!logoImageExtensionValid && addCompanyForm.controls['logoImage'].errors?.['invalidExtension']">
+                                * Extension de fichier autorisée : .png
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <!-- Account details card-->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="mb-1 " for="name"><h6>Nom d'entreprise</h6></label>
+                            <input class="form-control text-secondary" id="name" type="text" placeholder="Entrez le nom d'entreprise" name="name" [(ngModel)]="company.name" #name="ngModel" required>
+                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                                <small *ngIf="name.errors?.['required']">
+                                    * Le nom d'entreprise est nécessaire
+                                </small>
+                            </div>
+                        </div>
+                            <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="website"><h6>Site WEB</h6></label>
+                                <input class="form-control" id="website" type="text" placeholder="Entrez le site web d'entreprise" name="website" [(ngModel)]="company.website" #website="ngModel" required>
+                                <div *ngIf="website.invalid && (website.dirty || website.touched)" class="text-danger">
+                                    <small *ngIf="website.errors?.['required']">
+                                        * Site Web est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="businessSector"><h6>Secteur d'activité</h6></label>
+                                <input class="form-control" id="businessSector" type="text" placeholder="Entrez le secteur d'activité d'entreprise" name="businessSector" [(ngModel)]="company.businessSector" #businessSector="ngModel" required>
+                                <div *ngIf="businessSector.invalid && (businessSector.dirty || businessSector.touched)" class="text-danger">
+                                    <small *ngIf="businessSector.errors?.['required']">
+                                        * Le secteur d'activité est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Form Group-->
+                        <div class="mb-3">
+                            <label class=" mb-1" for="description"><h6>Description</h6></label>
+                            <textarea class="form-control" id="description" type="text" placeholder="Entrez la description d'entreprise" rows="3"name="description" [(ngModel)]="company.description" #description="ngModel" required></textarea>
+                            <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+                                <small *ngIf="description.errors?.['required']">
+                                    * Description est nécessaire
+                                </small>
+                            </div>
+                        </div>
+                            <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="phone"><h6>Numéro de téléphone</h6></label>
+                                <input class="form-control" id="phone" type="tel" placeholder="Entrez le numéro de téléphone" name="phone" [(ngModel)]="company.phone" #phone="ngModel" required [pattern]="phonePattern">
+                                <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger">
+                                    <small *ngIf="phone.errors?.['required']">
+                                        * Numéro de téléphone est nécessaire
+                                    </small>
+                                    <small *ngIf="phone.errors?.['pattern']">
+                                        * Numéro de téléphone invalide
+                                      </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="email"><h6>Email</h6></label>
+                                <input class="form-control" id="email" type="email" placeholder="Entrez l'email" name="email" [(ngModel)]="company.email" #email="ngModel" email="true" required>
+                                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                                    <small *ngIf="email.errors?.['required']">
+                                        * Email est nécessaire
+                                    </small>
+                                    <small *ngIf="email.errors?.['email']">
+                                        * Email invalide
+                                      </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class=" mb-1" for="address"><h6>L'adresse d'entreprise</h6></label>
+                            <input class="form-control" id="address" type="text" placeholder="Entrez l'adresse d'entreprise" name="address" [(ngModel)]="company.address" #address="ngModel" required>
+                            <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
+                                <small *ngIf="address.errors?.['required']">
+                                    * L'adresse est nécessaire
+                                </small>
+                            </div>
+                        </div>
+                        <!-- Save changes button-->
+                        <button class="btn-download mx-auto" type="submit">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

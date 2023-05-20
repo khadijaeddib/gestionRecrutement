@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -26,6 +26,8 @@ import { InterviewsComponent } from './components/admin/home/home/interviews/int
 import { CompaniesComponent } from './components/admin/home/home/companies/companies.component';
 import { ShowCandidateComponent } from './components/admin/home/home/candidates/show-candidate/show-candidate.component';
 import { ShowRecruiterComponent } from './components/admin/home/home/recruiters/show-recruiter/show-recruiter.component';
+import { AddCompanyComponent } from './components/admin/home/home/companies/add-company/add-company.component';
+import { EditCompanyComponent } from './components/admin/home/home/companies/edit-company/edit-company.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ShowRecruiterComponent } from './components/admin/home/home/recruiters/
     InterviewsComponent,
     CompaniesComponent,
     ShowCandidateComponent,
-    ShowRecruiterComponent
+    ShowRecruiterComponent,
+    AddCompanyComponent,
+    EditCompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -58,9 +62,12 @@ import { ShowRecruiterComponent } from './components/admin/home/home/recruiters/
       }
     }),
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    NgbActiveModal,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
