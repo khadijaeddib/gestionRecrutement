@@ -10,49 +10,96 @@
 <body>
     <div class="main">
         <section class="signup">
+          <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+            <i class="bi-exclamation-triangle-fill"></i>
+            <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+          <div *ngIf="successMessage" class="alert alert-success alert-dismissible d-flex align-items-center fade show">
+            <i class="bi-check-circle-fill"></i>
+            <strong class="mx-2">Succès!</strong> {{ successMessage }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">S'inscrire </h2>
-                        <form [formGroup]="signUpForm" class="register-form" id="register-form">
-                            <div class="form-group" [class.error]="signUpForm.controls['ImageCandPath'].dirty && signUpForm.hasError('required','ImageCandPath')">
-                              <input formControlName="ImageCandPath" type="file" name="ImageCandPath" id="ImageCandPath" required/>
-                              <label for="ImageCandPath" class="bi bi-cloud-arrow-up-fill"></label>
+                        <form #signUpForm="ngForm" (ngSubmit)="signup()" class="register-form" id="register-form">
+                            <div class="form-group">
+                              <input type="file" name="candImage" id="candImage" accept=".png,.jpg,.jpeg" (change)="onImageSelected($event)" [(ngModel)]="candidate.candImage" #candImage="ngModel" required/>
+                              <label for="candImage" class="bi bi-cloud-arrow-up-fill"></label>
                             </div>
-                            <small *ngIf="signUpForm.controls['ImageCandPath'].dirty && signUpForm.hasError('required','ImageCandPath')"  class="text-danger">* Votre image est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['LName'].dirty && signUpForm.hasError('required','LName')">
-                                <label for="LName" class="bi bi-person-fill"></label>
-                                <input formControlName="LName" type="text" name="LName" id="LName" placeholder="Votre nom *" required/>
+                            <div *ngIf="candImage.invalid && (candImage.dirty || candImage.touched)" class="text-danger">
+                              <small *ngIf="candImage.errors?.['required']">
+                                  * Votre image est nécessaire 
+                              </small>
+                              <small *ngIf="!candImageExtensionValid && signUpForm.controls['candImage'].errors?.['invalidExtension']">
+                                  * Extension de fichier autorisée : .png, .jpg, .jpeg
+                              </small>
                             </div>
-                            <small *ngIf="signUpForm.controls['LName'].dirty && signUpForm.hasError('required','LName')"  class="text-danger">* Votre nom est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['FName'].dirty && signUpForm.hasError('required','FName')">
-                              <label for="FName" class="bi bi-person-fill"></label>
-                              <input formControlName="FName" type="text" name="FName" id="FName" placeholder="Votre prénom *" required/>
+                            <div class="form-group">
+                                <label for="lName" class="bi bi-person-fill"></label>
+                                <input type="text" name="lName" id="lName" placeholder="Votre nom *" [(ngModel)]="candidate.lName" #lName="ngModel" required/>
                             </div>
-                            <small *ngIf="signUpForm.controls['FName'].dirty && signUpForm.hasError('required','FName')"  class="text-danger">* Votre prénom est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['Email'].dirty && signUpForm.hasError('required','Email')">
-                              <label for="Email" class="bi bi-envelope-fill"></label>
-                              <input formControlName="Email" type="email" name="Email" id="Email" placeholder="Votre email *" required/>
+                            <div *ngIf="lName.invalid && (lName.dirty || lName.touched)" class="text-danger">
+                              <small *ngIf="lName.errors?.['required']">
+                                * Votre nom est nécessaire
+                              </small>
                             </div>
-                            <small *ngIf="signUpForm.controls['Email'].dirty && signUpForm.hasError('required','Email')"  class="text-danger">* Votre email est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['Age'].dirty && signUpForm.hasError('required','Age')">
-                              <label for="Age" class="bi bi-calendar-event"></label>
-                              <input formControlName="Age" type="number" name="Age" id="Age" placeholder="Votre âge (20) *" required/>
+                            <div class="form-group">
+                              <label for="fName" class="bi bi-person-fill"></label>
+                              <input type="text" name="fName" id="fName" placeholder="Votre prénom *" [(ngModel)]="candidate.fName" #fName="ngModel" required/>
                             </div>
-                            <small *ngIf="signUpForm.controls['Age'].dirty && signUpForm.hasError('required','Age')"  class="text-danger">* Votre âge est nécessaire </small>
-                            <div class="form-group-tel" [class.error]="signUpForm.controls['Phone'].dirty && signUpForm.hasError('required','Phone')">
-                              <label for="Phone"><i class="zmdi zmdi-phone-sip"></i></label>
-                              <input formControlName="Phone" type="text" name="Phone" id="Phone" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'ma'}" required/>
+                            <div *ngIf="fName.invalid && (fName.dirty || fName.touched)" class="text-danger">
+                              <small *ngIf="fName.errors?.['required']">
+                                * Votre prénom est nécessaire
+                              </small>
                             </div>
-                            <small *ngIf="signUpForm.controls['Phone'].dirty && signUpForm.hasError('required','Phone')"  class="text-danger">* Votre numéro de téléphone est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['Address'].dirty && signUpForm.hasError('required','Address')">
-                              <label for="Address" class="bi bi-geo-alt-fill"></label>
-                              <input formControlName="Address" type="text" name="Address" id="Address" placeholder="Votre adresse *" required/>
+                            <div class="form-group">
+                              <label for="email" class="bi bi-envelope-fill"></label>
+                              <input type="email" name="email" id="email" placeholder="Votre email *" [(ngModel)]="candidate.email" #email="ngModel" email="true" required />
                             </div>
-                            <small *ngIf="signUpForm.controls['Address'].dirty && signUpForm.hasError('required','Address')"  class="text-danger">* Votre adresse est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['StudyDegree'].dirty && signUpForm.hasError('required','StudyDegree')">
-                              <label for="StudyDegree" class="bi bi-caret-down-fill"></label>
-                              <select  name="StudyDegree" id="StudyDegree" formControlName="StudyDegree" required>
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                              <small *ngIf="email.errors?.['required']">
+                                * Votre email est nécessaire
+                              </small>
+                              <small *ngIf="email.errors?.['email']">
+                                  * Email invalide
+                                </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="age" class="bi bi-calendar-event"></label>
+                              <input type="number" name="age" id="age" placeholder="Votre âge (Ex: 20) *" [(ngModel)]="candidate.age" #age="ngModel" required/>
+                            </div>
+                            <div *ngIf="age.invalid && (age.dirty || age.touched)" class="text-danger">
+                              <small *ngIf="age.errors?.['required']">
+                                * Votre âge est nécessaire
+                              </small>
+                            </div>
+                            <div class="form-group-tel">
+                              <label for="phone"><i class="zmdi zmdi-phone-sip"></i></label>
+                              <input type="text" name="phone" id="phone" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'ma'}" [(ngModel)]="candidate.phone" #phone="ngModel" [pattern]="phonePattern" required/>
+                            </div>
+                            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger">
+                              <small *ngIf="phone.errors?.['required']">
+                                  * Numéro de téléphone est nécessaire
+                              </small>
+                              <small *ngIf="phone.errors?.['pattern']">
+                                  * Numéro de téléphone invalide
+                                </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="address" class="bi bi-geo-alt-fill"></label>
+                              <input type="text" name="address" id="address" placeholder="Votre adresse *" [(ngModel)]="candidate.address" #address="ngModel" required/>
+                            </div>
+                            <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
+                              <small *ngIf="address.errors?.['required']">
+                                * Votre adresse est nécessaire
+                              </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="studyDegree" class="bi bi-caret-down-fill"></label>
+                              <select  name="studyDegree" id="studyDegree" [(ngModel)]="candidate.studyDegree" #studyDegree="ngModel" required>
                                 <option value="" disabled selected>Niveau d'étude *</option>
                                 <option value="Bac+2">Bac+2</option>
                                 <option value="Bac+3">Bac+3</option>
@@ -61,10 +108,14 @@
                                 <option value="Bac+7">Bac+7</option>
                               </select>
                             </div>
-                            <small *ngIf="signUpForm.controls['StudyDegree'].dirty && signUpForm.hasError('required','StudyDegree')"  class="text-danger">* Niveau d'étude est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['Diploma'].dirty && signUpForm.hasError('required','Diploma')">
-                              <label for="Diploma" class="bi bi-caret-down-fill"></label>
-                              <select formControlName="Diploma"  name="Diploma" id="Diploma" required>
+                            <div *ngIf="studyDegree.invalid && (studyDegree.dirty || studyDegree.touched)" class="text-danger">
+                              <small *ngIf="studyDegree.errors?.['required']">
+                                * Niveau d'étude est nécessaire
+                              </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="diploma" class="bi bi-caret-down-fill"></label>
+                              <select name="diploma" id="diploma" [(ngModel)]="candidate.diploma" #diploma="ngModel"  required>
                                 <option value="" disabled selected>Votre diplôme *</option>
                                 <option value="Bachelor">Bachelor : Bachelor</option>
                                 <option value="DEUG">DEUG : Diplôme d'études universitaires générales</option>
@@ -84,10 +135,14 @@
                                 <option value="Doctorat">Doctorat : Doctorat</option>
                               </select>
                             </div>
-                            <small *ngIf="signUpForm.controls['Diploma'].dirty && signUpForm.hasError('required','Diploma')"  class="text-danger">* Diplôme est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['Spec'].dirty && signUpForm.hasError('required','Spec')">
-                              <label for="Spec" class="bi bi-caret-down-fill"></label>
-                              <select formControlName="Spec" name="Spec" id="Spec" required>
+                            <div *ngIf="diploma.invalid && (diploma.dirty || diploma.touched)" class="text-danger">
+                              <small *ngIf="diploma.errors?.['required']">
+                                * Diplôme est nécessaire 
+                              </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="spec" class="bi bi-caret-down-fill"></label>
+                              <select name="spec" id="spec" [(ngModel)]="candidate.spec" #spec="ngModel" required>
                                 <option value="" disabled selected>Votre spécialité *</option>
                                 <option value="webDev">Informatique - Développeur Web</option>
                                 <option value="fullDev">Informatique - Développeur Full-Stack</option>
@@ -125,10 +180,14 @@
                                 <option value="maintenance"> Maintenance et réhabilitation des bâtiments</option>
                               </select>
                             </div>
-                            <small *ngIf="signUpForm.controls['Spec'].dirty && signUpForm.hasError('required','Spec')"  class="text-danger">* Votre spécialité est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['ExpYears'].dirty && signUpForm.hasError('required','ExpYears')">
-                              <label for="ExpYears" class="bi bi-caret-down-fill"></label>
-                              <select formControlName="ExpYears" name="ExpYears" id="ExpYears" required>
+                            <div *ngIf="spec.invalid && (spec.dirty || spec.touched)" class="text-danger">
+                              <small *ngIf="spec.errors?.['required']">
+                                * Votre spécialité est nécessaire 
+                              </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="expYears" class="bi bi-caret-down-fill"></label>
+                              <select name="expYears" id="expYears" [(ngModel)]="candidate.expYears" #expYears="ngModel"  required>
                                 <option value="" disabled selected>Nombre d'année d'expérience *</option>
                                 <option value="0">Débutant</option>
                                 <option value="-1">Moins d'un an</option>
@@ -138,35 +197,61 @@
                                 <option value="+10">+10 ans</option>
                               </select>
                             </div>
-                            <small *ngIf="signUpForm.controls['ExpYears'].dirty && signUpForm.hasError('required','ExpYears')"  class="text-danger">* Nombre d'année d'expérience est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['LMPath'].dirty && signUpForm.hasError('required','LMPath')">
-                              <input formControlName="LMPath" type="file" name="LMPath" id="LMPath" required/>
-                              <label for="LMPath" class="bi bi-cloud-arrow-up-fill"></label>
+                            <div *ngIf="expYears.invalid && (expYears.dirty || expYears.touched)" class="text-danger">
+                              <small *ngIf="expYears.errors?.['required']">
+                                * Nombre d'année d'expérience est nécessaire
+                              </small>
                             </div>
-                            <small *ngIf="signUpForm.controls['LMPath'].dirty && signUpForm.hasError('required','LMPath')"  class="text-danger">* Lettre de motivation est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['CVPath'].dirty && signUpForm.hasError('required','CVPath')">
-                              <input formControlName="CVPath" type="file" name="CVPath" id="CVPath" required/>
-                              <label for="CVPath" class="bi bi-cloud-arrow-up-fill"></label>
+                            <div class="form-group">
+                              <input type="file" name="LMFile" id="LMFile" accept=".pdf" (change)="onLMFileSelected($event)"  [(ngModel)]="candidate.LMFile" #LMFile="ngModel" required/>
+                              <label for="LMFile" class="bi bi-cloud-arrow-up-fill"></label>
                             </div>
-                            <small *ngIf="signUpForm.controls['CVPath'].dirty && signUpForm.hasError('required','CVPath')"  class="text-danger">* CV est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['Pass'].dirty && signUpForm.hasError('required','Pass')">
-                              <label for="Pass" class="bi bi-lock-fill"></label>
-                                <input formControlName="Pass" [type]="type" name="Pass" id="Pass" placeholder="Mot de passe *" required/>
+                            <div *ngIf="LMFile.invalid && (LMFile.dirty || LMFile.touched)" class="text-danger">
+                              <small *ngIf="LMFile.errors?.['required']">
+                                * Lettre de motivation est nécessaire
+                              </small>
+                              <small *ngIf="!LMExtensionValid && signUpForm.controls['LMFile'].errors?.['invalidExtension']">
+                                  * Extension de fichier autorisée : .pdf
+                              </small>
+                            </div>
+                            <div class="form-group">
+                              <input type="file" name="CVFile" id="CVFile" accept=".pdf" (change)="onCVFileSelected($event)"  [(ngModel)]="candidate.CVFile" #CVFile="ngModel" required/>
+                              <label for="CVFile" class="bi bi-cloud-arrow-up-fill"></label>
+                            </div>
+                            <div *ngIf="CVFile.invalid && (CVFile.dirty || CVFile.touched)" class="text-danger">
+                              <small *ngIf="CVFile.errors?.['required']">
+                                * CV est nécessaire 
+                              </small>
+                              <small *ngIf="!CVExtensionValid && signUpForm.controls['CVFile'].errors?.['invalidExtension']">
+                                  * Extension de fichier autorisée : .pdf
+                              </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="pass" class="bi bi-lock-fill"></label>
+                                <input [type]="type" name="pass" id="pass" placeholder="Mot de passe *" [(ngModel)]="candidate.pass" #pass="ngModel" required/>
                                 <i (click)="hideShowPass()" class="bi {{eyeIcon}}"></i>
                             </div>
-                            <small *ngIf="signUpForm.controls['Pass'].dirty && signUpForm.hasError('required','Pass')"  class="text-danger">* Mot de passe est nécessaire </small>
-                            <div class="form-group" [class.error]="signUpForm.controls['ConfirmPass'].dirty && signUpForm.hasError('required','ConfirmPass')">
-                                <label for="ConfirmPass" class="bi bi-lock-fill"></label>
-                                <input formControlName="ConfirmPass" [type]="type" name="ConfirmPass" id="ConfirmPass" placeholder="Répéter mot de passe *" required/>
+                            <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="text-danger">
+                              <small *ngIf="pass.errors?.['required']">
+                                * Mot de passe est nécessaire
+                              </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPass" class="bi bi-lock-fill"></label>
+                                <input [type]="type" name="confirmPass" id="confirmPass" placeholder="Répéter mot de passe *" [(ngModel)]="candidate.confirmPass" #confirmPass="ngModel" required/>
                                 <i (click)="hideShowConfirmPass()" class="bi {{eyeIcon}}"></i>
                             </div>
-                            <small *ngIf="signUpForm.controls['ConfirmPass'].dirty && signUpForm.hasError('required','ConfirmPass')"  class="text-danger">* répéter le mot de passe est nécessaire </small>
+                            <div *ngIf="confirmPass.invalid && (confirmPass.dirty || confirmPass.touched)" class="text-danger">
+                              <small *ngIf="confirmPass.errors?.['required']">
+                                * répéter le mot de passe est nécessaire 
+                              </small>
+                            </div>
                             <div class="form-group">
                                 <input type="checkbox" name="agreeTerm" id="agreeTerm" class="agree-term" />
                                 <label for="agreeTerm" class="label-agree-term"><span><span></span></span>Je suis d'accord avec toutes les déclarations contenues dans <a href="#" class="term-service">les conditions d'utilisation</a></label>
                             </div>
                             <div class="form-group form-button">
-                              <button type="submit" id="signup" class="form-submit" (click)="onSignUp()">S'inscrire</button>
+                              <button type="submit" id="signup" class="form-submit">S'inscrire</button>
                             </div>
                         </form>
                     </div>

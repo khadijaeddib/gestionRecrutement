@@ -8,45 +8,63 @@
     <title>Formulaire d'inscription </title>
 </head>
 <body>
-  <div class="main">
-    <section class="sign-in">
-      <div class="container">
-          <div class="signin-content">
-              <div class="signin-image">
-                  <figure><img src="/../../assets/images/login.jpg" alt="login image"></figure>
-                  <a routerLink="/signup" class="signup-image-link">Créer un compte</a>
-              </div>
-
-              <div class="signin-form">
-                  <h2 class="form-title">Se connecter</h2>
-                  <form [formGroup]="loginForm" #form="ngForm" (ngSubmit)="login()" class="register-form" id="login-form">
-                      <div class="form-group" [class.error]="loginForm.controls['email'].dirty && loginForm.hasError('required','email')">
-                          <label for="email" class="bi bi-person-fill"></label>
-                          <input formControlName="email" type="email" name="email" id="email" placeholder="Votre email" required/>
-                      </div>
-                      <small *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required','email')" class="text-danger">* Email est nécessaire </small>
-                      <div class="form-group" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
-                          <label for="pass" class="bi bi-lock-fill"></label>
-                            <input formControlName="password" [type]="type" name="pass" id="pass" placeholder="Mot de passe" required/>
+    <div class="main">
+        <section class="sign-in">
+        <div class="container">
+            <div *ngIf="successMessage" class="alert alert-success alert-dismissible d-flex align-items-center fade show">
+                <strong class="mx-2">Succès!</strong> {{ successMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="/../../assets/images/login.jpg" alt="login image"></figure>
+                    <a routerLink="/signup" class="signup-image-link">Créer un compte</a>
+                </div>
+                <div class="signin-form">
+                    <h2 class="form-title">Se connecter</h2>
+                    <form #loginForm="ngForm" (ngSubmit)="login()" class="register-form" id="login-form">
+                        <div class="form-group">
+                            <label for="email" class="bi bi-person-fill"></label>
+                            <input type="email" name="email" id="email" placeholder="Votre email" [(ngModel)]="userLogin.email" #email="ngModel" email="true" required/>
+                        </div>
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                            <small *ngIf="email.errors?.['required']">
+                            * Email est nécessaire
+                            </small>
+                            <small *ngIf="email.errors?.['email']">
+                            * Email invalide
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd" class="bi bi-lock-fill"></label>
+                            <input [type]="type" name="pwd" id="pwd" placeholder="Mot de passe" [(ngModel)]="userLogin.pwd" #pwd="ngModel" required/>
                             <i (click)="hideShowPass()" class="bi {{eyeIcon}}"></i>
-                      </div>
-                      <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')"  class="text-danger">* Mot de passe est nécessaire </small>
-                      <div class="form-group">
-                        <a routerLink="#" class="signup-image-link" >Mot de passe oublié</a>
-                      </div>
-                      <div class="form-group">
-                          <input type="checkbox" name="rememberMe" id="rememberMe" class="agree-term" (click)="rememberMe()"/>
-                          <label for="rememberMe" class="label-agree-term"><span></span>Se souvenir de moi</label>
-                      </div>
+                        </div>
+                        <div *ngIf="pwd.invalid && (pwd.dirty || pwd.touched)" class="text-danger">
+                            <small *ngIf="pwd.errors?.['required']">
+                                * Mot de passe est nécessaire
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <a routerLink="#" class="signup-image-link" >Mot de passe oublié</a>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="rememberMe" id="rememberMe" class="agree-term" (click)="rememberMe()"/>
+                            <label for="rememberMe" class="label-agree-term"><span></span>Se souvenir de moi</label>
+                        </div>
 
-                      <div class="form-group form-button">
-                          <button (click)="login()" type="submit" id="signin" class="form-submit">Se connecter</button>
-                      </div>
-                  </form>
-              </div>
-          </div>
-      </div>
-    </section>
-  </div>
+                        <div class="form-group form-button">
+                            <button type="submit" id="signin" class="form-submit">Se connecter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </section>
+    </div>
 </body>
 </html>

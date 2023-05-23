@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Candidate } from 'src/app/models/Candidate';
 import { AuthService } from 'src/app/services/AuthService.service';
 
@@ -9,41 +10,25 @@ import { AuthService } from 'src/app/services/AuthService.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
   type: string = "password";
   isText: boolean = false;
   eyeIcon: string = "bi-eye-slash-fill";
 
-  signUpForm: FormGroup;
-  
-  selectedImage: File;
-  selectedCV: File;
-  selectedLM: File;
-
   candidate: Candidate = new Candidate();
 
-  constructor(private fb: FormBuilder, private auth: AuthService) { 
-    this.selectedImage = new File([], '');
-    this.selectedCV = new File([], '');
-    this.selectedLM = new File([], '');
+  FilecandImage!: File;
+  FileLMFile!: File;
+  FileCVFile!: File;
 
-    this.signUpForm = this.fb.group({
-      ImageCandPath: ['', Validators.required],
-      LName: ['', Validators.required],
-      FName: ['', Validators.required],
-      Email: ['', Validators.required],
-      Age: ['', Validators.required],
-      Phone: ['', Validators.required],
-      Address: ['', Validators.required],
-      StudyDegree: ['', Validators.required],
-      Diploma: ['', Validators.required],
-      Spec: ['', Validators.required],
-      ExpYears: ['', Validators.required],
-      LMPath: ['', Validators.required],
-      CVPath: ['', Validators.required],
-      Pass: ['', Validators.required],
-      ConfirmPass: ['', Validators.required],
-    });
+  errorMessage: string = '';
+  successMessage: string = '';
+  phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
+  candImageExtensionValid = true;
+  LMExtensionValid = true;
+  CVExtensionValid = true;
+  @ViewChild('signUpForm') signUpForm!: NgForm;
+
+  constructor(private AuthService: AuthService, private router: Router) { 
   }
 
   ngOnInit(): void {
@@ -61,35 +46,92 @@ export class SignupComponent implements OnInit {
     this.isText ? this.type = "text" : this.type = "password";
   }
 
-  onSignUp() {
-    if (this.signUpForm.valid) {
-      this.candidate.ImageCandPath = this.signUpForm.value.ImageCandPath;
-      this.candidate.LName = this.signUpForm.value.LName;
-      this.candidate.FName = this.signUpForm.value.FName;
-      this.candidate.Email = this.signUpForm.value.Email;
-      this.candidate.Age = this.signUpForm.value.Age;
-      this.candidate.Phone = this.signUpForm.value.Phone;
-      this.candidate.Address = this.signUpForm.value.Address;
-      this.candidate.StudyDegree = this.signUpForm.value.StudyDegree;
-      this.candidate.Diploma = this.signUpForm.value.Diploma;
-      this.candidate.Spec = this.signUpForm.value.Spec;
-      this.candidate.ExpYears = this.signUpForm.value.ExpYears;
-      this.candidate.LMPath = this.signUpForm.value.LMPath;
-      this.candidate.CVPath = this.signUpForm.value.CVPath;
-      this.candidate.Pass = this.signUpForm.value.Pass;
-      this.candidate.ConfirmPass = this.signUpForm.value.ConfirmPass;
-      
-      this.auth.register(this.candidate).subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.error(error);
-        }
-      );
+  onImageSelected(event: any) {
+    const file: File = event.target.files[0];
+    const allowedExtensions = ['.png', '.jpg', '.jpeg'];
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+    if (allowedExtensions.indexOf(`.${fileExtension}`) === -1) {
+      this.candImageExtensionValid = false;
+      this.signUpForm.controls['candImage'].setErrors({ 'invalidExtension': true });
     } else {
-      console.log("Form not valid");
-      // Affichez
+      this.candImageExtensionValid = true;
+      this.signUpForm.controls['candImage'].setErrors(null);
+      this.FilecandImage = event.target.files[0];
     }
   }
+
+  onLMFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    const allowedExtensions = ['.pdf'];
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+    if (allowedExtensions.indexOf(`.${fileExtension}`) === -1) {
+      this.LMExtensionValid = false;
+      this.signUpForm.controls['LMFile'].setErrors({ 'invalidExtension': true });
+    } else {
+      this.LMExtensionValid = true;
+      this.signUpForm.controls['LMFile'].setErrors(null);
+      this.FileLMFile = event.target.files[0];
+    }
+  }
+
+  onCVFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    const allowedExtensions = ['.pdf'];
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+    if (allowedExtensions.indexOf(`.${fileExtension}`) === -1) {
+      this.CVExtensionValid = false;
+      this.signUpForm.controls['CVFile'].setErrors({ 'invalidExtension': true });
+    } else {
+      this.CVExtensionValid = true;
+      this.signUpForm.controls['CVFile'].setErrors(null);
+      this.FileCVFile = event.target.files[0];
+    }
+  }
+
+  signup() {
+    if (this.signUpForm.invalid) {
+      // Mark all form fields as touched to show validation errors
+      this.signUpForm.control.markAllAsTouched();
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append('candImage', this.FilecandImage);
+    formData.append('lName', this.candidate.lName);
+    formData.append('fName', this.candidate.fName);
+    formData.append('email', this.candidate.email);
+    formData.append('age', this.candidate.age);
+    formData.append('phone', this.candidate.phone);
+    formData.append('address', this.candidate.address);
+    formData.append('studyDegree', this.candidate.studyDegree);
+    formData.append('diploma', this.candidate.diploma);
+    formData.append('spec', this.candidate.spec);
+    formData.append('expYears', this.candidate.expYears);
+    formData.append('LMFile', this.FileLMFile);
+    formData.append('CVFile', this.FileCVFile);
+    formData.append('pass', this.candidate.pass);
+    formData.append('confirmPass', this.candidate.confirmPass);
+
+
+    this.AuthService.signup(formData).subscribe(
+      (response) => {
+        this.router.navigate(['/login']);
+        this.successMessage = 'Inscription réussie ! Veuillez vous connecter avec vos identifiants';
+      },
+      (error) => {
+        console.error(error);
+        this.errorMessage = 'Veuillez remplir correctement tous les champs obligatoires';
+        // handle error
+      }
+    );
+  }
+
+
+
+  
+  
 }

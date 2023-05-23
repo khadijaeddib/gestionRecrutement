@@ -28,6 +28,10 @@ import { ShowCandidateComponent } from './components/admin/home/home/candidates/
 import { ShowRecruiterComponent } from './components/admin/home/home/recruiters/show-recruiter/show-recruiter.component';
 import { AddCompanyComponent } from './components/admin/home/home/companies/add-company/add-company.component';
 import { EditCompanyComponent } from './components/admin/home/home/companies/edit-company/edit-company.component';
+import { RecruiterComponent } from './components/recruiter/recruiter.component';
+import { CandidateComponent } from './components/candidate/candidate.component';
+import { CandidateProfileComponent } from './components/candidate/candidate-profile/candidate-profile.component';
+import { CandidateDashboardComponent } from './components/candidate/candidate-dashboard/candidate-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,11 @@ import { EditCompanyComponent } from './components/admin/home/home/companies/edi
     ShowCandidateComponent,
     ShowRecruiterComponent,
     AddCompanyComponent,
-    EditCompanyComponent
+    EditCompanyComponent,
+    RecruiterComponent,
+    CandidateComponent,
+    CandidateProfileComponent,
+    CandidateDashboardComponent
   ],
   imports: [
     BrowserModule,

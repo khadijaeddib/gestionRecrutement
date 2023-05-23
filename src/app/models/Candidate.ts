@@ -1,18 +1,21 @@
 export class Candidate {
-    IdCand?: number;
-    ImageCandPath = "";
-    LName = "";
-    FName = "";
-    Email = "";
-    Age = "";
-    Phone = "";
-    Address = "";
-    StudyDegree = "";
-    Diploma = "";
-    Spec = "";
-    ExpYears = "";
+    idCand!: number;
+    candImagePath = "";
+    candImage!: File;
+    lName = "";
+    fName = "";
+    email = "";
+    age = "";
+    phone = "";
+    address = "";
+    studyDegree = "";
+    diploma = "";
+    spec = "";
+    expYears = "";
     LMPath = "";
+    LMFile!: File;
     CVPath = "";
-    Pass = "";
-    ConfirmPass = "";
+    CVFile!: File;
+    pass = "";
+    confirmPass = "";
 }

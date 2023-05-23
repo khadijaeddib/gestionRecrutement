@@ -11,6 +11,10 @@ import { OffersComponent } from './components/admin/home/home/offers/offers.comp
 import { CompaniesComponent } from './components/admin/home/home/companies/companies.component';
 import { CandidaturesComponent } from './components/admin/home/home/candidatures/candidatures.component';
 import { InterviewsComponent } from './components/admin/home/home/interviews/interviews.component';
+import { CandidateComponent } from './components/candidate/candidate.component';
+import { RecruiterComponent } from './components/recruiter/recruiter.component';
+import { CandidateDashboardComponent } from './components/candidate/candidate-dashboard/candidate-dashboard.component';
+import { CandidateProfileComponent } from './components/candidate/candidate-profile/candidate-profile.component';
 
 
 const routes: Routes = [
@@ -29,6 +33,15 @@ const routes: Routes = [
       { path: 'candidatures', component: CandidaturesComponent },
       { path: 'interviews', component: InterviewsComponent }
     ] },
+  { path: 'candidate', component: CandidateComponent,
+    children:[
+      { path: 'dashboard', component:CandidateDashboardComponent },
+      { path: '',   redirectTo: '/candidate/dashboard', pathMatch: 'full' },
+      { path: 'profile', component: CandidateProfileComponent }
+    ] },
+  { path: 'recruiter', component: RecruiterComponent },
+
+  
 ];
 
 @NgModule({

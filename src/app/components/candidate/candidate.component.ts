@@ -1,19 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/AuthService.service';
-import { Location } from '@angular/common';
-
-
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-candidate',
+  templateUrl: './candidate.component.html',
+  styleUrls: ['./candidate.component.css']
 })
-export class HomeComponent implements OnInit {
-
+export class CandidateComponent {
   status = false;
-
   selectedLanguage = 'fr';
   userEmail: string | null = '';
 
@@ -27,16 +22,10 @@ export class HomeComponent implements OnInit {
     this.status = !this.status;
   }
 
+
   logout() {
     localStorage.removeItem('userEmail');
     this.router.navigate(['/login']);
   }
-
-
-
-  // useLanguage(language: string) {
-  //   this.translate.use(language);
-  //   this.selectedLanguage = language;
-  // }
-
+  
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import ValidateForm from 'src/app/helpers/validateForm';
+import { Login } from 'src/app/models/Login';
 import { AuthService } from 'src/app/services/AuthService.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +16,15 @@ export class LoginComponent implements OnInit {
   isText: boolean = false;
   eyeIcon: string = "bi-eye-slash-fill";
 
-  loginForm!: FormGroup;
+  userLogin: Login = new Login();
+  @ViewChild('loginForm') loginForm!: NgForm;
+  errorMessage: string = '';
+  successMessage: string = '';
 
-  constructor(private fb: FormBuilder, private auth: AuthService) { }
+
+  constructor(private AuthService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-    })
   }
 
   hideShowPass(){
@@ -32,29 +34,45 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if(this.loginForm.valid){
-
-      console.log(this.loginForm.value)
-//send the obj to database
-      this.auth.login(this.loginForm.value)
-      .subscribe({
-        next:(res)=>{
-          alert(res.message)
-        },
-        error:(err)=>{
-          alert(err?.error.message)
-        }
-      })
-
-    }else {
-      console.log("form not valid")
-
-      ValidateForm.validateAllFormFields(this.loginForm)
-
-      alert("form invalide")
-
+    if (this.loginForm.invalid) {
+      //Mark all form fields as touched to show validation errors
+      this.loginForm.control.markAllAsTouched();
+      return;
     }
 
+    this.errorMessage = ''; // Reset the error message
+
+    const formData = new FormData();
+    
+    formData.append('email', this.userLogin.email);
+    formData.append('pwd', this.userLogin.pwd);
+
+    this.AuthService.login(formData).subscribe(
+    (response) => {
+      this.userLogin = response.user; 
+
+      const userEmail = this.userLogin.email;
+      localStorage.setItem('userEmail', userEmail);
+      // Redirect to the appropriate dashboard based on the user's role
+      const role = response.role;
+
+      if (role === 'Admin') {
+        this.router.navigate(['/admin']);
+      } else if (role === 'Candidate') {
+        this.router.navigate(['/candidate']);
+      } else if (role === 'Recruiter') {
+        this.router.navigate(['/recruiter']);
+      }
+    },
+    (error) => {
+      console.error(error);
+      if (error.status === 400) {
+        this.errorMessage = 'Email ou mot de passe invalide';
+      } else {
+        this.errorMessage = 'Veuillez remplir correctement tous les champs obligatoires';
+      }
+    }
+    );
   }
 
 
