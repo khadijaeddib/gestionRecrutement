@@ -42,7 +42,7 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="mb-1 " for="name"><h6>Nom d'entreprise</h6></label>
-                            <input class="form-control text-secondary" id="name" type="text" placeholder="Entrez le nom d'entreprise" name="name" [(ngModel)]="company.name" #name="ngModel" required>
+                            <input class="form-control " id="name" type="text" placeholder="Entrez le nom d'entreprise" name="name" [(ngModel)]="company.name" #name="ngModel" required>
                             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
                                 <small *ngIf="name.errors?.['required']">
                                     * Le nom d'entreprise est nécessaire
@@ -104,6 +104,46 @@
                                     <small *ngIf="email.errors?.['email']">
                                         * Email invalide
                                       </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="rc"><h6>RC</h6></label>
+                                <input class="form-control" id="rc" type="text" placeholder="Entrez le RC" name="rc" [(ngModel)]="company.rc" #rc="ngModel" required>
+                                <div *ngIf="rc.invalid && (rc.dirty || rc.touched)" class="text-danger">
+                                    <small *ngIf="rc.errors?.['required']">
+                                        * RC est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="idF"><h6>IF</h6></label>
+                                <input class="form-control" id="idF" type="text" placeholder="Entrez l'IF" name="idF" [(ngModel)]="company.idF" #idF="ngModel" required>
+                                <div *ngIf="idF.invalid && (idF.dirty || idF.touched)" class="text-danger">
+                                    <small *ngIf="idF.errors?.['required']">
+                                        * IF est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="ice"><h6>ICE</h6></label>
+                                <input class="form-control" id="ice" type="text" placeholder="Entrez le ICE" name="ice" [(ngModel)]="company.ice" #ice="ngModel" required>
+                                <div *ngIf="ice.invalid && (ice.dirty || ice.touched)" class="text-danger">
+                                    <small *ngIf="ice.errors?.['required']">
+                                        * ICE est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="legalStatus"><h6>Statut juridique</h6></label>
+                                <input class="form-control" id="legalStatus" type="text" placeholder="Entrez le statut juridique" name="legalStatus" [(ngModel)]="company.legalStatus" #legalStatus="ngModel" required>
+                                <div *ngIf="legalStatus.invalid && (legalStatus.dirty || legalStatus.touched)" class="text-danger">
+                                    <small *ngIf="legalStatus.errors?.['required']">
+                                        * Statut juridique est nécessaire
+                                    </small>
                                 </div>
                             </div>
                         </div>

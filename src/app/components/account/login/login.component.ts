@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 import ValidateForm from 'src/app/helpers/validateForm';
 import { Login } from 'src/app/models/Login';
 import { AuthService } from 'src/app/services/AuthService.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,9 +22,12 @@ export class LoginComponent implements OnInit {
   successMessage: string = '';
 
 
-  constructor(private AuthService: AuthService, private router: Router) { }
+  constructor(private AuthService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.successMessage = params['successMessage'] || null;
+    });
   }
 
   hideShowPass(){
@@ -68,8 +71,11 @@ export class LoginComponent implements OnInit {
       console.error(error);
       if (error.status === 400) {
         this.errorMessage = 'Email ou mot de passe invalide';
+        this.successMessage = '';
       } else {
         this.errorMessage = 'Veuillez remplir correctement tous les champs obligatoires';
+        this.successMessage = '';
+        
       }
     }
     );

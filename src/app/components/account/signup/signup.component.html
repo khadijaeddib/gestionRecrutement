@@ -10,21 +10,40 @@
 <body>
     <div class="main">
         <section class="signup">
-          <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
-            <i class="bi-exclamation-triangle-fill"></i>
-            <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
-          <div *ngIf="successMessage" class="alert alert-success alert-dismissible d-flex align-items-center fade show">
-            <i class="bi-check-circle-fill"></i>
-            <strong class="mx-2">Succès!</strong> {{ successMessage }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
             <div class="container">
+              <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">S'inscrire </h2>
                         <form #signUpForm="ngForm" (ngSubmit)="signup()" class="register-form" id="register-form">
+                            <div class="form-group">
+                                <label for="lName" class="bi bi-person-fill"></label>
+                                <input type="text" name="lName" id="lName" placeholder="Votre nom *" [(ngModel)]="candidate.lName" #lName="ngModel" required  pattern="[A-Za-z]+"/>
+                            </div>
+                            <div *ngIf="lName.invalid && (lName.dirty || lName.touched)" class="text-danger">
+                              <small *ngIf="lName.errors?.['required']">
+                                * Votre nom est nécessaire
+                              </small>
+                              <small *ngIf="lName.errors?.['pattern']">
+                                * Le nom ne doit contenir que des lettres
+                              </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="fName" class="bi bi-person-fill"></label>
+                              <input type="text" name="fName" id="fName" placeholder="Votre prénom *" [(ngModel)]="candidate.fName" #fName="ngModel" required  pattern="[A-Za-z]+"/>
+                            </div>
+                            <div *ngIf="fName.invalid && (fName.dirty || fName.touched)" class="text-danger">
+                              <small *ngIf="fName.errors?.['required']">
+                                * Votre prénom est nécessaire
+                              </small>
+                              <small *ngIf="fName.errors?.['pattern']">
+                                * Le prénom ne doit contenir que des lettres
+                              </small>
+                            </div>
+                            <span class="fw-bold font-monospace">Votre image: </span>
                             <div class="form-group">
                               <input type="file" name="candImage" id="candImage" accept=".png,.jpg,.jpeg" (change)="onImageSelected($event)" [(ngModel)]="candidate.candImage" #candImage="ngModel" required/>
                               <label for="candImage" class="bi bi-cloud-arrow-up-fill"></label>
@@ -35,24 +54,6 @@
                               </small>
                               <small *ngIf="!candImageExtensionValid && signUpForm.controls['candImage'].errors?.['invalidExtension']">
                                   * Extension de fichier autorisée : .png, .jpg, .jpeg
-                              </small>
-                            </div>
-                            <div class="form-group">
-                                <label for="lName" class="bi bi-person-fill"></label>
-                                <input type="text" name="lName" id="lName" placeholder="Votre nom *" [(ngModel)]="candidate.lName" #lName="ngModel" required/>
-                            </div>
-                            <div *ngIf="lName.invalid && (lName.dirty || lName.touched)" class="text-danger">
-                              <small *ngIf="lName.errors?.['required']">
-                                * Votre nom est nécessaire
-                              </small>
-                            </div>
-                            <div class="form-group">
-                              <label for="fName" class="bi bi-person-fill"></label>
-                              <input type="text" name="fName" id="fName" placeholder="Votre prénom *" [(ngModel)]="candidate.fName" #fName="ngModel" required/>
-                            </div>
-                            <div *ngIf="fName.invalid && (fName.dirty || fName.touched)" class="text-danger">
-                              <small *ngIf="fName.errors?.['required']">
-                                * Votre prénom est nécessaire
                               </small>
                             </div>
                             <div class="form-group">
@@ -95,6 +96,15 @@
                             <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
                               <small *ngIf="address.errors?.['required']">
                                 * Votre adresse est nécessaire
+                              </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="cin" class="bi bi-geo-alt-fill"></label>
+                              <input type="text" name="cin" id="cin" placeholder="Votre CIN *" [(ngModel)]="candidate.cin" #cin="ngModel" required/>
+                            </div>
+                            <div *ngIf="cin.invalid && (cin.dirty || cin.touched)" class="text-danger">
+                              <small *ngIf="cin.errors?.['required']">
+                                * Votre CIN est nécessaire
                               </small>
                             </div>
                             <div class="form-group">
@@ -144,40 +154,40 @@
                               <label for="spec" class="bi bi-caret-down-fill"></label>
                               <select name="spec" id="spec" [(ngModel)]="candidate.spec" #spec="ngModel" required>
                                 <option value="" disabled selected>Votre spécialité *</option>
-                                <option value="webDev">Informatique - Développeur Web</option>
-                                <option value="fullDev">Informatique - Développeur Full-Stack</option>
-                                <option value="AI">Informatique - Intelligence Artificielle</option>
-                                <option value="dataScience">Informatique - Data Science</option>
-                                <option value="design">Informatique - Design UX/UI </option>
-                                <option value="mobileDev"> Informatique - Programmation Mobile</option>
-                                <option value="softwareDev">Informatique - Développement Logiciel</option>
-                                <option value="network">Informatique - Réseaux informatiques</option>
-                                <option value="security">Informatique - Sécurité informatique</option>
-                                <option value="machineLearning">Informatique - Machine Learning</option>
-                                <option value="cloudComputing">Informatique - Cloud computing</option>
-                                <option value="digitalMarketing"> Marketing digital</option>
-                                <option value="projectManagement"> Gestion de projets</option>
+                                <option value="Développeur Web">Info - Développeur Web</option>
+                                <option value="Développeur Full-Stack">Info - Développeur Full-Stack</option>
+                                <option value="Intelligence Artificiell">Info - Intelligence Artificielle</option>
+                                <option value="Data Science">Info - Data Science</option>
+                                <option value="Design UX/UI">Info - Design UX/UI </option>
+                                <option value="Programmation Mobile"> Info - Programmation Mobile</option>
+                                <option value="Développement Logiciel">Info - Développement Logiciel</option>
+                                <option value="Réseaux informatiques">Info - Réseaux informatiques</option>
+                                <option value="Sécurité informatique">Info - Sécurité informatique</option>
+                                <option value="Machine Learning">Info - Machine Learning</option>
+                                <option value="Cloud computing">Info - Cloud computing</option>
+                                <option value="Marketing digital"> Marketing digital</option>
+                                <option value="Gestion de projets"> Gestion de projets</option>
                                 <option value="IoT"> IoT (Internet of Things)</option>
                                 <option value="Blockchain"> Blockchain</option>
-                                <option value="accounting">Comptabilité</option>
+                                <option value="Comptabilité">Comptabilité</option>
                                 <option value="Finance"> Finance</option>
-                                <option value="businessManagement"> Gestion d'entreprise</option>
-                                <option value="humanResources">Gestion des ressources humaines </option>
-                                <option value="management">Management </option>
-                                <option value="marketing">Marketing </option>
-                                <option value="publicEconomy">Économie publique </option>
-                                <option value="internationalEconomy">Économie internationale </option>
-                                <option value="businessEconomics">Économie d'entreprise </option>
-                                <option value="databaseAdministration"> Administration de bases de données </option>
-                                <option value="construction"> Construction et travaux publics</option>
-                                <option value="geotechnical"> Géotechnique</option>
-                                <option value="civil"> Génie civil</option>
-                                <option value="hydraulics"> Hydraulique et environnement</option>
-                                <option value="Structure"> Structure et matériaux</option>
-                                <option value="transports"> Transports et mobilité</option>
-                                <option value="urban"> Urbanisme et aménagement</option>
-                                <option value="building"> Ingénierie du bâtiment</option>
-                                <option value="maintenance"> Maintenance et réhabilitation des bâtiments</option>
+                                <option value="Gestion d'entreprise"> Gestion d'entreprise</option>
+                                <option value="Gestion des ressources humaines">Gestion des ressources humaines </option>
+                                <option value="Management">Management </option>
+                                <option value="Marketing">Marketing </option>
+                                <option value="Économie publique ">Économie publique </option>
+                                <option value="Économie internationale">Économie internationale </option>
+                                <option value="Économie d'entreprise">Économie d'entreprise </option>
+                                <option value="Administration de bases de données"> Administration de bases de données </option>
+                                <option value="Construction et travaux publics"> Construction et travaux publics</option>
+                                <option value="Géotechnique"> Géotechnique</option>
+                                <option value="Génie civil"> Génie civil</option>
+                                <option value="Hydraulique et environnement"> Hydraulique et environnement</option>
+                                <option value="Structure et matériaux"> Structure et matériaux</option>
+                                <option value="Transports et mobilité"> Transports et mobilité</option>
+                                <option value="Urbanisme et aménagement"> Urbanisme et aménagement</option>
+                                <option value="Ingénierie du bâtiment"> Ingénierie du bâtiment</option>
+                                <option value="Maintenance et réhabilitation des bâtiments"> Maintenance et réhabilitation des bâtiments</option>
                               </select>
                             </div>
                             <div *ngIf="spec.invalid && (spec.dirty || spec.touched)" class="text-danger">
@@ -189,12 +199,12 @@
                               <label for="expYears" class="bi bi-caret-down-fill"></label>
                               <select name="expYears" id="expYears" [(ngModel)]="candidate.expYears" #expYears="ngModel"  required>
                                 <option value="" disabled selected>Nombre d'année d'expérience *</option>
-                                <option value="0">Débutant</option>
-                                <option value="-1">Moins d'un an</option>
-                                <option value="1-3">De 1 à 3 ans</option>
-                                <option value="3-5">De 3 à 5 ans</option>
-                                <option value="5-10">De 5 à 10 ans</option>
-                                <option value="+10">+10 ans</option>
+                                <option value="Débutant">Débutant</option>
+                                <option value="-1 ans">Moins d'un an</option>
+                                <option value="1-3 ans">De 1 à 3 ans</option>
+                                <option value="3-5 ans">De 3 à 5 ans</option>
+                                <option value="5-10 ans">De 5 à 10 ans</option>
+                                <option value="+10 ans">+10 ans</option>
                               </select>
                             </div>
                             <div *ngIf="expYears.invalid && (expYears.dirty || expYears.touched)" class="text-danger">
@@ -202,54 +212,62 @@
                                 * Nombre d'année d'expérience est nécessaire
                               </small>
                             </div>
+                            <span class="fw-bold font-monospace">Votre lettre de motivation: </span>
                             <div class="form-group">
-                              <input type="file" name="LMFile" id="LMFile" accept=".pdf" (change)="onLMFileSelected($event)"  [(ngModel)]="candidate.LMFile" #LMFile="ngModel" required/>
-                              <label for="LMFile" class="bi bi-cloud-arrow-up-fill"></label>
+                              <input type="file" name="lmFile" id="lmFile" accept=".pdf" (change)="onLMFileSelected($event)"  [(ngModel)]="candidate.lmFile" #lmFile="ngModel" required/>
+                              <label for="lmFile" class="bi bi-cloud-arrow-up-fill"></label>
                             </div>
-                            <div *ngIf="LMFile.invalid && (LMFile.dirty || LMFile.touched)" class="text-danger">
-                              <small *ngIf="LMFile.errors?.['required']">
+                            <div *ngIf="lmFile.invalid && (lmFile.dirty || lmFile.touched)" class="text-danger">
+                              <small *ngIf="lmFile.errors?.['required']">
                                 * Lettre de motivation est nécessaire
                               </small>
-                              <small *ngIf="!LMExtensionValid && signUpForm.controls['LMFile'].errors?.['invalidExtension']">
+                              <small *ngIf="!LMExtensionValid && signUpForm.controls['lmFile'].errors?.['invalidExtension']">
                                   * Extension de fichier autorisée : .pdf
                               </small>
                             </div>
+                            <span class="fw-bold font-monospace">Votre curriculum vitae: </span>
                             <div class="form-group">
-                              <input type="file" name="CVFile" id="CVFile" accept=".pdf" (change)="onCVFileSelected($event)"  [(ngModel)]="candidate.CVFile" #CVFile="ngModel" required/>
-                              <label for="CVFile" class="bi bi-cloud-arrow-up-fill"></label>
+                              <input type="file" name="cvFile" id="cvFile" accept=".pdf" (change)="onCVFileSelected($event)"  [(ngModel)]="candidate.cvFile" #cvFile="ngModel" required/>
+                              <label for="cvFile" class="bi bi-cloud-arrow-up-fill"></label>
                             </div>
-                            <div *ngIf="CVFile.invalid && (CVFile.dirty || CVFile.touched)" class="text-danger">
-                              <small *ngIf="CVFile.errors?.['required']">
+                            <div *ngIf="cvFile.invalid && (cvFile.dirty || cvFile.touched)" class="text-danger">
+                              <small *ngIf="cvFile.errors?.['required']">
                                 * CV est nécessaire 
                               </small>
-                              <small *ngIf="!CVExtensionValid && signUpForm.controls['CVFile'].errors?.['invalidExtension']">
+                              <small *ngIf="!CVExtensionValid && signUpForm.controls['cvFile'].errors?.['invalidExtension']">
                                   * Extension de fichier autorisée : .pdf
                               </small>
                             </div>
                             <div class="form-group">
                               <label for="pass" class="bi bi-lock-fill"></label>
-                                <input [type]="type" name="pass" id="pass" placeholder="Mot de passe *" [(ngModel)]="candidate.pass" #pass="ngModel" required/>
-                                <i (click)="hideShowPass()" class="bi {{eyeIcon}}"></i>
+                                <input [type]="typePass" name="pass" id="pass" placeholder="Mot de passe *" [(ngModel)]="candidate.pass" #pass="ngModel" required minlength="10" />
+                                <i (click)="hideShowPass()" class="bi {{eyeIconPass}}"></i>
                             </div>
                             <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="text-danger">
                               <small *ngIf="pass.errors?.['required']">
                                 * Mot de passe est nécessaire
                               </small>
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmPass" class="bi bi-lock-fill"></label>
-                                <input [type]="type" name="confirmPass" id="confirmPass" placeholder="Répéter mot de passe *" [(ngModel)]="candidate.confirmPass" #confirmPass="ngModel" required/>
-                                <i (click)="hideShowConfirmPass()" class="bi {{eyeIcon}}"></i>
-                            </div>
-                            <div *ngIf="confirmPass.invalid && (confirmPass.dirty || confirmPass.touched)" class="text-danger">
-                              <small *ngIf="confirmPass.errors?.['required']">
-                                * répéter le mot de passe est nécessaire 
+                              <small *ngIf="pass.errors?.['minlength']">
+                                * Le mot de passe doit contenir au moins 10 caractères
                               </small>
                             </div>
                             <div class="form-group">
+                                <label for="confirmPass" class="bi bi-lock-fill"></label>
+                                <input [type]="typeConfirmPass" name="confirmPass" id="confirmPass" placeholder="Répéter mot de passe *" [(ngModel)]="candidate.confirmPass" #confirmPass="ngModel" (blur)="onConfirmPassTouched()" required/>
+                                <i (click)="hideShowConfirmPass()" class="bi {{eyeIconConfirmPass}}"></i>
+                            </div>
+                            <div *ngIf="confirmPass.invalid && (confirmPass.dirty || confirmPass.touched)" class="text-danger">
+                              <small *ngIf="confirmPass.errors?.['required']">
+                                * Veuillez confirmer le mot de passe
+                              </small>
+                            </div>
+                            <div *ngIf="confirmPassTouched && candidate.pass !== candidate.confirmPass" class="text-danger">
+                              <small>* Les mots de passe ne correspondent pas</small>
+                            </div>
+                            <!-- <div class="form-group">
                                 <input type="checkbox" name="agreeTerm" id="agreeTerm" class="agree-term" />
                                 <label for="agreeTerm" class="label-agree-term"><span><span></span></span>Je suis d'accord avec toutes les déclarations contenues dans <a href="#" class="term-service">les conditions d'utilisation</a></label>
-                            </div>
+                            </div> -->
                             <div class="form-group form-button">
                               <button type="submit" id="signup" class="form-submit">S'inscrire</button>
                             </div>

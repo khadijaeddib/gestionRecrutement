@@ -8,6 +8,9 @@
   <div class="row"  >
     <div class="col-md-4 mt-4" *ngFor="let company of companies">
       <div class="card user-card">
+        <div class="card-header">
+          <h5>Id: {{company.idCo}}</h5>
+          </div>
         <div class="card-block" >
           <div class="user-image user-image-comp">
             <img [src]="createImgPath(company.logoPath)"alt="logo">
@@ -30,6 +33,15 @@
             </div>
           </div>
           <p class="text-adr m-t-15"><i class="bi bi-geo-alt-fill"></i> {{ company.address }}</p>
+          <hr>
+          <div class="row">
+            <div class="col-6 col-sm-6 text-muted m-t-15">RC: {{ company.rc }}</div>
+            <div class="col-6 col-sm-4 text-muted m-t-15">IF: {{ company.idF }}</div>
+          </div>
+          <div class="row">
+            <div class="col-6 col-sm-6 text-muted m-t-15">ICE: {{ company.ice }}</div>
+            <div class="col-6 col-sm-4 text-muted m-t-15">Statut: {{ company.legalStatus }}</div>
+          </div>
           <hr>
           <div class="row justify-content-center user-social-link">
             <div class="col-auto"><button (click)="editCompanyModal(company.idCo)"><i class="bi bi-pencil-fill btn-action"></i></button></div>

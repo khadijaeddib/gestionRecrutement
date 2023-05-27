@@ -36,7 +36,7 @@
       </div>
     </form> -->
 
-  <button href="#" class="btn-download">
+  <button href="#" class="btn-download" (click)="addCandidate()">
     <i class="bi bi-person-plus-fill"></i>
     <span class="text">Ajouter candidat</span>
   </button>
@@ -60,65 +60,33 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>01</td>
+        <tr *ngFor="let candidate of candidates">
+          <td>{{candidate.idCand}}</td>
           <td>
             <div class="d-flex align-items-center">
-              <img src="/../../assets/images/user.png" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
+              <img [src]="createImgPath(candidate.candImagePath)" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
               <div class="ms-3">
-                <p class="fw-bold mb-1">John Doe</p>
-                <p class="text-muted mb-0">john.doe@gmail.com</p>
+                <p class="fw-bold mb-1">{{candidate.fName }} {{candidate.lName}}</p>
+                <p class="text-muted mb-0">{{candidate.email}} </p>
               </div>
             </div>
           </td>
-          <td> 23 ans </td>
-          <td> 0667349823 </td>
-          <td> Agadir, N43 </td>
+          <td> {{candidate.age}} ans</td>
+          <td> {{candidate.phone}} </td>
+          <td> {{candidate.address}}  </td>
           <td>
-            <p class="fw-normal mb-1">Software engineer</p>
-            <p class="text-muted mb-0">Web developement</p>
+            <p class="fw-normal mb-1">{{candidate.diploma}} </p>
+            <p class="text-muted mb-0">{{candidate.spec}} </p>
           </td>
-          <td> 2 ans </td>
+          <td> {{candidate.expYears}}</td>
           <td>
-            <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="showCandidate()">
+            <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="showCandidate(candidate.idCand)">
               <i class="bi bi-eye-fill"></i>
             </button>
-            <button type="button" class="btn btn-link btn-sm btn-rounded">
+            <!-- <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="editCandidate(candidate.idCand)">
               <i class="bi bi-pencil-fill"></i>
-            </button>
-            <button type="button" class="btn btn-link btn-sm btn-rounded">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </td>
-        </tr>
-
-        <tr>
-          <td>02</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <img src="/../../assets/images/user.png" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
-              <div class="ms-3">
-                <p class="fw-bold mb-1">John Doe</p>
-                <p class="text-muted mb-0">john.doe@gmail.com</p>
-              </div>
-            </div>
-          </td>
-          <td> 23 ans </td>
-          <td> 0667349823 </td>
-          <td> Agadir, N43 </td>
-          <td>
-            <p class="fw-normal mb-1">Software engineer</p>
-            <p class="text-muted mb-0">Web developement</p>
-          </td>
-          <td> 2 ans </td>
-          <td>
-            <button type="button" class="btn btn-link btn-sm btn-rounded">
-              <i class="bi bi-eye-fill"></i>
-            </button>
-            <button type="button" class="btn btn-link btn-sm btn-rounded">
-              <i class="bi bi-pencil-fill"></i>
-            </button>
-            <button type="button" class="btn btn-link btn-sm btn-rounded">
+            </button> -->
+            <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="deleteCandidate(candidate.idCand)">
               <i class="bi bi-trash-fill"></i>
             </button>
           </td>

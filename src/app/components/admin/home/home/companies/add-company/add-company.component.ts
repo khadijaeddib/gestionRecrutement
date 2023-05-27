@@ -70,10 +70,15 @@ export class AddCompanyComponent implements OnInit{
     formData.append('phone', this.company.phone);
     formData.append('email', this.company.email);
     formData.append('address', this.company.address);
+    formData.append('rc', this.company.rc);
+    formData.append('idF', this.company.idF);
+    formData.append('ice', this.company.ice);
+    formData.append('legalStatus', this.company.legalStatus);
 
     this.companyService.addCompany(formData).subscribe(
       (response) => {
         this.successMessage = 'Entreprise ajoutée avec succès';
+        this.errorMessage = '';
         this.companies.push(response);
         this.companyAdded.emit(response);
         this.company = new Company(); // Reset the input fields
@@ -82,6 +87,7 @@ export class AddCompanyComponent implements OnInit{
       (error) => {
         console.error(error);
         this.errorMessage = 'Veuillez remplir correctement tous les champs obligatoires';
+        this.successMessage = '';
         // handle error
       }
     );

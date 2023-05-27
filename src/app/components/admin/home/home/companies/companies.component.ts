@@ -82,9 +82,9 @@ export class CompaniesComponent implements OnInit {
   editCompanyModal(id: number): void {
     this.companyService.getCompany(id).subscribe(
       (company) => {
-        const modalRef = this.modalService.open(EditCompanyComponent);
-        modalRef.componentInstance.company = company;
-        modalRef.componentInstance.companyUpdated.subscribe((updatedCompany: Company) => {
+        this.modalRef = this.modalService.open(EditCompanyComponent);
+        this.modalRef.componentInstance.company = company;
+        this.modalRef.componentInstance.companyUpdated.subscribe((updatedCompany: Company) => {
           // Update the company list after successful update
           this.companyService.getCompanies().subscribe(
             (companies) => {

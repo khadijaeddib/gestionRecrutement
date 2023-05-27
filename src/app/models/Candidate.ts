@@ -8,14 +8,15 @@ export class Candidate {
     age = "";
     phone = "";
     address = "";
+    cin = "";
     studyDegree = "";
     diploma = "";
     spec = "";
     expYears = "";
-    LMPath = "";
-    LMFile!: File;
-    CVPath = "";
-    CVFile!: File;
+    lmPath = "";
+    lmFile!: File;
+    cvPath = "";
+    cvFile!: File;
     pass = "";
     confirmPass = "";
 }

@@ -27,10 +27,6 @@ export class CompanyServiceService {
     return this.http.get<any>(`${this.baseUrl}getCompany/${id}`);
   }  
 
-  updateCompany(id: number, formData: FormData): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}updateCompany/${id}`, formData);
-  }
-
   editCompany(id: number,formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}editCompany/${id}`, formData);
   }

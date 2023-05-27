@@ -32,6 +32,8 @@ import { RecruiterComponent } from './components/recruiter/recruiter.component';
 import { CandidateComponent } from './components/candidate/candidate.component';
 import { CandidateProfileComponent } from './components/candidate/candidate-profile/candidate-profile.component';
 import { CandidateDashboardComponent } from './components/candidate/candidate-dashboard/candidate-dashboard.component';
+import { EditCandidateComponent } from './components/admin/home/home/candidates/edit-candidate/edit-candidate.component';
+import { AddCandidateComponent } from './components/admin/home/home/candidates/add-candidate/add-candidate.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { CandidateDashboardComponent } from './components/candidate/candidate-da
     RecruiterComponent,
     CandidateComponent,
     CandidateProfileComponent,
-    CandidateDashboardComponent
+    CandidateDashboardComponent,
+    EditCandidateComponent,
+    AddCandidateComponent
   ],
   imports: [
     BrowserModule,

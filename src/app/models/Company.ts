@@ -9,4 +9,8 @@ export class Company {
     phone!: string;
     email!: string;
     address!: string;
+    rc!: string;
+    idF!: string;
+    ice!: string;
+    legalStatus!: string;
 }

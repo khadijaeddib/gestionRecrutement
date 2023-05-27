@@ -419,20 +419,24 @@ input[type=file]::-webkit-file-upload-button {
   display: none;
 }
 
-#imageCand::before {
+/* input[type="file"] {
+  color: transparent;
+} */
+
+/* #candImage::before {
   content: "Votre image *                                                                             ";
   color: #999!important ;
-}
+} */
 
-#LM::before {
+/* #lmFile::before {
   content: "Attachement du LM (pdf) *                                                                 ";
   color: #999!important ;
-}
+} */
 
-#CV::before {
+/* #cvFile::before {
   content: "Attachement du CV (pdf) *                                                                ";
   color: #999!important ;
-}
+} */
 
 .agree-term {
   display: inline-block;

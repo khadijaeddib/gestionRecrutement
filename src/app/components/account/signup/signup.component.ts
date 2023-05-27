@@ -10,15 +10,25 @@ import { AuthService } from 'src/app/services/AuthService.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  type: string = "password";
-  isText: boolean = false;
-  eyeIcon: string = "bi-eye-slash-fill";
+
+  // Add separate variables for each password field
+  isTextPass: boolean = false;
+  eyeIconPass: string = "bi-eye-slash-fill";
+  typePass: string = "password";
+
+  isTextConfirmPass: boolean = false;
+  eyeIconConfirmPass: string = "bi-eye-slash-fill";
+  typeConfirmPass: string = "password";
+
+  passwordMismatchError: boolean = false;
+  confirmPassTouched = false;
+
 
   candidate: Candidate = new Candidate();
 
-  FilecandImage!: File;
-  FileLMFile!: File;
-  FileCVFile!: File;
+  candImage!: File;
+  lmFile!: File;
+  cvFile!: File;
 
   errorMessage: string = '';
   successMessage: string = '';
@@ -34,17 +44,24 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  hideShowPass(){
-    this.isText = !this.isText;
-    this.isText ? this.eyeIcon = "bi-eye-fill" : this.eyeIcon = "bi-eye-slash-fill";
-    this.isText ? this.type = "text" : this.type = "password";
+  // Update the hideShowPass method
+  hideShowPass() {
+    this.isTextPass = !this.isTextPass;
+    this.isTextPass ? (this.eyeIconPass = "bi-eye-fill") : (this.eyeIconPass = "bi-eye-slash-fill");
+    this.isTextPass ? (this.typePass = "text") : (this.typePass = "password");
   }
 
-  hideShowConfirmPass(){
-    this.isText = !this.isText;
-    this.isText ? this.eyeIcon = "bi-eye-fill" : this.eyeIcon = "bi-eye-slash-fill";
-    this.isText ? this.type = "text" : this.type = "password";
+  // Update the hideShowConfirmPass method
+  hideShowConfirmPass() {
+    this.isTextConfirmPass = !this.isTextConfirmPass;
+    this.isTextConfirmPass ? (this.eyeIconConfirmPass = "bi-eye-fill") : (this.eyeIconConfirmPass = "bi-eye-slash-fill");
+    this.isTextConfirmPass ? (this.typeConfirmPass = "text") : (this.typeConfirmPass = "password");
   }
+
+  onConfirmPassTouched() {
+    this.confirmPassTouched = true;
+  }
+  
 
   onImageSelected(event: any) {
     const file: File = event.target.files[0];
@@ -57,7 +74,7 @@ export class SignupComponent implements OnInit {
     } else {
       this.candImageExtensionValid = true;
       this.signUpForm.controls['candImage'].setErrors(null);
-      this.FilecandImage = event.target.files[0];
+      this.candImage = event.target.files[0];
     }
   }
 
@@ -68,11 +85,11 @@ export class SignupComponent implements OnInit {
 
     if (allowedExtensions.indexOf(`.${fileExtension}`) === -1) {
       this.LMExtensionValid = false;
-      this.signUpForm.controls['LMFile'].setErrors({ 'invalidExtension': true });
+      this.signUpForm.controls['lmFile'].setErrors({ 'invalidExtension': true });
     } else {
       this.LMExtensionValid = true;
-      this.signUpForm.controls['LMFile'].setErrors(null);
-      this.FileLMFile = event.target.files[0];
+      this.signUpForm.controls['lmFile'].setErrors(null);
+      this.lmFile = event.target.files[0];
     }
   }
 
@@ -83,44 +100,53 @@ export class SignupComponent implements OnInit {
 
     if (allowedExtensions.indexOf(`.${fileExtension}`) === -1) {
       this.CVExtensionValid = false;
-      this.signUpForm.controls['CVFile'].setErrors({ 'invalidExtension': true });
+      this.signUpForm.controls['cvFile'].setErrors({ 'invalidExtension': true });
     } else {
       this.CVExtensionValid = true;
-      this.signUpForm.controls['CVFile'].setErrors(null);
-      this.FileCVFile = event.target.files[0];
+      this.signUpForm.controls['cvFile'].setErrors(null);
+      this.cvFile = event.target.files[0];
     }
   }
 
   signup() {
+    this.passwordMismatchError = false;
+
     if (this.signUpForm.invalid) {
       // Mark all form fields as touched to show validation errors
       this.signUpForm.control.markAllAsTouched();
       return;
     }
 
+    if (this.candidate.pass !== this.candidate.confirmPass) {
+      this.passwordMismatchError = true;
+      return;
+    }
+
     const formData = new FormData();
 
-    formData.append('candImage', this.FilecandImage);
+    formData.append('candImage', this.candImage);
     formData.append('lName', this.candidate.lName);
     formData.append('fName', this.candidate.fName);
     formData.append('email', this.candidate.email);
     formData.append('age', this.candidate.age);
     formData.append('phone', this.candidate.phone);
     formData.append('address', this.candidate.address);
+    formData.append('cin', this.candidate.cin);
     formData.append('studyDegree', this.candidate.studyDegree);
     formData.append('diploma', this.candidate.diploma);
     formData.append('spec', this.candidate.spec);
     formData.append('expYears', this.candidate.expYears);
-    formData.append('LMFile', this.FileLMFile);
-    formData.append('CVFile', this.FileCVFile);
+    formData.append('lmFile', this.lmFile);
+    formData.append('cvFile', this.cvFile);
     formData.append('pass', this.candidate.pass);
     formData.append('confirmPass', this.candidate.confirmPass);
 
 
     this.AuthService.signup(formData).subscribe(
       (response) => {
-        this.router.navigate(['/login']);
-        this.successMessage = 'Inscription réussie ! Veuillez vous connecter avec vos identifiants';
+        const successMessage = 'Inscription réussie ! Veuillez vous connecter avec vos identifiants';
+
+        this.router.navigate(['/login'], { queryParams: { successMessage }});
       },
       (error) => {
         console.error(error);
@@ -129,7 +155,6 @@ export class SignupComponent implements OnInit {
       }
     );
   }
-
 
 
   
