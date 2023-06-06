@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private AuthService: AuthService) { }
 
   ngOnInit(): void {
-    this.userEmail = localStorage.getItem('userEmail');
+    // this.userEmail = localStorage.getItem('userEmail');
+    this.userEmail = sessionStorage.getItem('userEmail');
   }
 
   addToggle(){
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('userEmail');
+    sessionStorage.removeItem('userEmail');
     this.router.navigate(['/login']);
   }
 

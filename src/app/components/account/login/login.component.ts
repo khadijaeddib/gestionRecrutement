@@ -25,6 +25,23 @@ export class LoginComponent implements OnInit {
   constructor(private AuthService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // const user = JSON.parse(localStorage.getItem('user'));
+    // if (user) {
+    //   if (user.role === 'Admin' || user.role === 'Candidate' || user.role === 'Recruiter') {
+    //     // Display the email for the user
+    //     this.userLogin.email = user.email;
+    //   }
+    // }
+
+    // const userString = localStorage.getItem('user');
+    // if (userString) {
+    //   const user = JSON.parse(userString);
+    //   if (user.role === 'Admin' || user.role === 'Candidate' || user.role === 'Recruiter') {
+    //     // Display the email for the user
+    //     this.userLogin.email = user.email;
+    //   }
+    // }
+
     this.route.queryParams.subscribe(params => {
       this.successMessage = params['successMessage'] || null;
     });
@@ -54,8 +71,14 @@ export class LoginComponent implements OnInit {
     (response) => {
       this.userLogin = response.user; 
 
+      // const userEmail = this.userLogin.email;
+      // localStorage.setItem('userEmail', userEmail);
+      
+      // localStorage.setItem('user', JSON.stringify(this.userLogin));
+
       const userEmail = this.userLogin.email;
-      localStorage.setItem('userEmail', userEmail);
+      sessionStorage.setItem('userEmail', userEmail);
+
       // Redirect to the appropriate dashboard based on the user's role
       const role = response.role;
 

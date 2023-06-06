@@ -23,5 +23,9 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}register/candidate`, formData);
   }
 
+  addRecruiter(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}register/recruiter`, formData);
+  }
+
   
 }

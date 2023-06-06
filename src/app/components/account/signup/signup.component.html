@@ -10,6 +10,7 @@
 <body>
     <div class="main">
         <section class="signup">
+          <form #signUpForm="ngForm" (ngSubmit)="signup()" class="register-form" id="register-form">
             <div class="container">
               <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
                 <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
@@ -18,7 +19,6 @@
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">S'inscrire </h2>
-                        <form #signUpForm="ngForm" (ngSubmit)="signup()" class="register-form" id="register-form">
                             <div class="form-group">
                                 <label for="lName" class="bi bi-person-fill"></label>
                                 <input type="text" name="lName" id="lName" placeholder="Votre nom *" [(ngModel)]="candidate.lName" #lName="ngModel" required  pattern="[A-Za-z]+"/>
@@ -195,7 +195,7 @@
                                 * Votre spécialité est nécessaire 
                               </small>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                               <label for="expYears" class="bi bi-caret-down-fill"></label>
                               <select name="expYears" id="expYears" [(ngModel)]="candidate.expYears" #expYears="ngModel"  required>
                                 <option value="" disabled selected>Nombre d'année d'expérience *</option>
@@ -211,8 +211,88 @@
                               <small *ngIf="expYears.errors?.['required']">
                                 * Nombre d'année d'expérience est nécessaire
                               </small>
+                            </div> -->
+                            <!-- <span class="fw-bold font-monospace">Votre lettre de motivation: </span>
+                            <div class="form-group">
+                              <input type="file" name="lmFile" id="lmFile" accept=".pdf" (change)="onLMFileSelected($event)"  [(ngModel)]="candidate.lmFile" #lmFile="ngModel" required/>
+                              <label for="lmFile" class="bi bi-cloud-arrow-up-fill"></label>
                             </div>
-                            <span class="fw-bold font-monospace">Votre lettre de motivation: </span>
+                            <div *ngIf="lmFile.invalid && (lmFile.dirty || lmFile.touched)" class="text-danger">
+                              <small *ngIf="lmFile.errors?.['required']">
+                                * Lettre de motivation est nécessaire
+                              </small>
+                              <small *ngIf="!LMExtensionValid && signUpForm.controls['lmFile'].errors?.['invalidExtension']">
+                                  * Extension de fichier autorisée : .pdf
+                              </small>
+                            </div>
+                            <span class="fw-bold font-monospace">Votre curriculum vitae: </span>
+                            <div class="form-group">
+                              <input type="file" name="cvFile" id="cvFile" accept=".pdf" (change)="onCVFileSelected($event)"  [(ngModel)]="candidate.cvFile" #cvFile="ngModel" required/>
+                              <label for="cvFile" class="bi bi-cloud-arrow-up-fill"></label>
+                            </div>
+                            <div *ngIf="cvFile.invalid && (cvFile.dirty || cvFile.touched)" class="text-danger">
+                              <small *ngIf="cvFile.errors?.['required']">
+                                * CV est nécessaire 
+                              </small>
+                              <small *ngIf="!CVExtensionValid && signUpForm.controls['cvFile'].errors?.['invalidExtension']">
+                                  * Extension de fichier autorisée : .pdf
+                              </small>
+                            </div>
+                            <div class="form-group">
+                              <label for="pass" class="bi bi-lock-fill"></label>
+                                <input [type]="typePass" name="pass" id="pass" placeholder="Mot de passe *" [(ngModel)]="candidate.pass" #pass="ngModel" required minlength="10" />
+                                <i (click)="hideShowPass()" class="bi {{eyeIconPass}}"></i>
+                            </div>
+                            <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="text-danger">
+                              <small *ngIf="pass.errors?.['required']">
+                                * Mot de passe est nécessaire
+                              </small>
+                              <small *ngIf="pass.errors?.['minlength']">
+                                * Le mot de passe doit contenir au moins 10 caractères
+                              </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPass" class="bi bi-lock-fill"></label>
+                                <input [type]="typeConfirmPass" name="confirmPass" id="confirmPass" placeholder="Répéter mot de passe *" [(ngModel)]="candidate.confirmPass" #confirmPass="ngModel" (blur)="onConfirmPassTouched()" required/>
+                                <i (click)="hideShowConfirmPass()" class="bi {{eyeIconConfirmPass}}"></i>
+                            </div>
+                            <div *ngIf="confirmPass.invalid && (confirmPass.dirty || confirmPass.touched)" class="text-danger">
+                              <small *ngIf="confirmPass.errors?.['required']">
+                                * Veuillez confirmer le mot de passe
+                              </small>
+                            </div>
+                            <div *ngIf="confirmPassTouched && candidate.pass !== candidate.confirmPass" class="text-danger">
+                              <small>* Les mots de passe ne correspondent pas</small>
+                            </div> -->
+                            <!-- <div class="form-group">
+                                <input type="checkbox" name="agreeTerm" id="agreeTerm" class="agree-term" />
+                                <label for="agreeTerm" class="label-agree-term"><span><span></span></span>Je suis d'accord avec toutes les déclarations contenues dans <a href="#" class="term-service">les conditions d'utilisation</a></label>
+                            </div> -->
+                            <div class="form-group form-button">
+                              <button type="submit" id="signup" class="form-submit">S'inscrire</button>
+                            </div>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="/../../assets/images/signup.jpg" alt="sing up image"></figure>
+                        <a routerLink="/login" class="signup-image-link">Je suis déjà membre</a>
+                        <div class="form-group">
+                          <label for="expYears" class="bi bi-caret-down-fill"></label>
+                          <select name="expYears" id="expYears" [(ngModel)]="candidate.expYears" #expYears="ngModel"  required>
+                            <option value="" disabled selected>Nombre d'année d'expérience *</option>
+                            <option value="Débutant">Débutant</option>
+                            <option value="-1 ans">Moins d'un an</option>
+                            <option value="1-3 ans">De 1 à 3 ans</option>
+                            <option value="3-5 ans">De 3 à 5 ans</option>
+                            <option value="5-10 ans">De 5 à 10 ans</option>
+                            <option value="+10 ans">+10 ans</option>
+                          </select>
+                        </div>
+                        <div *ngIf="expYears.invalid && (expYears.dirty || expYears.touched)" class="text-danger">
+                          <small *ngIf="expYears.errors?.['required']">
+                            * Nombre d'année d'expérience est nécessaire
+                          </small>
+                        </div>
+                        <span class="fw-bold font-monospace">Votre lettre de motivation: </span>
                             <div class="form-group">
                               <input type="file" name="lmFile" id="lmFile" accept=".pdf" (change)="onLMFileSelected($event)"  [(ngModel)]="candidate.lmFile" #lmFile="ngModel" required/>
                               <label for="lmFile" class="bi bi-cloud-arrow-up-fill"></label>
@@ -264,21 +344,10 @@
                             <div *ngIf="confirmPassTouched && candidate.pass !== candidate.confirmPass" class="text-danger">
                               <small>* Les mots de passe ne correspondent pas</small>
                             </div>
-                            <!-- <div class="form-group">
-                                <input type="checkbox" name="agreeTerm" id="agreeTerm" class="agree-term" />
-                                <label for="agreeTerm" class="label-agree-term"><span><span></span></span>Je suis d'accord avec toutes les déclarations contenues dans <a href="#" class="term-service">les conditions d'utilisation</a></label>
-                            </div> -->
-                            <div class="form-group form-button">
-                              <button type="submit" id="signup" class="form-submit">S'inscrire</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="signup-image">
-                        <figure><img src="/../../assets/images/signup.jpg" alt="sing up image"></figure>
-                        <a routerLink="/login" class="signup-image-link">Je suis déjà membre</a>
                     </div>
                 </div>
             </div>
+          </form>
         </section>
     </div>
 </body>

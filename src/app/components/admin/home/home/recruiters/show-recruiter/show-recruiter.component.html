@@ -9,11 +9,11 @@
             <div class="card">
               <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
-                  <img src="../../assets/images/user.png" alt="user" class="rounded-circle" width="150">
+                  <img [src]="createImgPath(recruiter.recImagePath)"  alt="recruiter image" class="rounded-circle" width="150">
                   <div class="mt-3">
-                    <h4>Mariem Alami</h4>
-                    <p class="text-secondary mb-1">Responsable RH</p>
-                    <p class="text-muted font-size-sm">Ultimate Solutions</p>
+                    <h4>{{recruiter.fName}} {{recruiter.lName}}</h4>
+                    <p class="text-secondary mb-1">{{recruiter.career}}</p>
+                    <p class="text-muted font-size-sm">à {{recruiter.company.name}}</p>
                     <!-- <button class="btn btn-primary">Follow</button>
                     <button class="btn btn-outline-primary">Message</button> -->
                   </div>
@@ -53,7 +53,7 @@
                     <h6 class="mb-0">Nom complet</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    Mariem Alami
+                    {{recruiter.fName}} {{recruiter.lName}}
                   </div>
                 </div>
                 <hr>
@@ -62,7 +62,7 @@
                     <h6 class="mb-0">Age</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    28 ans
+                    {{recruiter.age}} ans
                   </div>
                 </div>
                 <hr>
@@ -71,7 +71,7 @@
                     <h6 class="mb-0">Email</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    mariem@gmail.com
+                    {{recruiter.email}}
                   </div>
                 </div>
                 <hr>
@@ -80,7 +80,7 @@
                     <h6 class="mb-0">Téléphone</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    (212) 654-986523
+                    {{recruiter.phone}}
                   </div>
                 </div>
                 <hr>
@@ -89,7 +89,7 @@
                     <h6 class="mb-0">Adresse</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    Agadir, Founty
+                    {{recruiter.address}}
                   </div>
                 </div>
                 <hr>
@@ -98,17 +98,13 @@
                     <h6 class="mb-0">Poste</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    Responsable RH
+                    {{recruiter.career}}
                   </div>
                 </div>
               </div>
             </div>
-
-
-
           </div>
         </div>
-
       </div>
   </div>
 

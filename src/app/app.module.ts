@@ -34,6 +34,7 @@ import { CandidateProfileComponent } from './components/candidate/candidate-prof
 import { CandidateDashboardComponent } from './components/candidate/candidate-dashboard/candidate-dashboard.component';
 import { EditCandidateComponent } from './components/admin/home/home/candidates/edit-candidate/edit-candidate.component';
 import { AddCandidateComponent } from './components/admin/home/home/candidates/add-candidate/add-candidate.component';
+import { AddRecruiterComponent } from './components/admin/home/home/recruiters/add-recruiter/add-recruiter.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AddCandidateComponent } from './components/admin/home/home/candidates/a
     CandidateProfileComponent,
     CandidateDashboardComponent,
     EditCandidateComponent,
-    AddCandidateComponent
+    AddCandidateComponent,
+    AddRecruiterComponent
   ],
   imports: [
     BrowserModule,

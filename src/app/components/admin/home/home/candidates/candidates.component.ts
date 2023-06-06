@@ -16,7 +16,7 @@ import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 export class CandidatesComponent implements OnInit {
   candidates!: Candidate[];
   modalRef: NgbModalRef | undefined; // Modal reference variable
-
+  pageSize: number = 1; // Initial page size
 
   constructor(private modalService: NgbModal, private router: Router, private candidateService: CandidateServiceService) {
     this.router.events.subscribe((event) => {
@@ -31,8 +31,39 @@ export class CandidatesComponent implements OnInit {
     this.getCandidates();
   }
 
+  // onPageSizeChange(value: string) {
+  //   this.pageSize = Number(value);
+  //   this.getCandidates();
+  // }
+
+  // onPageSizeChange(event: Event) {
+  //   const value = (event.target as HTMLSelectElement)?.value;
+  //   if (value) {
+  //     this.pageSize = Number(value);
+  //     this.getCandidates();
+  //   }
+  // }
+
+  // onPageSizeChange(event: any) {
+  //   const value = event?.target?.value;
+  //   if (value) {
+  //     this.pageSize = Number(value);
+  //     this.getCandidates();
+  //   }
+  // }
+
+  onPageSizeChange(event: Event) {
+    const value = (event.target as HTMLSelectElement)?.value;
+    if (value) {
+      this.pageSize = Number(value);
+      this.getCandidates();
+    }
+  }
+  
+
+ 
   getCandidates(): void {
-    this.candidateService.getCandidates().subscribe(
+    this.candidateService.getCandidates(this.pageSize).subscribe(
       (candidates) => {
         this.candidates = candidates;
       },
@@ -41,6 +72,31 @@ export class CandidatesComponent implements OnInit {
       }
     );
   }
+  
+   // getCandidates(): void {
+  //   this.candidateService.getCandidates(this.pageSize).subscribe(
+  //     (candidates) => {
+  //       if (candidates) {
+  //         this.candidates = candidates;
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error(error);
+  //     }
+  //   );
+  // }
+  
+
+  // getCandidates(): void {
+  //   this.candidateService.getCandidates().subscribe(
+  //     (candidates) => {
+  //       this.candidates = candidates;
+  //     },
+  //     (error) => {
+  //       console.error(error);
+  //     }
+  //   );
+  // }
 
   public createImgPath = (serverPath: string) => { 
     return `https://localhost:7217/Content/Candidate/Images/${serverPath}`; 
@@ -78,7 +134,7 @@ export class CandidatesComponent implements OnInit {
         this.modalRef.componentInstance.candidate = candidate;
         this.modalRef.componentInstance.candidateUpdated.subscribe((updatedCandidate: Candidate) => {
           // Update the company list after successful update
-          this.candidateService.getCandidates().subscribe(
+          this.candidateService.getCandidates(this.pageSize).subscribe(
             (candidates) => {
               this.candidates = candidates;
             },
@@ -98,7 +154,7 @@ export class CandidatesComponent implements OnInit {
     this.modalRef = this.modalService.open(AddCandidateComponent);
     this.modalRef.componentInstance.candidateAdded.subscribe((candidate: Candidate) => {
       // this.handleCompanyAdded(company);
-      this.candidateService.getCandidates().subscribe(
+      this.candidateService.getCandidates(this.pageSize).subscribe(
         (candidates) => {
           this.candidates = candidates;
         },

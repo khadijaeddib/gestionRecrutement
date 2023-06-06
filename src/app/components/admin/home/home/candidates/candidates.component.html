@@ -1,14 +1,17 @@
 <div class="head-title">
   <div class="show-line">
     <p>Afficher par page :</p>
-    <select id="form-select-coins">
-      <option value="10" selected>10</option>
-      <option value="20">20</option>
-      <option value="30">30</option>
-      <option value="40">40</option>
-      <option value="50">50</option>
+    <select id="form-select-coins" (change)="onPageSizeChange($event)">
+      <option [value]="1" [selected]="pageSize === 1">1</option>
+      <option [value]="2" [selected]="pageSize === 2">2</option>
+      <option [value]="3" [selected]="pageSize === 3">3</option>
+      <option [value]="40" [selected]="pageSize === 40">40</option>
+      <option [value]="50" [selected]="pageSize === 50">50</option>
     </select>
   </div>
+  
+  
+  
   <!-- <form action="#">
     <div class="form-input">
       <input type="search" placeholder="Chercher...">
