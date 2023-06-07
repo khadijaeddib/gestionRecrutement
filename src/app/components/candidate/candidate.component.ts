@@ -22,7 +22,6 @@ export class CandidateComponent {
     this.status = !this.status;
   }
 
-
   logout() {
     sessionStorage.removeItem('userEmail');
     this.router.navigate(['/login']);

@@ -25,13 +25,11 @@ export class EditCompanyComponent implements OnInit{
   logoImageExtensionValid = true;
   logoImageFile!: File;
 
-
   constructor(private activeModal: NgbActiveModal, private companyService: CompanyServiceService) { }
 
   ngOnInit(): void {
     this.companies = [];
     this.prevImageSrc = `https://localhost:7217/Content/Company/${this.company.logoPath}`;
-    
   }
 
   onFileSelected(event: any) {
@@ -49,8 +47,6 @@ export class EditCompanyComponent implements OnInit{
       }
       this.logoImageFile = event.target.files[0];
     }
-  
-    // Rest of the code...
     // Update the src attribute of the prevImage element
     const reader = new FileReader();
     reader.onload = (e: any) => {
@@ -96,7 +92,6 @@ export class EditCompanyComponent implements OnInit{
         // Handle the error if needed
       }
     );
-
   }
 
   public close() {

@@ -14,9 +14,13 @@ import { AddCandidateComponent } from './add-candidate/add-candidate.component';
   styleUrls: ['./candidates.component.css']
 })
 export class CandidatesComponent implements OnInit {
-  candidates!: Candidate[];
+  candidates: Candidate[] = [];
   modalRef: NgbModalRef | undefined; // Modal reference variable
-  pageSize: number = 1; // Initial page size
+  pageSize: number = 5; // Initial page size
+
+  searchCategory: string = '0'; // Default to "Chercher par" option
+  searchKeyword: string = '';
+  filteredCandidates: Candidate[] = [];
 
   constructor(private modalService: NgbModal, private router: Router, private candidateService: CandidateServiceService) {
     this.router.events.subscribe((event) => {
@@ -30,27 +34,45 @@ export class CandidatesComponent implements OnInit {
   ngOnInit(): void {
     this.getCandidates();
   }
+ 
+  getCandidates(): void {
+    this.candidateService.getCandidates(this.pageSize).subscribe(
+      (candidates) => {
+        this.candidates = candidates;
+        this.filteredCandidates = this.candidates;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 
-  // onPageSizeChange(value: string) {
-  //   this.pageSize = Number(value);
-  //   this.getCandidates();
-  // }
-
-  // onPageSizeChange(event: Event) {
-  //   const value = (event.target as HTMLSelectElement)?.value;
-  //   if (value) {
-  //     this.pageSize = Number(value);
-  //     this.getCandidates();
-  //   }
-  // }
-
-  // onPageSizeChange(event: any) {
-  //   const value = event?.target?.value;
-  //   if (value) {
-  //     this.pageSize = Number(value);
-  //     this.getCandidates();
-  //   }
-  // }
+  onSearch() {
+    if (this.searchCategory === '0') {
+      // If no category is selected, reset the filteredCandidates array
+      this.filteredCandidates = [];
+      return;
+    }else if (this.searchCategory === 'all') {
+      // If "Tous les candidats" is selected, display all candidates
+      this.filteredCandidates = this.candidates;
+      this.searchKeyword = ''; // Reset the search keyword
+      return;
+    }
+    // Perform the filtering based on the selected category and keyword
+    this.filteredCandidates = this.candidates.filter(candidate => {
+      if (this.searchCategory === 'expYears') {
+        // Filter by experience years
+        return candidate.expYears.toLowerCase().includes(this.searchKeyword.toLowerCase());
+      } else if (this.searchCategory === 'diploma') {
+        // Filter by diploma
+        return candidate.diploma.toLowerCase().includes(this.searchKeyword.toLowerCase());
+      } else if (this.searchCategory === 'spec') {
+        // Filter by specialty
+        return candidate.spec.toLowerCase().includes(this.searchKeyword.toLowerCase());
+      }
+      return false;
+    });
+  }
 
   onPageSizeChange(event: Event) {
     const value = (event.target as HTMLSelectElement)?.value;
@@ -60,43 +82,6 @@ export class CandidatesComponent implements OnInit {
     }
   }
   
-
- 
-  getCandidates(): void {
-    this.candidateService.getCandidates(this.pageSize).subscribe(
-      (candidates) => {
-        this.candidates = candidates;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
-  
-   // getCandidates(): void {
-  //   this.candidateService.getCandidates(this.pageSize).subscribe(
-  //     (candidates) => {
-  //       if (candidates) {
-  //         this.candidates = candidates;
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error(error);
-  //     }
-  //   );
-  // }
-  
-
-  // getCandidates(): void {
-  //   this.candidateService.getCandidates().subscribe(
-  //     (candidates) => {
-  //       this.candidates = candidates;
-  //     },
-  //     (error) => {
-  //       console.error(error);
-  //     }
-  //   );
-  // }
 
   public createImgPath = (serverPath: string) => { 
     return `https://localhost:7217/Content/Candidate/Images/${serverPath}`; 
@@ -170,23 +155,5 @@ export class CandidatesComponent implements OnInit {
       this.modalRef.close();
     }
   }
-
-  // open() {
-  //   this.modalService.open(ShowCandidateComponent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-  //     this.closeResult = `Closed with: ${result}`;
-  //   }, (reason) => {
-  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  //   });
-  // }
-
-  // private getDismissReason(reason: any): string {
-  //   if (reason === ModalDismissReasons.ESC) {
-  //     return 'by pressing ESC';
-  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-  //     return 'by clicking on a backdrop';
-  //   } else {
-  //     return  `with: ${reason}`;
-  //   }
-  // }
 
 }

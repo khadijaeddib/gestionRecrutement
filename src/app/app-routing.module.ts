@@ -15,6 +15,11 @@ import { CandidateComponent } from './components/candidate/candidate.component';
 import { RecruiterComponent } from './components/recruiter/recruiter.component';
 import { CandidateDashboardComponent } from './components/candidate/candidate-dashboard/candidate-dashboard.component';
 import { CandidateProfileComponent } from './components/candidate/candidate-profile/candidate-profile.component';
+import { RecruiterDashboardComponent } from './components/recruiter/recruiter-dashboard/recruiter-dashboard.component';
+import { RecruiterCandidatesComponent } from './components/recruiter/recruiter-candidates/recruiter-candidates.component';
+import { RecruiterOffersComponent } from './components/recruiter/recruiter-offers/recruiter-offers.component';
+import { RecruiterCandidaturesComponent } from './components/recruiter/recruiter-candidatures/recruiter-candidatures.component';
+import { RecruiterInterviewsComponent } from './components/recruiter/recruiter-interviews/recruiter-interviews.component';
 
 
 const routes: Routes = [
@@ -39,9 +44,15 @@ const routes: Routes = [
       { path: '',   redirectTo: '/candidate/dashboard', pathMatch: 'full' },
       { path: 'profile', component: CandidateProfileComponent }
     ] },
-  { path: 'recruiter', component: RecruiterComponent },
-
-  
+  { path: 'recruiter', component: RecruiterComponent,
+  children:[
+    { path: 'dashboard', component: RecruiterDashboardComponent },
+    { path: '',   redirectTo: '/recruiter/dashboard', pathMatch: 'full' },
+    { path: 'candidates', component: RecruiterCandidatesComponent },
+    { path: 'offers', component: RecruiterOffersComponent },
+    { path: 'candidatures', component: RecruiterCandidaturesComponent },
+    { path: 'interviews', component: RecruiterInterviewsComponent }
+  ] }
 ];
 
 @NgModule({

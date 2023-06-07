@@ -14,6 +14,4 @@ export class Recruiter {
     pass = "";
     idCo!: number;
     company: Company = new Company; 
-
-    
 }

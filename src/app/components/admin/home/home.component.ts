@@ -11,7 +11,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   status = false;
 
   selectedLanguage = 'fr';
@@ -32,12 +31,5 @@ export class HomeComponent implements OnInit {
     sessionStorage.removeItem('userEmail');
     this.router.navigate(['/login']);
   }
-
-
-
-  // useLanguage(language: string) {
-  //   this.translate.use(language);
-  //   this.selectedLanguage = language;
-  // }
 
 }

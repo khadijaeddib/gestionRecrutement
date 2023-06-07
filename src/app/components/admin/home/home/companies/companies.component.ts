@@ -47,10 +47,6 @@ export class CompaniesComponent implements OnInit {
     return `https://localhost:7217/Content/Company/${serverPath}`; 
   }
 
-  // handleCompanyAdded(company: Company) {
-  //   this.companies.push(company);
-  // }
-
   addCompanyModal() {
     this.modalRef = this.modalService.open(AddCompanyComponent);
     this.modalRef.componentInstance.companyAdded.subscribe((company: Company) => {
@@ -65,19 +61,6 @@ export class CompaniesComponent implements OnInit {
       );
     });
   }
-
-  // editCompanyModal(id: number): void {
-    
-  //   this.companyService.getCompany(id).subscribe(
-  //     (company) => {
-  //       const modalRef = this.modalService.open(EditCompanyComponent);
-  //       modalRef.componentInstance.company = company;
-  //     },
-  //     (error) => {
-  //       console.error(error);
-  //     }
-  //   );
-  // }
 
   editCompanyModal(id: number): void {
     this.companyService.getCompany(id).subscribe(

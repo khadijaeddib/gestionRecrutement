@@ -89,7 +89,4 @@ export class RecruitersComponent implements OnInit {
     }
   }
 
-  
-
-
 }

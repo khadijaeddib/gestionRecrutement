@@ -7,7 +7,6 @@ th, td {
   max-width: 250px;
 }
 
-
 .btn-link {
   color: var(--dark)!important;
 }
@@ -64,7 +63,7 @@ th, td {
   border-radius: 5px 0 0 5px;
   padding: 4.5px;
   background-color: var(--light);
-  width: 52%;
+  width: 90%;
 }
 
 .form-inline input {
@@ -73,6 +72,10 @@ th, td {
   padding: 5px;
   background-color: var(--light);
   text-align: center;
+}
+
+#keySearch:focus {
+  outline: none!important;
 }
 
 .form-inline button {

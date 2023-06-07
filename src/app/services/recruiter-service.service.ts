@@ -21,6 +21,5 @@ export class RecruiterServiceService {
   deleteRecruiter(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}deleteRecruiter/${id}`);
   }
-  
 
 }

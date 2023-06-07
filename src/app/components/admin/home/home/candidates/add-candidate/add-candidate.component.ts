@@ -21,9 +21,6 @@ export class AddCandidateComponent implements OnInit {
 
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
 
-  // passwordMismatchError: boolean = false;
-  // confirmPassTouched = false;
-
   errorMessage: string = '';
   successMessage: string = '';
 
@@ -33,10 +30,6 @@ export class AddCandidateComponent implements OnInit {
 
   @ViewChild('addCandidateForm') addCandidateForm!: NgForm;
   @Output() candidateAdded: EventEmitter<any> = new EventEmitter<any>();
-
-  // prevImageSrc: string = 'https://localhost:7217/Content/Candidate/Images/imageEmpty.png';
-  // prevLMSrc: string = 'https://localhost:7217/Content/Candidate/LMs/imageEmpty.png';
-  // prevCVSrc: string = 'https://localhost:7217/Content/Candidate/CVs/imageEmpty.png';
 
   prevImageSrc: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://localhost:7217/Content/Candidate/Images/imageEmpty.png');
   prevLMSrc: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://localhost:7217/Content/Candidate/LMs/imageEmpty.png');
@@ -116,23 +109,12 @@ export class AddCandidateComponent implements OnInit {
     reader.readAsDataURL(this.cvFile);
   }
 
-  // onConfirmPassTouched() {
-  //   this.confirmPassTouched = true;
-  // }
-
   addCandidate() {
-    // this.passwordMismatchError = false;
-
     if (this.addCandidateForm.invalid) {
       // Mark all form fields as touched to show validation errors
       this.addCandidateForm.control.markAllAsTouched();
       return;
     }
-
-    // if (this.candidate.pass !== this.candidate.confirmPass) {
-    //   this.passwordMismatchError = true;
-    //   return;
-    // }
 
     const formData = new FormData();
 
@@ -178,6 +160,5 @@ export class AddCandidateComponent implements OnInit {
   public close() {
     this.activeModal.close();
   }
-
 
 }

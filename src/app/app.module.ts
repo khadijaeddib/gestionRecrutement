@@ -35,6 +35,11 @@ import { CandidateDashboardComponent } from './components/candidate/candidate-da
 import { EditCandidateComponent } from './components/admin/home/home/candidates/edit-candidate/edit-candidate.component';
 import { AddCandidateComponent } from './components/admin/home/home/candidates/add-candidate/add-candidate.component';
 import { AddRecruiterComponent } from './components/admin/home/home/recruiters/add-recruiter/add-recruiter.component';
+import { RecruiterDashboardComponent } from './components/recruiter/recruiter-dashboard/recruiter-dashboard.component';
+import { RecruiterCandidatesComponent } from './components/recruiter/recruiter-candidates/recruiter-candidates.component';
+import { RecruiterOffersComponent } from './components/recruiter/recruiter-offers/recruiter-offers.component';
+import { RecruiterCandidaturesComponent } from './components/recruiter/recruiter-candidatures/recruiter-candidatures.component';
+import { RecruiterInterviewsComponent } from './components/recruiter/recruiter-interviews/recruiter-interviews.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +65,12 @@ import { AddRecruiterComponent } from './components/admin/home/home/recruiters/a
     CandidateDashboardComponent,
     EditCandidateComponent,
     AddCandidateComponent,
-    AddRecruiterComponent
+    AddRecruiterComponent,
+    RecruiterDashboardComponent,
+    RecruiterCandidatesComponent,
+    RecruiterOffersComponent,
+    RecruiterCandidaturesComponent,
+    RecruiterInterviewsComponent
   ],
   imports: [
     BrowserModule,

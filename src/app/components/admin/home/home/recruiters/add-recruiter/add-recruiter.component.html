@@ -122,7 +122,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label class=" mb-1" for="idCo"><h6>Id entreprise</h6></label>
@@ -134,19 +133,11 @@
                                         {{ company.idCo }}: {{ company.name }}
                                     </option>
                                 </select>
-                                <div *ngIf="addRecruiterForm.controls['idCo'].invalid && (addRecruiterForm.controls['idCo'].dirty || addRecruiterForm.controls['idCo'].touched)" class="text-danger">
-                                    <small *ngIf="addRecruiterForm.controls['idCo'].errors?.['required']">
+                                <div *ngIf="addRecruiterForm.controls['idCo']?.invalid && (addRecruiterForm.controls['idCo']?.dirty || addRecruiterForm.controls['idCo']?.touched)" class="text-danger">
+                                    <small *ngIf="addRecruiterForm.controls['idCo']?.errors?.['required']">
                                       * Veuillez entrer l'id de l'entreprise
                                     </small>
-                                  </div>
-                                  
-                                  
-<!--                                   
-                                <div *ngIf="recruiter.idCo.invalid && (idCo.dirty || idCo.touched)" class="text-danger">
-                                    <small *ngIf="idCo.errors?.['required']">
-                                      * Veuillez entrer l'id de l'entreprise
-                                    </small>
-                                </div> -->
+                                </div>                                  
                             </div>
                             <div class="col-md-6">
                                 <label class="mb-1 " for="pass"><h6>Mot de passe </h6></label>
@@ -158,7 +149,7 @@
                                     <small *ngIf="pass.errors?.['minlength']">
                                       * Le mot de passe doit contenir au moins 10 caractères
                                     </small>
-                                  </div>
+                                </div>
                             </div>
                         </div>
                         <!-- Save changes button-->

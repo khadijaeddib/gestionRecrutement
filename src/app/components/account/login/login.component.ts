@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import ValidateForm from 'src/app/helpers/validateForm';
 import { Login } from 'src/app/models/Login';
 import { AuthService } from 'src/app/services/AuthService.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,23 +24,6 @@ export class LoginComponent implements OnInit {
   constructor(private AuthService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // const user = JSON.parse(localStorage.getItem('user'));
-    // if (user) {
-    //   if (user.role === 'Admin' || user.role === 'Candidate' || user.role === 'Recruiter') {
-    //     // Display the email for the user
-    //     this.userLogin.email = user.email;
-    //   }
-    // }
-
-    // const userString = localStorage.getItem('user');
-    // if (userString) {
-    //   const user = JSON.parse(userString);
-    //   if (user.role === 'Admin' || user.role === 'Candidate' || user.role === 'Recruiter') {
-    //     // Display the email for the user
-    //     this.userLogin.email = user.email;
-    //   }
-    // }
-
     this.route.queryParams.subscribe(params => {
       this.successMessage = params['successMessage'] || null;
     });
@@ -70,11 +52,6 @@ export class LoginComponent implements OnInit {
     this.AuthService.login(formData).subscribe(
     (response) => {
       this.userLogin = response.user; 
-
-      // const userEmail = this.userLogin.email;
-      // localStorage.setItem('userEmail', userEmail);
-      
-      // localStorage.setItem('user', JSON.stringify(this.userLogin));
 
       const userEmail = this.userLogin.email;
       sessionStorage.setItem('userEmail', userEmail);

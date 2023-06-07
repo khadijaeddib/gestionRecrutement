@@ -35,9 +35,6 @@ export class EditCandidateComponent implements OnInit {
   LMExtensionValid = true;
   CVExtensionValid = true;
 
-  // safeLMUrl: any;
-  // safeCVUrl: any;
-
   constructor(private activeModal: NgbActiveModal, private candidateService: CandidateServiceService,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
@@ -66,7 +63,6 @@ export class EditCandidateComponent implements OnInit {
       }
       this.candImage = event.target.files[0];
     }
-    // Rest of the code...
     // Update the src attribute of the prevImage element
     const imageReader = new FileReader();
     imageReader.onload = (e: any) => {
@@ -90,7 +86,6 @@ export class EditCandidateComponent implements OnInit {
       }
       this.lmFile = event.target.files[0];
     }
-    // Rest of the code...
     // Update the src attribute of the prevImage element
     const lmReader = new FileReader();
     lmReader.onload = (e: any) => {
@@ -114,7 +109,6 @@ export class EditCandidateComponent implements OnInit {
       }
       this.cvFile = event.target.files[0];
     }
-    // Rest of the code...
     // Update the src attribute of the prevImage element
     const cvReader = new FileReader();
     cvReader.onload = (e: any) => {

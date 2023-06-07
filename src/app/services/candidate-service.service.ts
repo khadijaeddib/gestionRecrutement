@@ -31,7 +31,4 @@ export class CandidateServiceService {
     return this.http.get<any>(`${this.baseUrl}getCandidates`, { params });
   }
   
-  
-  
-  
 }

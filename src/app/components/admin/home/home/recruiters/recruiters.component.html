@@ -1,15 +1,12 @@
 
 <div class="container">
-
   <div class="head-btn-add">
     <button href="#" class="btn-download">
       <i class="bi bi-person-plus-fill"></i>
       <span class="text" (click)="addRecruiter()">Ajouter recruteur</span>
     </button>
   </div>
-
     <div class="row">
-
         <div class="col-md-4 mt-4" *ngFor="let recruiter of recruiters">
             <div class="card user-card">
                 <div class="card-header">
@@ -46,7 +43,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <p class="m-t-15 text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
                     <hr>
                     <div class="row justify-content-center user-social-link">
                         <div class="col-auto"><button (click)="showRecruiter(recruiter.idRec)"><i class="bi bi-eye-fill btn-action"></i></button></div>

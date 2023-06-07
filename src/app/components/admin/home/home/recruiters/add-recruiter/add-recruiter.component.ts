@@ -67,7 +67,6 @@ export class AddRecruiterComponent implements OnInit {
       this.addRecruiterForm.controls['recImage'].setErrors(null);
       this.recImage = event.target.files[0];
     }
-
     // Update the src attribute of the prevImage element
     const reader = new FileReader();
     reader.onload = (e: any) => {
@@ -99,7 +98,6 @@ export class AddRecruiterComponent implements OnInit {
       formData.append('idCo', this.selectedCompanyId.toString());
     }
 
-
     this.AuthService.addRecruiter(formData).subscribe(
       (response) => {
         // this.successMessage = 'Recruteur ajouté';
@@ -108,12 +106,8 @@ export class AddRecruiterComponent implements OnInit {
         this.recruiterAdded.emit(response);
         // this.recruiter = new Recruiter(); // Reset the input fields
         this.prevImageSrc = 'https://localhost:7217/Content/Recruiter/imageEmpty.png';
-
         // Close the modal
         this.modalService.dismissAll();
-
-        // this.close();
-
       },
       (error) => {
         console.error(error);
@@ -127,8 +121,5 @@ export class AddRecruiterComponent implements OnInit {
   public close() {
     this.activeModal.close();
   }
-
-
-
 
 }

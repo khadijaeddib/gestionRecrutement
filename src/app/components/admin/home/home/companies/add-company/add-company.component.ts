@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Company } from 'src/app/models/Company';
 import { CompanyServiceService } from 'src/app/services/CompanyService.service';
 
@@ -22,14 +22,11 @@ export class AddCompanyComponent implements OnInit{
   @Output() companyAdded: EventEmitter<any> = new EventEmitter<any>();
   prevImageSrc: string = 'https://localhost:7217/Content/Company/imageEmpty.png';
 
-
-  constructor(private activeModal: NgbActiveModal, private companyService: CompanyServiceService) { }
+  constructor(private activeModal: NgbActiveModal, private companyService: CompanyServiceService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.companies = [];
   }
-
-  
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -77,12 +74,13 @@ export class AddCompanyComponent implements OnInit{
 
     this.companyService.addCompany(formData).subscribe(
       (response) => {
-        this.successMessage = 'Entreprise ajoutée avec succès';
-        this.errorMessage = '';
+        // this.successMessage = 'Entreprise ajoutée avec succès';
+        // this.errorMessage = '';
         this.companies.push(response);
         this.companyAdded.emit(response);
-        this.company = new Company(); // Reset the input fields
+        // this.company = new Company(); // Reset the input fields
         this.prevImageSrc = 'https://localhost:7217/Content/Company/imageEmpty.png';
+        this.modalService.dismissAll();
       },
       (error) => {
         console.error(error);
@@ -96,4 +94,5 @@ export class AddCompanyComponent implements OnInit{
   public close() {
     this.activeModal.close();
   }
+  
 }
