@@ -63,7 +63,7 @@ th, td {
   border-radius: 5px 0 0 5px;
   padding: 4.5px;
   background-color: var(--light);
-  width: 90%;
+  /* width: 90%; */
 }
 
 .form-inline input {

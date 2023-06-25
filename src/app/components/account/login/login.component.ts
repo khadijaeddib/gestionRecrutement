@@ -10,16 +10,15 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   type: string = "password";
   isText: boolean = false;
   eyeIcon: string = "bi-eye-slash-fill";
 
   userLogin: Login = new Login();
   @ViewChild('loginForm') loginForm!: NgForm;
+
   errorMessage: string = '';
   successMessage: string = '';
-
 
   constructor(private AuthService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
@@ -51,7 +50,14 @@ export class LoginComponent implements OnInit {
 
     this.AuthService.login(formData).subscribe(
     (response) => {
+      // Store the JWT token in local storage
+      localStorage.setItem('jwtToken', response.token);
+
       this.userLogin = response.user; 
+
+      const userLogged = response.user;
+      const userLoggedString = JSON.stringify(userLogged);
+      sessionStorage.setItem('userLogged', userLoggedString);
 
       const userEmail = this.userLogin.email;
       sessionStorage.setItem('userEmail', userEmail);
@@ -75,12 +81,10 @@ export class LoginComponent implements OnInit {
       } else {
         this.errorMessage = 'Veuillez remplir correctement tous les champs obligatoires';
         this.successMessage = '';
-        
       }
     }
     );
   }
-
 
   rememberMe(){
   }

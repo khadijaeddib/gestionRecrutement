@@ -1,1 +1,136 @@
-<p>recruiter-offers works!</p>
+
+<div class="container">
+  <div class="head-title">
+    <div class="form-inline sort">
+      <select id="offerSortOrder" name="offerSortOrder" class="input-categorie sort" [(ngModel)]="offerSortOrder" (change)="sortOffersByDate(offerSortOrder)">
+        <option selected="selected" value="none">Trier par <i class="bi bi-caret-down-fill"></i></option>
+        <option value="asc">Plus récent</option>
+        <option value="desc">Plus ancien</option>
+      </select>      
+    </div>
+    <form class="form-inline">
+      <select id="offerCategorie" name="offerCategorie" class="input-categorie" [(ngModel)]="offerSearchCategory">
+        <option selected="selected" value="0">Chercher par <i class="bi bi-caret-down-fill"></i></option>
+        <option value="expYears">Nombre d'expérience</option>
+        <option value="title">Titre</option>
+        <option value="contractType">Type de contrat</option>
+        <option value="endDate">Dernier delai</option>
+        <option value="diploma">Diplôme</option>
+        <option value="all">Tous les offres</option>
+      </select>
+      <input id="offerKeySearch" name="offerKeySearch" type="text" class="form-control" placeholder="Saisie de mots clés" required [(ngModel)]="offerSearchKeyword" (keyup.enter)="offerOnSearch()">
+      <button type="button" class="search-btn" (click)="offerOnSearch()"><i class='bx bx-search'></i></button>
+    </form>
+    <div class="head-btn-add">
+      <button href="#" class="btn-download">
+        <i class="bi bi-bag-plus-fill"></i>
+        <span class="text" (click)="addOfferModal()">Ajouter offre</span>
+      </button>
+    </div>
+  </div>
+    <div class="row">
+      <ng-container *ngIf="filteredOffers && filteredOffers.length > 0">
+        <div class="col-md-6 mt-4" *ngFor="let offer of filteredOffers">
+            <div class="card-offer ">
+                <div class="card-block">
+                    <h4 class="title mt-3">{{offer.title}}</h4>
+                    <div class="meta">
+                        <p>{{offer.diploma}}</p>
+                    </div>
+                    <div class="card-text">
+                        <div>
+                            <h5 class="card-title"> Niveau d'étude: </h5>
+                            <p>{{offer.studyDegree}}</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title"> Expérience professionnelle: </h5>
+                            <p>{{offer.expYears}}</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title"> Langues: </h5>
+                            <p>{{offer.languages }}</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title"> Type de contrat: </h5>
+                            <p>{{offer.contractType}}</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title"> Ville: </h5>
+                            <p>{{offer.city}}</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title"> Disponibilité: </h5>
+                            <p>{{offer.availability}}</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title"> Nombre à recruté: </h5>
+                            <p>{{offer.hiredNum}}</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title"> Salaire: </h5>
+                            <p>{{offer.salary}} DH</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title"> Dernier delai: </h5>
+                            <p>{{offer.endDate}}</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title">Entreprise:</h5>
+                            <p>{{ offer?.recruiter?.company?.name }}</p>
+                        </div>
+                        <div>
+                            <h5 class="card-title"> Recruteur: </h5>
+                            <p>{{offer.recruiter.fName}} {{offer.recruiter.lName}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer tab-card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="desc-tab-{{offer.idOffer}}" data-bs-toggle="tab" attr.data-bs-target="#desc-tab-pane-{{offer.idOffer}}" role="tab" aria-controls="desc-tab-pane" aria-selected="true">Description</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="mission-tab-{{offer.idOffer}}" data-bs-toggle="tab" attr.data-bs-target="#mission-tab-pane-{{offer.idOffer}}" role="tab" aria-controls="mission-tab-pane" aria-selected="false">Mission</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="compt-tab-{{offer.idOffer}}" data-bs-toggle="tab" attr.data-bs-target="#compt-tab-pane-{{offer.idOffer}}" role="tab" aria-controls="compt-tab-pane" aria-selected="false">Compétences</button>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active p-3" id="desc-tab-pane-{{offer.idOffer}}" role="tabpanel" aria-labelledby="desc-tab" tabindex="0">
+                      <p class="card-text">{{ offer.description }}</p>
+                    </div>
+                    <div class="tab-pane fade p-3" id="mission-tab-pane-{{offer.idOffer}}" role="tabpanel" aria-labelledby="mission-tab" tabindex="0">
+                      <div class="card-text">
+                        <ul>
+                          <li *ngFor="let mission of offer.missions">{{ mission }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade p-3" id="compt-tab-pane-{{offer.idOffer}}" role="tabpanel" aria-labelledby="compt-tab" tabindex="0">
+                      <div class="card-text">
+                        <ul *ngFor="let skill of offer.skills">
+                          <li>{{ skill }}</li>
+                        </ul>
+                      </div>
+                    </div>             
+                    <div class="card-footer-date">
+                        <div class="row user-social-link">
+                            <div class="col-auto"><button (click)="editOfferModal(offer.idOffer)"><i class="bi bi-pencil-fill btn-action"></i></button></div>
+                            <div class="col-auto"><button (click)="deleteOffer(offer.idOffer)"><i class="bi bi-trash-fill btn-action"></i></button></div>
+                        </div>
+                        <small>Posté le {{offer.pubDate}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </ng-container>
+      <div *ngIf="filteredOffers.length === 0">
+        <h6 class="text-center mt-4">Aucune offre trouvée</h6>
+      </div>
+    </div>
+  </div>
+  
+  

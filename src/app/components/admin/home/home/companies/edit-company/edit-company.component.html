@@ -20,7 +20,7 @@
                     <h6 class="card-header">Logo d'entreprise</h6>
                     <div class="card-body text-center">
                         <!-- Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2" [src]="prevImageSrc" width="150px" height="150px" alt="logo" id="prevImage">
+                        <img class="img-account-profile rounded-circle mb-2" [src]="prevImageSrc" width="170px" height="170px" alt="logo" id="prevImage">
                         <!-- Profile picture help block-->
                         <div class="small font-italic text-muted mb-4">Format PNG </div>
                         <!-- Profile picture upload button-->
@@ -139,7 +139,19 @@
                             </div>
                             <div class="col-md-6">
                                 <label class=" mb-1" for="legalStatus"><h6>Statut juridique</h6></label>
-                                <input class="form-control" id="legalStatus" type="text" placeholder="Entrez le statut juridique" name="legalStatus" [(ngModel)]="company.legalStatus" #legalStatus="ngModel" required>
+                                <!-- <input class="form-control" id="legalStatus" type="text" placeholder="Entrez le statut juridique" name="legalStatus" [(ngModel)]="company.legalStatus" #legalStatus="ngModel" required> -->
+                                <select class="form-control" name="legalStatus" id="legalStatus" [(ngModel)]="company.legalStatus" #legalStatus="ngModel" required>
+                                    <option [ngValue]="" disabled selected >{{ company.legalStatus}}</option>
+                                    <option [ngValue]="'Entreprise individuelle'">Entreprise individuelle</option>
+                                    <option [ngValue]="'Société Anonyme (SA)'">Société Anonyme (SA)</option>
+                                    <option [ngValue]="'Société à Responsabilité Limitée (SARL)'">Société à Responsabilité Limitée (SARL)</option>
+                                    <option [ngValue]="'Société Anonyme Simplifiée (SAS)'">Société Anonyme Simplifiée (SAS)</option>
+                                    <option [ngValue]="'Société en Commandite Simple (SCS)'">Société en Commandite Simple (SCS)</option>
+                                    <option [ngValue]="'Société en Commandite par Actions (SCA)'">Société en Commandite par Actions (SCA)</option>
+                                    <option [ngValue]="'Société en Participation'">Société en Participation</option>
+                                    <option [ngValue]="'Société en nom collectif (SNC)'">Société en nom collectif (SNC)</option>
+                                    <option [ngValue]="'Groupement d\'intérêt économique (GIE)'">Groupement d'intérêt économique (GIE)</option>
+                                </select>
                                 <div *ngIf="legalStatus.invalid && (legalStatus.dirty || legalStatus.touched)" class="text-danger">
                                     <small *ngIf="legalStatus.errors?.['required']">
                                         * Statut juridique est nécessaire

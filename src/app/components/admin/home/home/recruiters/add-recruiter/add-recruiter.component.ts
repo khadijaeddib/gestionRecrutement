@@ -18,7 +18,7 @@ export class AddRecruiterComponent implements OnInit {
   recruiter: Recruiter = new Recruiter();
   recruiters: Recruiter[] = [];
 
-  recImage!: File;
+  recImage!: File; 
 
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
 

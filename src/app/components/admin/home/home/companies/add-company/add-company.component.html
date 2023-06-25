@@ -20,7 +20,7 @@
                     <h6 class="card-header">Logo d'entreprise</h6>
                     <div class="card-body text-center">
                         <!-- Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2" [src]="prevImageSrc" width="150px" height="150px" alt="logo" id="prevImage">
+                        <img class="img-account-profile rounded-circle mb-2" [src]="prevImageSrc" width="170px" height="170px" alt="logo" id="prevImage">
                         <!-- Profile picture help block-->
                         <div class="small font-italic text-muted mb-4">Format PNG </div>
                         <!-- Profile picture upload button-->
@@ -42,7 +42,7 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="mb-1 " for="name"><h6>Nom d'entreprise</h6></label>
-                            <input class="form-control text-secondary" id="name" type="text" placeholder="Entrez le nom d'entreprise" name="name" [(ngModel)]="company.name" #name="ngModel" required>
+                            <input class="form-control text-secondary" id="name" type="text" placeholder="Entrez le nom d'entreprise *" name="name" [(ngModel)]="company.name" #name="ngModel" required>
                             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
                                 <small *ngIf="name.errors?.['required']">
                                     * Le nom d'entreprise est nécessaire
@@ -53,7 +53,7 @@
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label class=" mb-1" for="website"><h6>Site WEB</h6></label>
-                                <input class="form-control" id="website" type="text" placeholder="Entrez le site web d'entreprise" name="website" [(ngModel)]="company.website" #website="ngModel" required>
+                                <input class="form-control" id="website" type="text" placeholder="Entrez le site web d'entreprise *" name="website" [(ngModel)]="company.website" #website="ngModel" required>
                                 <div *ngIf="website.invalid && (website.dirty || website.touched)" class="text-danger">
                                     <small *ngIf="website.errors?.['required']">
                                         * Site Web est nécessaire
@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class=" mb-1" for="businessSector"><h6>Secteur d'activité</h6></label>
-                                <input class="form-control" id="businessSector" type="text" placeholder="Entrez le secteur d'activité d'entreprise" name="businessSector" [(ngModel)]="company.businessSector" #businessSector="ngModel" required>
+                                <input class="form-control" id="businessSector" type="text" placeholder="Entrez le secteur d'activité d'entreprise *" name="businessSector" [(ngModel)]="company.businessSector" #businessSector="ngModel" required>
                                 <div *ngIf="businessSector.invalid && (businessSector.dirty || businessSector.touched)" class="text-danger">
                                     <small *ngIf="businessSector.errors?.['required']">
                                         * Le secteur d'activité est nécessaire
@@ -73,7 +73,7 @@
                         <!-- Form Group-->
                         <div class="mb-3">
                             <label class=" mb-1" for="description"><h6>Description</h6></label>
-                            <textarea class="form-control" id="description" type="text" placeholder="Entrez la description d'entreprise" rows="3"name="description" [(ngModel)]="company.description" #description="ngModel" required></textarea>
+                            <textarea class="form-control" id="description" type="text" placeholder="Entrez la description d'entreprise *" rows="3"name="description" [(ngModel)]="company.description" #description="ngModel" required></textarea>
                             <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
                                 <small *ngIf="description.errors?.['required']">
                                     * Description est nécessaire
@@ -84,7 +84,7 @@
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label class=" mb-1" for="phone"><h6>Numéro de téléphone</h6></label>
-                                <input class="form-control" id="phone" type="tel" placeholder="Entrez le numéro de téléphone" name="phone" [(ngModel)]="company.phone" #phone="ngModel" required [pattern]="phonePattern">
+                                <input class="form-control" id="phone" type="tel" placeholder="Entrez le numéro de téléphone *" name="phone" [(ngModel)]="company.phone" #phone="ngModel" required [pattern]="phonePattern">
                                 <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger">
                                     <small *ngIf="phone.errors?.['required']">
                                         * Numéro de téléphone est nécessaire
@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class=" mb-1" for="email"><h6>Email</h6></label>
-                                <input class="form-control" id="email" type="email" placeholder="Entrez l'email" name="email" [(ngModel)]="company.email" #email="ngModel" email="true" required>
+                                <input class="form-control" id="email" type="email" placeholder="Entrez l'email *" name="email" [(ngModel)]="company.email" #email="ngModel" email="true" required>
                                 <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
                                     <small *ngIf="email.errors?.['required']">
                                         * Email est nécessaire
@@ -110,7 +110,7 @@
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label class=" mb-1" for="rc"><h6>RC</h6></label>
-                                <input class="form-control" id="rc" type="text" placeholder="Entrez le RC" name="rc" [(ngModel)]="company.rc" #rc="ngModel" required>
+                                <input class="form-control" id="rc" type="text" placeholder="Entrez le RC *" name="rc" [(ngModel)]="company.rc" #rc="ngModel" required>
                                 <div *ngIf="rc.invalid && (rc.dirty || rc.touched)" class="text-danger">
                                     <small *ngIf="rc.errors?.['required']">
                                         * RC est nécessaire
@@ -119,7 +119,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class=" mb-1" for="idF"><h6>IF</h6></label>
-                                <input class="form-control" id="idF" type="text" placeholder="Entrez l'IF" name="idF" [(ngModel)]="company.idF" #idF="ngModel" required>
+                                <input class="form-control" id="idF" type="text" placeholder="Entrez l'IF *" name="idF" [(ngModel)]="company.idF" #idF="ngModel" required>
                                 <div *ngIf="idF.invalid && (idF.dirty || idF.touched)" class="text-danger">
                                     <small *ngIf="idF.errors?.['required']">
                                         * IF est nécessaire
@@ -139,7 +139,19 @@
                             </div>
                             <div class="col-md-6">
                                 <label class=" mb-1" for="legalStatus"><h6>Statut juridique</h6></label>
-                                <input class="form-control" id="legalStatus" type="text" placeholder="Entrez le statut juridique" name="legalStatus" [(ngModel)]="company.legalStatus" #legalStatus="ngModel" required>
+                                <!-- <input class="form-control" id="legalStatus" type="text" placeholder="Entrez le statut juridique *" name="legalStatus" [(ngModel)]="company.legalStatus" #legalStatus="ngModel" required> -->
+                                <select class="form-control" name="legalStatus" id="legalStatus" [(ngModel)]="company.legalStatus" #legalStatus="ngModel" required>
+                                    <option Value="" disabled selected >{{ company.legalStatus ? company.legalStatus : 'Sélectionnez statut juridique *' }}</option>
+                                    <option [ngValue]="'Entreprise individuelle'">Entreprise individuelle</option>
+                                    <option [ngValue]="'Société Anonyme (SA)'">Société Anonyme (SA)</option>
+                                    <option [ngValue]="'Société à Responsabilité Limitée (SARL)'">Société à Responsabilité Limitée (SARL)</option>
+                                    <option [ngValue]="'Société Anonyme Simplifiée (SAS)'">Société Anonyme Simplifiée (SAS)</option>
+                                    <option [ngValue]="'Société en Commandite Simple (SCS)'">Société en Commandite Simple (SCS)</option>
+                                    <option [ngValue]="'Société en Commandite par Actions (SCA)'">Société en Commandite par Actions (SCA)</option>
+                                    <option [ngValue]="'Société en Participation'">Société en Participation</option>
+                                    <option [ngValue]="'Société en nom collectif (SNC)'">Société en nom collectif (SNC)</option>
+                                    <option [ngValue]="'Groupement d\'intérêt économique (GIE)'">Groupement d'intérêt économique (GIE)</option>
+                                </select>
                                 <div *ngIf="legalStatus.invalid && (legalStatus.dirty || legalStatus.touched)" class="text-danger">
                                     <small *ngIf="legalStatus.errors?.['required']">
                                         * Statut juridique est nécessaire
@@ -149,7 +161,7 @@
                         </div>
                         <div class="mb-3">
                             <label class=" mb-1" for="address"><h6>L'adresse d'entreprise</h6></label>
-                            <input class="form-control" id="address" type="text" placeholder="Entrez l'adresse d'entreprise" name="address" [(ngModel)]="company.address" #address="ngModel" required>
+                            <input class="form-control" id="address" type="text" placeholder="Entrez l'adresse d'entreprise *" name="address" [(ngModel)]="company.address" #address="ngModel" required>
                             <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
                                 <small *ngIf="address.errors?.['required']">
                                     * L'adresse est nécessaire

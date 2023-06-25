@@ -1,0 +1,35 @@
+.skill-container {
+    word-wrap: break-word!important;
+    max-width: 90%!important;
+}
+.ng-select .ng-option {
+    background-color: #ffffff!important;
+    color: #000000!important;
+    padding-left: 15px!important;
+    width: 97% !important;
+
+}
+.ng-select .ng-option.ng-option-selected {
+    background-color: #007bff!important;
+    color: #ffffff!important;
+}
+.ng-select .ng-dropdown-panel {
+    margin-top: 7px;
+}
+.button-container {
+    display: flex;
+    gap: 10px;
+}
+  
+.button-container button {
+    color: white;
+}
+
+.sort .input-categorie {
+    border: 1px solid var(--blue)!important;
+    border-radius: 150px!important;
+}
+
+.row .text-secondary {
+    text-align: justify!important;
+}

@@ -1,0 +1,73 @@
+
+<div class="container-xl mt-4" [ngClass]="{'successMessage': formSubmitted}">
+    <form #applyForm="ngForm" (ngSubmit)="applyJob()" *ngIf="!formSubmitted">
+        <div class="div-btn-close">
+          <button class="btn-close" data-dismiss="modal" (click)="close()"></button>
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+            <i class="bi-exclamation-triangle-fill"></i>
+            <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <div class="text-center">
+            <img src="/../../assets/images/joinUs.png" class="img-fluid rounded" style="height: 5%;"  alt="join us">
+        </div>
+        <h2 class="mt-3">Demande d'emploi</h2>
+        <div class="mt-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                            <label class=" mb-1" for="lName"><h6>Nom</h6></label>
+                            <input class="form-control" id="lName" type="text" placeholder="Nom *" name="lName" [(ngModel)]="candidate.lName" #lName="ngModel" readonly/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class=" mb-1" for="fName"><h6>Prénom</h6></label>
+                            <input class="form-control" id="fName" type="text" placeholder="Prénom *" name="fName" [(ngModel)]="candidate.fName" #fName="ngModel" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="mb-1 " for="email"><h6>Email </h6></label>
+                        <input class="form-control" id="email" type="email" placeholder="Email *" name="email" [(ngModel)]="candidate.email" #email="ngModel" email="true" readonly>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                            <label class=" mb-1" for="age"><h6>Age</h6></label>
+                            <input class="form-control" id="age" type="text" placeholder="Age (Ex: 20) *" name="age" [(ngModel)]="candidate.age" #age="ngModel" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class=" mb-1" for="phone"><h6>Numéro de téléphone</h6></label>
+                            <input class="form-control" id="phone" type="tel" placeholder="Numéro de téléphone *" name="phone" [(ngModel)]="candidate.phone" #phone="ngModel" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class=" mb-1" for="motivation"><h6>Votre motivation pour ce poste *</h6></label>
+                        <textarea class="form-control" id="motivation" type="text" placeholder="Motivation *" rows="4" name="motivation" [(ngModel)]="candidature.motivation" #motivation="ngModel" required></textarea>
+                        <div *ngIf="motivation.invalid && (motivation.dirty || motivation.touched)" class="text-danger">
+                            <small *ngIf="motivation.errors?.['required']">
+                                * Motivation est nécessaire
+                            </small>
+                        </div>
+                    </div>
+                    <input type="hidden" name="idCand" [ngModel]="candidate.idCand" #idCand="ngModel">
+                    <input type="hidden" name="idOffer" [ngModel]="offer.idOffer" #idOffer="ngModel">
+                    <input type="hidden" name="dateCand" [ngModel]="currentDateTime" #dateCand="ngModel">
+                    <input type="hidden" name="status" [ngModel]="candidature.status" #status="ngModel">
+                    <div class="row gx-3 mb-3">
+                        <button class="btn-download col-md-2 mx-auto" data-mdb-ripple-color="dark" type="submit"><i class="bi bi-send-plus-fill"></i>Postuler</button>
+                        <button type="button" class="btn-download col-md-2 mx-auto" (click)="close()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Success message -->
+  <div *ngIf="formSubmitted" class="text-center message">
+    <h3 class="text-success">{{ successMessage1 }}</h3>
+    <p>{{ successMessage2 }}</p>
+    <p>{{ successMessage3 }}</p>
+    <button class="btn-download col-md-2 mx-auto" (click)="close()">Fermer</button>
+  </div>
+</div>
+  
+  

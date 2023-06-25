@@ -1,0 +1,17 @@
+.offer.card-footer-date {
+    padding: 0.3em 0.7em!important;
+}
+
+.img-fluid {
+    height: 20em!important;
+}
+
+.successMessage{
+    height: 500px!important;
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
+}
+.text-center.message p{
+    font-family: var(--poppins)!important;
+}

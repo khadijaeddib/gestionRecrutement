@@ -1,10 +1,11 @@
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShowRecruiterComponent } from './show-recruiter/show-recruiter.component';
 import { Recruiter } from 'src/app/models/Recruiter';
 import { RecruiterServiceService } from 'src/app/services/recruiter-service.service';
 import { NavigationStart, Router } from '@angular/router';
 import { AddRecruiterComponent } from './add-recruiter/add-recruiter.component';
+import { EditRecruiterComponent } from './edit-recruiter/edit-recruiter.component';
 
 @Component({
   selector: 'app-recruiters',
@@ -14,6 +15,8 @@ import { AddRecruiterComponent } from './add-recruiter/add-recruiter.component';
 export class RecruitersComponent implements OnInit {
   recruiters!: Recruiter[];
   modalRef: NgbModalRef | undefined; // Modal reference variable
+  response: any;
+  @Input() recruiter: Recruiter | undefined;
 
   constructor(private modalService: NgbModal, private router: Router, private recruiterService: RecruiterServiceService) {
     this.router.events.subscribe((event) => {
@@ -81,6 +84,29 @@ export class RecruitersComponent implements OnInit {
         }
       );
     });
+  }
+
+  editRecruiter(id: number): void {
+    this.recruiterService.getRecruiter(id).subscribe(
+      (recruiter) => {
+        this.modalRef = this.modalService.open(EditRecruiterComponent);
+        this.modalRef.componentInstance.recruiter = recruiter;
+        this.modalRef.componentInstance.recruiterUpdated.subscribe((updatedRecruiter: Recruiter) => {
+          // Update the company list after successful update
+          this.recruiterService.getRecruiters().subscribe(
+            (recruiters) => {
+              this.recruiters = recruiters;
+            },
+            (error) => {
+              console.error(error);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   closeModal() {

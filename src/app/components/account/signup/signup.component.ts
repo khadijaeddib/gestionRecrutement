@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { CountryISO, NgxIntlTelInputComponent, SearchCountryField } from 'ngx-intl-tel-input-gg';
 import { Router } from '@angular/router';
 import { Candidate } from 'src/app/models/Candidate';
 import { AuthService } from 'src/app/services/AuthService.service';
@@ -23,8 +24,10 @@ export class SignupComponent implements OnInit {
   passwordMismatchError: boolean = false;
   confirmPassTouched = false;
 
-
   candidate: Candidate = new Candidate();
+  
+  phoneNumber!: string ;
+  @ViewChild(NgxIntlTelInputComponent, { static: false }) phoneInput!: NgxIntlTelInputComponent;
 
   candImage!: File;
   lmFile!: File;
@@ -33,11 +36,15 @@ export class SignupComponent implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
+  
   candImageExtensionValid = true;
   LMExtensionValid = true;
   CVExtensionValid = true;
   @ViewChild('signUpForm') signUpForm!: NgForm;
 
+  public CountryISO = CountryISO;
+  public SearchCountryField = SearchCountryField;
+  
   constructor(private AuthService: AuthService, private router: Router) { 
   }
 
@@ -62,7 +69,15 @@ export class SignupComponent implements OnInit {
     this.confirmPassTouched = true;
   }
   
-
+  onPhoneChange(): void {
+    // Get the phone number value as a string
+    const phoneNumber = this.phoneInput.value;
+    // Update the candidate.phone property if the phoneNumber is defined
+    if (phoneNumber) {
+      this.candidate.phone = phoneNumber;
+    }
+  }
+  
   onImageSelected(event: any) {
     const file: File = event.target.files[0];
     const allowedExtensions = ['.png', '.jpg', '.jpeg'];
@@ -141,7 +156,6 @@ export class SignupComponent implements OnInit {
     formData.append('pass', this.candidate.pass);
     formData.append('confirmPass', this.candidate.confirmPass);
 
-
     this.AuthService.signup(formData).subscribe(
       (response) => {
         const successMessage = 'Inscription réussie ! Veuillez vous connecter avec vos identifiants';
@@ -155,8 +169,4 @@ export class SignupComponent implements OnInit {
       }
     );
   }
-
-
-  
-  
 }

@@ -79,16 +79,35 @@
                             </div>
                             <div class="form-group-tel">
                               <label for="phone"><i class="zmdi zmdi-phone-sip"></i></label>
-                              <input type="text" name="phone" id="phone" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'ma'}" [(ngModel)]="candidate.phone" #phone="ngModel" [pattern]="phonePattern" required/>
+                              <ngx-intl-tel-input
+                                [cssClass]="'custom'"
+                                [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                                [selectFirstCountry]="false"
+                                [enablePlaceholder]="true"
+                                [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                [selectedCountryISO]="CountryISO.Morocco"
+                                id="phone"
+                                name="phone"
+                                [(ngModel)]="phoneNumber"
+                                (ngModelChange)="onPhoneChange()"
+                                #phone="ngModel"
+                                [phoneValidation]="true"
+                                [maxLength]="10"
+                                required
+                              ></ngx-intl-tel-input>
                             </div>
-                            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger">
+                            <div *ngIf="phone.invalid && phone.touched" class="text-danger">
                               <small *ngIf="phone.errors?.['required']">
-                                  * Numéro de téléphone est nécessaire
+                                * Numéro de téléphone est nécessaire
                               </small>
-                              <small *ngIf="phone.errors?.['pattern']">
-                                  * Numéro de téléphone invalide
-                                </small>
-                            </div>
+                              <small *ngIf="phone.errors?.['validatePhoneNumber']">
+                                * Numéro de téléphone invalide
+                              </small>
+                              <small *ngIf="phone.errors?.['minLengthError']">
+                                * Le numéro de téléphone doit avoir au moins 10 caractères
+                              </small>
+                            </div>                                                      
                             <div class="form-group">
                               <label for="address" class="bi bi-geo-alt-fill"></label>
                               <input type="text" name="address" id="address" placeholder="Votre adresse *" [(ngModel)]="candidate.address" #address="ngModel" required/>

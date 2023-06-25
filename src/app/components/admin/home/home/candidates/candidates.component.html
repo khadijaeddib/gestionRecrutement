@@ -9,6 +9,7 @@
       <option [value]="40" [selected]="pageSize === 40">40</option>
       <option [value]="50" [selected]="pageSize === 50">50</option>
       <option [value]="100" [selected]="pageSize === 100">100</option>
+      <option [value]="1000000000" [selected]="pageSize === 1000000000">All</option>
     </select>
   </div>
   <form class="form-inline">
@@ -18,6 +19,7 @@
       <option value="diploma">Diplôme</option>
       <option value="spec">Spécialité</option>
       <option value="all">Tous les candidats</option>
+      
     </select>
     <input id="keySearch" name="keySearch" type="text" class="form-control" placeholder="Saisie de mots clés" required [(ngModel)]="searchKeyword" (keyup.enter)="onSearch()">
     <button type="button" class="search-btn" (click)="onSearch()"><i class='bx bx-search'></i></button>

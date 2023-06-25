@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { ShowCandidateComponent } from './show-candidate/show-candidate.component';
@@ -14,7 +14,11 @@ import { AddCandidateComponent } from './add-candidate/add-candidate.component';
   styleUrls: ['./candidates.component.css']
 })
 export class CandidatesComponent implements OnInit {
-  candidates: Candidate[] = [];
+  candidates!: Candidate[];
+  response: any;
+  @Input() candidate: Candidate | undefined;
+
+  // candidates: Candidate[] = [];
   modalRef: NgbModalRef | undefined; // Modal reference variable
   pageSize: number = 5; // Initial page size
 
@@ -58,6 +62,7 @@ export class CandidatesComponent implements OnInit {
       this.searchKeyword = ''; // Reset the search keyword
       return;
     }
+
     // Perform the filtering based on the selected category and keyword
     this.filteredCandidates = this.candidates.filter(candidate => {
       if (this.searchCategory === 'expYears') {
@@ -81,7 +86,6 @@ export class CandidatesComponent implements OnInit {
       this.getCandidates();
     }
   }
-  
 
   public createImgPath = (serverPath: string) => { 
     return `https://localhost:7217/Content/Candidate/Images/${serverPath}`; 
@@ -122,6 +126,7 @@ export class CandidatesComponent implements OnInit {
           this.candidateService.getCandidates(this.pageSize).subscribe(
             (candidates) => {
               this.candidates = candidates;
+              this.filteredCandidates = this.candidates;
             },
             (error) => {
               console.error(error);
@@ -142,6 +147,7 @@ export class CandidatesComponent implements OnInit {
       this.candidateService.getCandidates(this.pageSize).subscribe(
         (candidates) => {
           this.candidates = candidates;
+          this.filteredCandidates = this.candidates;
         },
         (error) => {
           console.error(error);
@@ -155,5 +161,4 @@ export class CandidatesComponent implements OnInit {
       this.modalRef.close();
     }
   }
-
 }

@@ -36,12 +36,13 @@
           <hr>
           <div class="row">
             <div class="col-6 col-sm-6 text-muted m-t-15">RC: {{ company.rc }}</div>
-            <div class="col-6 col-sm-4 text-muted m-t-15">IF: {{ company.idF }}</div>
+            <div class="col-sm-4 text-muted m-t-15">IF: {{ company.idF }}</div>
           </div>
           <div class="row">
-            <div class="col-6 col-sm-6 text-muted m-t-15">ICE: {{ company.ice }}</div>
-            <div class="col-6 col-sm-4 text-muted m-t-15">Statut: {{ company.legalStatus }}</div>
+            <div class="text-muted m-t-15">ICE: {{ company.ice }}</div>
           </div>
+          <hr>
+          <div class="text-muted m-t-15 text-center">{{ company.legalStatus }}</div>
           <hr>
           <div class="row justify-content-center user-social-link">
             <div class="col-auto"><button (click)="editCompanyModal(company.idCo)"><i class="bi bi-pencil-fill btn-action"></i></button></div>

@@ -31,4 +31,8 @@ export class CandidateServiceService {
     return this.http.get<any>(`${this.baseUrl}getCandidates`, { params });
   }
   
+  getRecruiterCandidates(id: number, pageSize: number): Observable<any> {
+    const params = new HttpParams().set('pageSize', String(pageSize));
+    return this.http.get<any>(`${this.baseUrl}getRecruiterCandidates/${id}`, { params });
+  }
 }

@@ -46,7 +46,7 @@
                     <hr>
                     <div class="row justify-content-center user-social-link">
                         <div class="col-auto"><button (click)="showRecruiter(recruiter.idRec)"><i class="bi bi-eye-fill btn-action"></i></button></div>
-                        <!-- <div class="col-auto"><button><i class="bi bi-pencil-fill btn-action"></i></button></div> -->
+                        <div class="col-auto"><button><i class="bi bi-pencil-fill btn-action" (click)="editRecruiter(recruiter.idRec)"></i></button></div>
                         <div class="col-auto"><button><i class="bi bi-trash-fill btn-action" (click)="deleteRecruiter(recruiter.idRec)"></i></button></div>
                     </div>
                 </div>

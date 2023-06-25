@@ -1,0 +1,80 @@
+<div class="head-title">
+    <div class="show-line">
+      <p>Afficher par page :</p>
+      <select id="form-select-coins" (change)="onPageSizeChange($event)">
+        <option [value]="5" [selected]="pageSize === 5">5</option>
+        <option [value]="10" [selected]="pageSize === 10">10</option>
+        <option [value]="20" [selected]="pageSize === 20">20</option>
+        <option [value]="30" [selected]="pageSize === 30">30</option>
+        <option [value]="40" [selected]="pageSize === 40">40</option>
+        <option [value]="50" [selected]="pageSize === 50">50</option>
+        <option [value]="100" [selected]="pageSize === 100">100</option>
+        <option [value]="1000000000" [selected]="pageSize === 1000000000">All</option>
+      </select>
+    </div>
+    <form class="form-inline">
+          <select id="Categorie" name="Categorie" class="input-categorie" [(ngModel)]="searchCategory">
+            <option selected="selected" value="0">Chercher par <i class="bi bi-caret-down-fill"></i></option>
+            <option value="title">Titre d'offre d'emploi</option>
+            <option value="status">Statut</option>
+            <option value="dateCand">Date candidature</option>
+            <option value="all">Tous</option>
+          </select>
+        <input id="keySearch" name="keySearch" type="text" class="form-control" placeholder="Saisie de mots clés" required [(ngModel)]="searchKeyword" (keyup.enter)="onSearch()">
+        <button type="button" class="search-btn" (click)="onSearch()"><i class='bx bx-search' ></i></button>
+    </form>
+    <div class="form-inline sort">
+      <select id="candidatureSort" name="candidatureSort" class="input-categorie sort" [(ngModel)]="candidatureSort" (change)="sortCandidaturesByDate(candidatureSort)">
+        <option selected="selected" value="none">Trier par <i class="bi bi-caret-down-fill"></i></option>
+        <option value="asc">Plus récent</option>
+        <option value="desc">Plus ancien</option>
+      </select>      
+    </div>
+  </div>
+  <div class="table-data">
+    <div class="order">
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Candidat</th>
+            <th>Titre d'offre</th>
+            <!-- <th>Actions</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="filteredCandidatures && filteredCandidatures.length > 0">
+          <tr *ngFor="let candidature of filteredCandidatures.slice(0, pageSize)">
+            <td>{{candidature.idCandidature}}</td>
+            <td><span class="status" [ngClass]="classColors[candidature.status]">{{candidature.status}}</span></td>
+            <td> {{candidature.dateCand}}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <img [src]="createImgPath(candidature.candidate.candImagePath)" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{candidature.candidate.fName}} {{candidature.candidate.lName}}</p>
+                  <p class="text-muted mb-0">{{candidature.candidate.email}}</p>
+                </div>
+              </div>
+            </td>
+            <td> {{candidature.offer.title}} </td>
+            <!-- <td>
+              <button type="button" class="btn btn-link btn-sm btn-rounded">
+                <i class="bi bi-eye-fill"></i>
+              </button>
+            </td> -->
+          </tr>
+        </ng-container>
+        </tbody>
+        <tfoot *ngIf="filteredCandidatures.length === 0">
+          <tr>
+          <td colspan="8" class="text-center">Aucune candidature trouvée</td>
+          </tr>
+         </tfoot>
+      </table>
+    </div>
+  </div>
+  
+  

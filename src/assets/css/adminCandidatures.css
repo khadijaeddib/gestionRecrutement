@@ -8,22 +8,19 @@
   font-weight: 700;
 }
 
-.received {
+.reçu {
   background: var(--yellow)!important;
 }
-.pending {
+.encours {
   background: var(--orange)!important;
 }
-.called {
+.convoqué {
   background: var(--blue)!important;
 }
-.hiring {
+.embauché {
   background: var(--green)!important;
 }
-.refusal  {
+.refusé  {
   background: var(--red)!important;
 }
-
-
-
 

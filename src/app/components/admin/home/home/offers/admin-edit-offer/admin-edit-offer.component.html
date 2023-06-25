@@ -1,0 +1,279 @@
+<div class="container-xl px-4 mt-4">
+    <form #editOfferForm="ngForm" (ngSubmit)="editOffer(offer.idOffer)">
+        <div class="row">
+            <div class="div-btn-close">
+                <button class="btn-close" data-dismiss="modal" (click)="close()"></button>
+            </div>
+            <div *ngIf="successMessage" class="alert alert-success alert-dismissible d-flex align-items-center fade show">
+                <i class="bi-check-circle-fill"></i>
+                <strong class="mx-2">Succès!</strong> {{ successMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                <i class="bi-exclamation-triangle-fill"></i>
+                <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div class="col-xl-4">
+                <!-- Display the list of skills -->
+                <span class="mb-1" for="addedSkills" *ngIf="skills.length > 0"><h6>Compétences:</h6></span>
+                <ul class="list-group" id="addedSkills">
+                    <li class="list-group-item" *ngFor="let skill of skills; let i = index">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="flex-grow-1">
+                                <div class="skill-container">
+                                    {{ skill }}
+                                </div>
+                            </div>
+                            <div class="button-container">
+                                <button type="button" class="btn btn-sm btn-danger bi-trash-fill" (click)="removeSkill(i)"></button>
+                                <button type="button" class="btn btn-sm btn-warning bi-pencil-fill" (click)="editSkill(i)"></button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <input class="form-control mb-2 mt-2" id="newSkill" type="text" placeholder="Nouvelle compétence" [(ngModel)]="newSkill" [ngModelOptions]="{standalone: true}">
+                <div *ngIf="skillsErrorMessage" class="text-danger">
+                    <small>{{ skillsErrorMessage }}</small>
+                </div>
+                <button *ngIf="editingSkillIndex === null" type="button" class="btn-download mx-auto" (click)="addSkill()">Ajouter compétence</button>
+                <div class="button-container mb-4">
+                    <button *ngIf="editingSkillIndex !== null" type="button" class="btn-download mx-auto" (click)="saveSkill()">Enregistrer</button>
+                    <button *ngIf="editingSkillIndex !== null" type="button" class="btn-download mx-auto" (click)="cancelEditSkill()">Annuler</button>
+                </div>
+                
+                <!-- Display the list of missions -->
+                <span class="mb-1" for="addedMissions" *ngIf="skills.length > 0"><h6>Missions:</h6></span>
+                <ul class="list-group" id="addedMissions">
+                    <li class="list-group-item" *ngFor="let mission of missions; let i = index">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="flex-grow-1">
+                                <div class="skill-container">
+                                    {{ mission }}
+                                </div>
+                            </div>
+                            <div class="button-container">
+                                <button type="button" class="btn btn-sm btn-danger bi-trash-fill" (click)="removeMission(i)"></button>
+                                <button type="button" class="btn btn-sm btn-warning bi-pencil-fill" (click)="editMission(i)"></button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <input class="form-control mb-2 mt-2" id="newMission" type="text" placeholder="Nouvelle mission" [(ngModel)]="newMission" [ngModelOptions]="{standalone: true}">
+                <div *ngIf="missionsErrorMessage" class="text-danger">
+                    <small>{{ missionsErrorMessage }}</small>
+                </div>
+                <button *ngIf="editingMissionIndex === null" type="button" class="btn-download mx-auto" (click)="addMission()">Ajouter mission</button>
+                <div class="button-container">
+                    <button *ngIf="editingMissionIndex !== null" type="button" class="btn-download mx-auto" (click)="saveMission()">Enregistrer</button>
+                    <button *ngIf="editingMissionIndex !== null" type="button" class="btn-download mx-auto" (click)="cancelEditMission()">Annuler</button>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <!-- Account details card-->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class=" mb-1" for="title"><h6>Titre d'offre</h6></label>
+                            <input class="form-control" id="title" type="text" placeholder="Titre d'offre *" name="title" [(ngModel)]="offer.title" #title="ngModel" required/>
+                            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger">
+                                <small *ngIf="title.errors?.['required']">
+                                    * Titre d'offre est nécessaire
+                                </small>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="studyDegree"><h6>Niveau d'étude</h6></label>
+                                <select class="form-control" name="studyDegree" id="studyDegree" [(ngModel)]="offer.studyDegree" #studyDegree="ngModel" required>
+                                    <option Value="" disabled selected >{{ offer.studyDegree ? offer.studyDegree : 'Sélectionnez un niveau d\'étude *' }}</option>
+                                    <option [ngValue]="'Bac+2'">Bac+2</option>
+                                    <option [ngValue]="'Bac+3'">Bac+3</option>
+                                    <option [ngValue]="'Bac+4'">Bac+4</option>
+                                    <option [ngValue]="'Bac+5'">Bac+5</option>
+                                    <option [ngValue]="'Bac+7'">Bac+7</option>
+                                </select>
+                                <div *ngIf="studyDegree.invalid && (studyDegree.dirty || studyDegree.touched)" class="text-danger">
+                                    <small *ngIf="studyDegree.errors?.['required']">
+                                        * Niveau d'étude est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="diploma"><h6>Diplôme</h6></label>
+                                <select class="form-control" name="diploma" id="diploma" [(ngModel)]="offer.diploma" #diploma="ngModel"  required>
+                                    <option Value="" disabled selected>{{ offer.diploma ? offer.diploma : 'Sélectionnez le diplôme *' }}</option>
+                                    <option [ngValue]="'Bachelor'">Bachelor : Bachelor</option>
+                                    <option [ngValue]="'DEUG'">DEUG : Diplôme d'études universitaires générales</option>
+                                    <option [ngValue]="'DEUST'">DEUST : Diplôme d’Etudes Universitaires Scientifiques et Techniques</option>
+                                    <option [ngValue]="'DUT'">DUT : Diplôme universitaire de Technologie</option>
+                                    <option [ngValue]="'BTS'">BTS : Brevet de Technicien Supérieur</option>
+                                    <option [ngValue]="'DTS'">DTS : Diplôme de Technicien Spécialisé</option>
+                                    <option [ngValue]="'DT'">DT : Diplôme de Technicien</option>
+                                    <option [ngValue]="'LF'">LF : Licence Fondamentale</option>
+                                    <option [ngValue]="'LP'">LP : Licence Professionnelle</option>
+                                    <option [ngValue]="'LST'">LST : Licence Sciences et Techniques</option>
+                                    <option [ngValue]="'MS'">MS : Master Spécialisé</option>
+                                    <option [ngValue]="'MR'">MR : Master Recherche</option>
+                                    <option [ngValue]="'MST'">MST : Master Sciences et Techniques</option>
+                                    <option [ngValue]="'IE'">IE : Ingénieur d'Etat</option>
+                                    <option [ngValue]="'MBA'">MBA : Master of Business Administration</option>
+                                    <option [ngValue]="'Doctorat'">Doctorat : Doctorat</option>
+                                </select>
+                                <div *ngIf="diploma.invalid && (diploma.dirty || diploma.touched)" class="text-danger">
+                                    <small *ngIf="diploma.errors?.['required']">
+                                        * Diplôme est nécessaire 
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="expYears"><h6>Nombre d'année d'expérience</h6></label>
+                                <select class="form-control" name="expYears" id="expYears" [(ngModel)]="offer.expYears" #expYears="ngModel"  required>
+                                    <option Value="" disabled selected>{{ offer.expYears ? offer.expYears : 'Nombre d\'année d\'expérience *' }}</option>
+                                    <option value="Débutant">Débutant</option>
+                                    <option value="-1 ans">Moins d'un an</option>
+                                    <option value="1-3 ans">De 1 à 3 ans</option>
+                                    <option value="3-5 ans">De 3 à 5 ans</option>
+                                    <option value="5-10 ans">De 5 à 10 ans</option>
+                                    <option value="+10 ans">+10 ans</option>
+                                </select>
+                                <div *ngIf="expYears.invalid && (expYears.dirty || expYears.touched)" class="text-danger">
+                                    <small *ngIf="expYears.errors?.['required']">
+                                        * Nombre d'année d'expérience est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="contractType"><h6>Type de contrat</h6></label>
+                                <select class="form-control" name="contractType" id="contractType" [(ngModel)]="offer.contractType" #contractType="ngModel"  required>
+                                    <option Value="" disabled selected>{{ offer.contractType ? offer.contractType : 'Sélectionnez un type de contrat *' }}</option>
+                                    <option value="CDI">CDI</option>
+                                    <option value="CDD">CDD</option>
+                                    <option value="ANAPEC">ANAPEC</option>
+                                    <option value="Stage">Stage</option>
+                                    <option value="Freelance">Freelance</option>
+                                    <option value="Intérim">Intérim</option>
+                                </select>
+                                <div *ngIf="contractType.invalid && (contractType.dirty || contractType.touched)" class="text-danger">
+                                    <small *ngIf="contractType.errors?.['required']">
+                                        * Type de contrat est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="city"><h6>Ville</h6></label>
+                                <input class="form-control" id="city" type="text" placeholder="Ville *" name="city" [(ngModel)]="offer.city" #city="ngModel" required/>
+                                <div *ngIf="city.invalid && (city.dirty || city.touched)" class="text-danger">
+                                    <small *ngIf="city.errors?.['required']">
+                                        * Ville est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="availability"><h6>Disponibilité</h6></label>
+                                <select class="form-control" name="availability" id="availability" [(ngModel)]="offer.availability" #availability="ngModel"  required>
+                                    <option Value="" disabled selected>{{ offer.availability ? offer.availability : ' Sélectionnez la disponibilité *' }}</option>
+                                    <option value="onSite">Présentiel</option>
+                                    <option value="distanciel">Distanciel</option>
+                                    <option value="hybride">Hybride</option>
+                                </select>
+                                <div *ngIf="availability.invalid && (availability.dirty || availability.touched)" class="text-danger">
+                                    <small *ngIf="availability.errors?.['required']">
+                                        * Disponibilité est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="hiredNum"><h6>Nombre à recruté</h6></label>
+                                <input class="form-control" id="hiredNum" type="number" placeholder="Nombre à recruté *" name="hiredNum" [(ngModel)]="offer.hiredNum" #hiredNum="ngModel" required/>
+                                <div *ngIf="hiredNum.invalid && (hiredNum.dirty || hiredNum.touched)" class="text-danger">
+                                    <small *ngIf="hiredNum.errors?.['required']">
+                                        * Nombre à recruté est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="salary"><h6>Salaire</h6></label>
+                                <input class="form-control" id="salary" type="number" placeholder="Salaire *" name="salary" [(ngModel)]="offer.salary" #salary="ngModel" required>
+                                <div *ngIf="salary.invalid && (salary.dirty || salary.touched)" class="text-danger">
+                                    <small *ngIf="salary.errors?.['required']">
+                                        * Salaire est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class=" mb-1" for="description"><h6>Description</h6></label>
+                            <textarea class="form-control" id="description" type="text" placeholder="Description *" rows="()" name="description" [(ngModel)]="offer.description" #description="ngModel" required></textarea>
+                            <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+                                <small *ngIf="description.errors?.['required']">
+                                    * Description est nécessaire
+                                </small>
+                            </div>
+                        </div>
+                            <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- <div class="col-md-6">
+                                <label class=" mb-1" for="idRec"><h6>Id recruteur</h6></label>
+                                <select class="form-control" [(ngModel)]="selectedRecruiterId" name="idRec" required>
+                                    <option value="null" disabled selected>
+                                        Sélectionnez l'id du recruteur *
+                                    </option>
+                                    <option *ngFor="let recruiter of recruiters" [value]="recruiter.idRec">
+                                        {{ recruiter.idRec }}: {{ recruiter.lName }} {{ recruiter.fName }}
+                                    </option>
+                                </select>
+                                <div *ngIf="editOfferForm.controls['idRec']?.invalid && (editOfferForm.controls['idRec']?.dirty || editOfferForm.controls['idRec']?.touched)" class="text-danger">
+                                    <small *ngIf="editOfferForm.controls['idRec']?.errors?.['required']">
+                                    * Veuillez entrer l'id du recruteur
+                                    </small>
+                                </div>   
+                            </div> -->
+                            <div class="mb-3">
+                                <label class="mb-1" for="languages"><h6>Languages</h6></label>
+                                <ng-select class="form-control" [items]="languageOptions"
+                                    name="languages" id="languages" [(ngModel)]="selectedLanguages" #languages="ngModel" required 
+                                    [multiple]="true"
+                                    [placeholder]="placeholderText"
+                                    bindValue="value"
+                                    bindLabel="name"
+                                    (change)="onSelectedOptionsChange($event)">
+                                </ng-select>
+                                <div *ngIf="languages.invalid && (languages.dirty || languages.touched)" class="text-danger">
+                                    <small *ngIf="languages.errors?.['required']">
+                                        * Languages est nécessaire
+                                    </small>
+                                </div>
+                            </div>                              
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="mb-1 " for="pubDate"><h6>Date de publication </h6></label>
+                                <input class="form-control" id="pubDate" type="text" name="pubDate" [(ngModel)]="offer.pubDate" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="mb-1 " for="endDate"><h6>Date de fin </h6></label>
+                                <input class="form-control" id="endDate" type="datetime-local" placeholder="Date de fin *" name="endDate" [(ngModel)]="formattedEndDate" #endDate="ngModel" required>
+                                <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="text-danger">
+                                    <small *ngIf="endDate.errors?.['required']">
+                                        * Date de fin est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <button class="btn-download col-md-3 mx-auto" type="submit">Editer</button>
+                            <button type="button" class="btn-download col-md-3 mx-auto" (click)="close()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>   
+  </div>  

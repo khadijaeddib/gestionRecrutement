@@ -20,6 +20,9 @@ import { RecruiterCandidatesComponent } from './components/recruiter/recruiter-c
 import { RecruiterOffersComponent } from './components/recruiter/recruiter-offers/recruiter-offers.component';
 import { RecruiterCandidaturesComponent } from './components/recruiter/recruiter-candidatures/recruiter-candidatures.component';
 import { RecruiterInterviewsComponent } from './components/recruiter/recruiter-interviews/recruiter-interviews.component';
+import { CandidateOfferComponent } from './components/candidate/candidate-offer/candidate-offer.component';
+import { CandidateCandidatureComponent } from './components/candidate/candidate-candidature/candidate-candidature.component';
+import { CandidateInterviewComponent } from './components/candidate/candidate-interview/candidate-interview.component';
 
 
 const routes: Routes = [
@@ -42,7 +45,10 @@ const routes: Routes = [
     children:[
       { path: 'dashboard', component:CandidateDashboardComponent },
       { path: '',   redirectTo: '/candidate/dashboard', pathMatch: 'full' },
-      { path: 'profile', component: CandidateProfileComponent }
+      { path: 'profile', component: CandidateProfileComponent },
+      { path: 'offers', component: CandidateOfferComponent },
+      { path: 'candidatures', component: CandidateCandidatureComponent },
+      { path: 'interviews', component: CandidateInterviewComponent }
     ] },
   { path: 'recruiter', component: RecruiterComponent,
   children:[

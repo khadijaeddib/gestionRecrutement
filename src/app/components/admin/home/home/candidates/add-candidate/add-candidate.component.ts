@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { NgForm } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Candidate } from 'src/app/models/Candidate';
 import { AuthService } from 'src/app/services/AuthService.service';
 
@@ -36,8 +36,9 @@ export class AddCandidateComponent implements OnInit {
   prevCVSrc: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://localhost:7217/Content/Candidate/CVs/imageEmpty.png');
 
 
-  constructor(private activeModal: NgbActiveModal,private AuthService: AuthService, private router: Router, private sanitizer: DomSanitizer) { 
+  constructor(private activeModal: NgbActiveModal,private AuthService: AuthService, private router: Router, private sanitizer: DomSanitizer, private modalService: NgbModal) { 
   }
+  
 
   ngOnInit(): void {
     this.candidates = [];
@@ -138,15 +139,15 @@ export class AddCandidateComponent implements OnInit {
 
     this.AuthService.signup(formData).subscribe(
       (response) => {
-        this.successMessage = 'Inscription réussie ! Veuillez vous connecter avec vos identifiants';
-        this.errorMessage = '';
+        // this.successMessage = 'Inscription réussie ! Veuillez vous connecter avec vos identifiants';
+        // this.errorMessage = '';
         this.candidates.push(response);
         this.candidateAdded.emit(response);
-        this.candidate = new Candidate(); // Reset the input fields
+        // this.candidate = new Candidate(); // Reset the input fields
         this.prevImageSrc = 'https://localhost:7217/Content/Candidate/Images/imageEmpty.png';
         this.prevLMSrc = this.sanitizer.bypassSecurityTrustResourceUrl('https://localhost:7217/Content/Candidate/LMs/imageEmpty.png');
         this.prevCVSrc = this.sanitizer.bypassSecurityTrustResourceUrl('https://localhost:7217/Content/Candidate/CVs/imageEmpty.png');
-
+        this.modalService.dismissAll();
       },
       (error) => {
         console.error(error);

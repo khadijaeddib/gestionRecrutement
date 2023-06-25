@@ -22,4 +22,8 @@ export class RecruiterServiceService {
     return this.http.delete<any>(`${this.baseUrl}deleteRecruiter/${id}`);
   }
 
+  editRecruiter(id: number,formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}editRecruiter/${id}`, formData);
+  }
+
 }

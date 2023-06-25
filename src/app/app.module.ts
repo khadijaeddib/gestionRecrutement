@@ -8,11 +8,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { DatePipe } from '@angular/common';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './components/account/signup/signup.component';
-import {Ng2TelInputModule} from 'ng2-tel-input';
 import { LoginComponent } from './components/account/login/login.component';
 import { LockScreenComponent } from './components/account/lock-screen/lock-screen.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,6 +42,19 @@ import { RecruiterCandidatesComponent } from './components/recruiter/recruiter-c
 import { RecruiterOffersComponent } from './components/recruiter/recruiter-offers/recruiter-offers.component';
 import { RecruiterCandidaturesComponent } from './components/recruiter/recruiter-candidatures/recruiter-candidatures.component';
 import { RecruiterInterviewsComponent } from './components/recruiter/recruiter-interviews/recruiter-interviews.component';
+import { AddOfferComponent } from './components/recruiter/recruiter-offers/add-offer/add-offer.component';
+import { EditOfferComponent } from './components/recruiter/recruiter-offers/edit-offer/edit-offer.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { EditRecruiterComponent } from './components/admin/home/home/recruiters/edit-recruiter/edit-recruiter.component';
+import { CandidateOfferComponent } from './components/candidate/candidate-offer/candidate-offer.component';
+import { ApplyOfferComponent } from './components/candidate/candidate-offer/apply-offer/apply-offer.component';
+import { CandidateCandidatureComponent } from './components/candidate/candidate-candidature/candidate-candidature.component';
+import { CandidateInterviewComponent } from './components/candidate/candidate-interview/candidate-interview.component';
+import { ShowCandidatureComponent } from './components/recruiter/recruiter-candidatures/show-candidature/show-candidature.component';
+import { AdminAddOfferComponent } from './components/admin/home/home/offers/admin-add-offer/admin-add-offer.component';
+import { AdminEditOfferComponent } from './components/admin/home/home/offers/admin-edit-offer/admin-edit-offer.component';
+import { RecruiterAddCandidateComponent } from './components/recruiter/recruiter-candidates/recruiter-add-candidate/recruiter-add-candidate.component';
+import { RecruiterShowCandidateComponent } from './components/recruiter/recruiter-candidates/recruiter-show-candidate/recruiter-show-candidate.component';
 
 @NgModule({
   declarations: [
@@ -70,12 +85,23 @@ import { RecruiterInterviewsComponent } from './components/recruiter/recruiter-i
     RecruiterCandidatesComponent,
     RecruiterOffersComponent,
     RecruiterCandidaturesComponent,
-    RecruiterInterviewsComponent
+    RecruiterInterviewsComponent,
+    AddOfferComponent,
+    EditOfferComponent,
+    EditRecruiterComponent,
+    CandidateOfferComponent,
+    ApplyOfferComponent,
+    CandidateCandidatureComponent,
+    CandidateInterviewComponent,
+    ShowCandidatureComponent,
+    AdminAddOfferComponent,
+    AdminEditOfferComponent,
+    RecruiterAddCandidateComponent,
+    RecruiterShowCandidateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    Ng2TelInputModule,
     FormsModule,
     HttpClientModule,
     TranslateModule.forRoot({
@@ -87,10 +113,15 @@ import { RecruiterInterviewsComponent } from './components/recruiter/recruiter-i
     }),
     NgbModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule,
+    NgxIntlTelInputModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     NgbActiveModal,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
