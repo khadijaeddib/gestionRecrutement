@@ -160,9 +160,9 @@
                                 <label class=" mb-1" for="availability"><h6>Disponibilité</h6></label>
                                 <select class="form-control" name="availability" id="availability" [(ngModel)]="offer.availability" #availability="ngModel"  required>
                                     <option Value="" disabled selected>{{ offer.availability ? offer.availability : ' Sélectionnez la disponibilité *' }}</option>
-                                    <option value="onSite">Présentiel</option>
-                                    <option value="distanciel">Distanciel</option>
-                                    <option value="hybride">Hybride</option>
+                                    <option value="Sur site">Sur site</option>
+                                    <option value="À distance">À distance</option>
+                                    <option value="Hybride">Hybride</option>
                                 </select>
                                 <div *ngIf="availability.invalid && (availability.dirty || availability.touched)" class="text-danger">
                                     <small *ngIf="availability.errors?.['required']">

@@ -144,20 +144,20 @@
                                 <select class="form-control" name="diploma" id="diploma" [(ngModel)]="candidate.diploma" #diploma="ngModel"  required>
                                     <option [ngValue]="" disabled selected>{{candidate.diploma}}</option>
                                     <option [ngValue]="'Bachelor'">Bachelor : Bachelor</option>
-                                    <option [ngValue]="'DEUG'">DEUG : Diplôme d'études universitaires générales</option>
-                                    <option [ngValue]="'DEUST'">DEUST : Diplôme d’Etudes Universitaires Scientifiques et Techniques</option>
-                                    <option [ngValue]="'DUT'">DUT : Diplôme universitaire de Technologie</option>
-                                    <option [ngValue]="'BTS'">BTS : Brevet de Technicien Supérieur</option>
-                                    <option [ngValue]="'DTS'">DTS : Diplôme de Technicien Spécialisé</option>
-                                    <option [ngValue]="'DT'">DT : Diplôme de Technicien</option>
-                                    <option [ngValue]="'LF'">LF : Licence Fondamentale</option>
-                                    <option [ngValue]="'LP'">LP : Licence Professionnelle</option>
-                                    <option [ngValue]="'LST'">LST : Licence Sciences et Techniques</option>
-                                    <option [ngValue]="'MS'">MS : Master Spécialisé</option>
-                                    <option [ngValue]="'MR'">MR : Master Recherche</option>
-                                    <option [ngValue]="'MST'">MST : Master Sciences et Techniques</option>
-                                    <option [ngValue]="'IE'">IE : Ingénieur d'Etat</option>
-                                    <option [ngValue]="'MBA'">MBA : Master of Business Administration</option>
+                                    <option [ngValue]="'DEUG : Diplôme d\'études universitaires générales'">DEUG : Diplôme d'études universitaires générales</option>
+                                    <option [ngValue]="'DEUST : Diplôme d\'Etudes Universitaires Scientifiques et Techniques'">DEUST : Diplôme d’Etudes Universitaires Scientifiques et Techniques</option>
+                                    <option [ngValue]="'DUT : Diplôme universitaire de Technologie'">DUT : Diplôme universitaire de Technologie</option>
+                                    <option [ngValue]="'BTS : Brevet de Technicien Supérieur'">BTS : Brevet de Technicien Supérieur</option>
+                                    <option [ngValue]="'DTS : Diplôme de Technicien Spécialisé'">DTS : Diplôme de Technicien Spécialisé</option>
+                                    <option [ngValue]="'DT : Diplôme de Technicien'">DT : Diplôme de Technicien</option>
+                                    <option [ngValue]="'LF : Licence Fondamentale'">LF : Licence Fondamentale</option>
+                                    <option [ngValue]="'LP : Licence Professionnelle'">LP : Licence Professionnelle</option>
+                                    <option [ngValue]="'LST : Licence Sciences et Techniques'">LST : Licence Sciences et Techniques</option>
+                                    <option [ngValue]="'MS : Master Spécialisé'">MS : Master Spécialisé</option>
+                                    <option [ngValue]="'MR : Master Recherche'">MR : Master Recherche</option>
+                                    <option [ngValue]="'MST : Master Sciences et Techniques'">MST : Master Sciences et Techniques</option>
+                                    <option [ngValue]="'IE : Ingénieur d\'Etat'">IE : Ingénieur d'Etat</option>
+                                    <option [ngValue]="'MBA : Master of Business Administration'">MBA : Master of Business Administration</option>
                                     <option [ngValue]="'Doctorat'">Doctorat : Doctorat</option>
                                 </select>
                                 <div *ngIf="diploma.invalid && (diploma.dirty || diploma.touched)" class="text-danger">

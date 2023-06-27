@@ -146,22 +146,22 @@
                               <label for="diploma" class="bi bi-caret-down-fill"></label>
                               <select name="diploma" id="diploma" [(ngModel)]="candidate.diploma" #diploma="ngModel"  required>
                                 <option value="" disabled selected>Votre diplôme *</option>
-                                <option value="Bachelor">Bachelor : Bachelor</option>
-                                <option value="DEUG">DEUG : Diplôme d'études universitaires générales</option>
-                                <option value="DEUST">DEUST : Diplôme d’Etudes Universitaires Scientifiques et Techniques</option>
-                                <option value="DUT">DUT : Diplôme universitaire de Technologie</option>
-                                <option value="BTS">BTS : Brevet de Technicien Supérieur</option>
-                                <option value="DTS">DTS : Diplôme de Technicien Spécialisé</option>
-                                <option value="DT">DT : Diplôme de Technicien</option>
-                                <option value="LF">LF : Licence Fondamentale</option>
-                                <option value="LP">LP : Licence Professionnelle</option>
-                                <option value="LST">LST : Licence Sciences et Techniques</option>
-                                <option value="MS">MS : Master Spécialisé</option>
-                                <option value="MR">MR : Master Recherche</option>
-                                <option value="MST">MST : Master Sciences et Techniques</option>
-                                <option value="IE">IE : Ingénieur d'Etat</option>
-                                <option value="MBA">MBA : Master of Business Administration</option>
-                                <option value="Doctorat">Doctorat : Doctorat</option>
+                                <option [ngValue]="'Bachelor'">Bachelor : Bachelor</option>
+                                <option [ngValue]="'DEUG : Diplôme d\'études universitaires générales'">DEUG : Diplôme d'études universitaires générales</option>
+                                <option [ngValue]="'DEUST : Diplôme d\'Etudes Universitaires Scientifiques et Techniques'">DEUST : Diplôme d’Etudes Universitaires Scientifiques et Techniques</option>
+                                <option [ngValue]="'DUT : Diplôme universitaire de Technologie'">DUT : Diplôme universitaire de Technologie</option>
+                                <option [ngValue]="'BTS : Brevet de Technicien Supérieur'">BTS : Brevet de Technicien Supérieur</option>
+                                <option [ngValue]="'DTS : Diplôme de Technicien Spécialisé'">DTS : Diplôme de Technicien Spécialisé</option>
+                                <option [ngValue]="'DT : Diplôme de Technicien'">DT : Diplôme de Technicien</option>
+                                <option [ngValue]="'LF : Licence Fondamentale'">LF : Licence Fondamentale</option>
+                                <option [ngValue]="'LP : Licence Professionnelle'">LP : Licence Professionnelle</option>
+                                <option [ngValue]="'LST : Licence Sciences et Techniques'">LST : Licence Sciences et Techniques</option>
+                                <option [ngValue]="'MS : Master Spécialisé'">MS : Master Spécialisé</option>
+                                <option [ngValue]="'MR : Master Recherche'">MR : Master Recherche</option>
+                                <option [ngValue]="'MST : Master Sciences et Techniques'">MST : Master Sciences et Techniques</option>
+                                <option [ngValue]="'IE : Ingénieur d\'Etat'">IE : Ingénieur d'Etat</option>
+                                <option [ngValue]="'MBA : Master of Business Administration'">MBA : Master of Business Administration</option>
+                                <option [ngValue]="'Doctorat'">Doctorat : Doctorat</option>
                               </select>
                             </div>
                             <div *ngIf="diploma.invalid && (diploma.dirty || diploma.touched)" class="text-danger">
