@@ -78,7 +78,7 @@
       </div>
       <a class="profile">
         <span class="text">{{userEmail}}</span>
-          <img src="/../../assets/images/user.png" data-bs-toggle="dropdown" aria-expanded="false">
+          <img [src]="createImgPath(candidate.candImagePath)" data-bs-toggle="dropdown" aria-expanded="false">
           <ul class="dropdown-menu ">
             <li><i class='bx bxs-user'></i><a class="dropdown-item" href="#">Profil</a></li>
             <li><i class='bx bx-log-out-circle'></i><a class="dropdown-item" (click)="logout()">Se déconnecter</a></li>
@@ -93,21 +93,21 @@
         <li>
           <i class='bx bx-trending-up'></i>
           <span class="text">
-            <h3>5</h3>
+            <h3>{{totalOffers}}</h3>
             <p>Nouveaux Postes</p>
           </span>
         </li>
         <li>
           <i class='bx bxs-group' ></i>
           <span class="text">
-            <h3>2</h3>
+            <h3>{{totalCandidateCandidatures}}</h3>
             <p>Candidatures</p>
           </span>
         </li>
         <li>
           <i class='bx bx-list-plus'></i>
           <span class="text">
-            <h3>1</h3>
+            <h3>{{totalCandidateInterviews}}</h3>
             <p>Entretiens</p>
           </span>
         </li>

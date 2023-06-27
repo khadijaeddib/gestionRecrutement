@@ -15,37 +15,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let candidature of candidatures.slice().reverse().slice(0, 7)">
           <td class="flex-td">
-            <img src="/../../assets/images/user.png">
-            <p>User Name</p>
+            <img  [src]="createImgPath(candidature.candidate.candImagePath)">
+            <p>{{candidature.candidate.fName}} {{candidature.candidate.lName}}</p>
           </td>
-          <td>01-03-2023</td>
-          <td><span class="status hiring">Embauché</span></td>
-        </tr>
-        <tr>
-          <td class="flex-td">
-            <img src="/../../assets/images/user.png">
-            <p>User Name</p>
-          </td>
-          <td>01-03-2023</td>
-          <td><span class="status pending">Encours</span></td>
-        </tr>
-        <tr>
-          <td class="flex-td">
-            <img src="/../../assets/images/user.png">
-            <p>User Name</p>
-          </td>
-          <td>01-03-2023</td>
-          <td><span class="status received">Reçu</span></td>
-        </tr>
-        <tr>
-          <td class="flex-td">
-            <img src="/../../assets/images/user.png">
-            <p>User Name</p>
-          </td>
-          <td>01-03-2023</td>
-          <td><span class="status refusal">Refusé</span></td>
+          <td>{{candidature.dateCand}}</td>
+          <td><span class="status" [ngClass]="classColors[candidature.status]">{{candidature.status}}</span></td>
         </tr>
       </tbody>
     </table>

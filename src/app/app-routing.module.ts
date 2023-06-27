@@ -23,14 +23,17 @@ import { RecruiterInterviewsComponent } from './components/recruiter/recruiter-i
 import { CandidateOfferComponent } from './components/candidate/candidate-offer/candidate-offer.component';
 import { CandidateCandidatureComponent } from './components/candidate/candidate-candidature/candidate-candidature.component';
 import { CandidateInterviewComponent } from './components/candidate/candidate-interview/candidate-interview.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { ContactComponent } from './components/welcome/contact/contact.component';
+import { ShowOfferDetailsComponent } from './components/welcome/show-offer-details/show-offer-details.component';
+import { OffersListComponent } from './components/welcome/offers-list/offers-list.component';
 
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'lockScreen', component: LockScreenComponent },
-  { path: 'admin',
-    component: HomeComponent,
+  { path: 'admin', component: HomeComponent,
     children:[
       { path: 'dashboard', component: DashboardComponent },
       { path: '',   redirectTo: '/admin/dashboard', pathMatch: 'full' },
@@ -58,11 +61,21 @@ const routes: Routes = [
     { path: 'offers', component: RecruiterOffersComponent },
     { path: 'candidatures', component: RecruiterCandidaturesComponent },
     { path: 'interviews', component: RecruiterInterviewsComponent }
-  ] }
+  ] },
+  { path: 'home', component: WelcomeComponent},
+  { path: 'contact', component: ContactComponent },
+  { path: 'offer/:id', component: ShowOfferDetailsComponent },
+  { path: 'offersList', component: OffersListComponent }
+  
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {
+      onSameUrlNavigation: 'reload',
+      scrollPositionRestoration: 'top'
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

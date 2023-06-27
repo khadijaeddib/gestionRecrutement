@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ultimate Solutions - Accueil</title>
+    <!-- <link href="img/favicon.ico" rel="icon"> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-xxl bg-white p-0">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a routerLink="/home" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+                <span class="m-0">ULTIMATE <span class="sol">SOLUTIONS</span></span>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a routerLink="/home" class="nav-item nav-link active">Acceuil</a>
+                    <a routerLink="/offersList" class="nav-item nav-link">Trouver un emploi</a>             
+                    <a routerLink="/contact" class="nav-item nav-link">Contact</a>
+                </div>
+                <a routerLink="/signup" class=" btn-download">S'inscrire<i class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </nav>
+        <div class="container-fluid p-0">
+            <div class="owl-carousel header-carousel position-relative">
+                <div id="carouselExampleIndicators" class="carousel slide owl-carousel-item position-relative" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                  </ol>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img class="d-block w-100 h-10" src="/../../assets/images/caroussel1.jpg" alt="First slide">
+                    </div>
+                  </div>
+                  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(43, 57, 64, .5);">
+                    <div class="container">
+                      <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                          <h1 class="display-3 text-white animated slideInDown mb-4">Trouvez l'emploi parfait que vous méritez</h1>
+                          <p class="fs-5 fw-medium text-white mb-4 pb-2">Trouvez votre emploi idéal grâce à notre plateforme. Nous vous offrons une large sélection d'opportunités professionnelles dans différents secteurs. Que vous soyez à la recherche d'un emploi à temps plein, à temps partiel ou d'un contrat freelance, notre plateforme vous permettra de découvrir des offres correspondant à vos compétences et à vos aspirations professionnelles</p>
+                          <a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Rechercher un emploi</a>
+                          <a class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Trouver un talent</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid bg-blue mb-5 wow fadeIn" style="padding: 35px;">
+            <div class="container">
+                <div class="row g-2">
+                    <div class="col-md-10">
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control border-0" placeholder="Saisie de mots clés" id="offerKeySearch" name="offerKeySearch" required [(ngModel)]="offerSearchKeyword" (keyup.enter)="offerOnSearch()"/>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select border-0" id="offerCategorie" name="offerCategorie" [(ngModel)]="offerSearchCategory">
+                                    <option selected="selected" value="0">Chercher par *</option>
+                                    <option value="expYears">Nombre d'expérience</option>
+                                    <option value="contractType">Type de contrat</option>
+                                    <option value="title">Titre d'offre</option>
+                                    <option value="endDate">Dernier delai</option>
+                                    <option value="diploma">Diplôme</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select border-0" [(ngModel)]="offerSearchCity">
+                                    <option selected="selected" value="0">Ville *</option>
+                                    <option value="Agadir">Agadir</option>
+                                    <option value="Casablanca">Casablanca</option>
+                                    <option value="Rabat">Rabat</option>
+                                    <option value="Marrakech">Marrakech</option>
+                                    <option value="Tanger">Tanger</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-secondary border-0 w-100" (click)="offerOnSearch()">Chercher</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-xxl py-5">
+            <div class="container">
+                <h1 class="text-center mb-5 wow fadeInUp">Explorez par catégorie</h1>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp">
+                        <a class="cat-item rounded p-4">
+                            <i class="fa fa-3x fa-mail-bulk text-secondary mb-4"></i>
+                            <h6 class="mb-3">Marketing</h6>
+                            <p class="mb-0">{{ getOfferCountByCategory('marketing') }} Offres</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp">
+                        <a class="cat-item rounded p-4">
+                            <i class="fa fa-3x fa-solid fa-trowel-bricks text-secondary mb-4"></i>
+                            <h6 class="mb-3">Immobilier</h6>
+                            <p class="mb-0">{{ getOfferCountByCategory('Immobilier') }} Offres</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp">
+                        <a class="cat-item rounded p-4">
+                            <i class="fa fa-3x fa-user-tie text-secondary mb-4"></i>
+                            <h6 class="mb-3">Ressources humaines</h6>
+                            <p class="mb-0">{{ getOfferCountByCategory('Ressources', 'humaines', 'rh') }} Offres</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp">
+                        <a class="cat-item rounded p-4">
+                            <i class="fa fa-3x fa-tasks text-secondary mb-4"></i>
+                            <h6 class="mb-3">Gestion de projet</h6>
+                            <p class="mb-0">{{ getOfferCountByCategory('Gestion', 'projet') }} Offres</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp">
+                        <a class="cat-item rounded p-4">
+                            <i class="fa fa-3x fa-chart-line text-secondary mb-4"></i>
+                            <h6 class="mb-3">Administration</h6>
+                            <p class="mb-0">{{ getOfferCountByCategory('secretaire', 'assistant') }} Offres</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp">
+                        <a class="cat-item rounded p-4">
+                            <i class="fa fa-3x fa-hands-helping text-secondary mb-4"></i>
+                            <h6 class="mb-3">Ventes et communication</h6>
+                            <p class="mb-0">{{ getOfferCountByCategory('Ventes', 'communication') }} Offres</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp">
+                        <a class="cat-item rounded p-4">
+                            <i class="fa fa-3x fa-laptop-code text-secondary mb-4"></i>
+                            <h6 class="mb-3">Informatique</h6>
+                            <p class="mb-0">{{ getOfferCountByCategory('Informatique', 'développement') }} Offres</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp">
+                        <a class="cat-item rounded p-4">
+                            <i class="fa fa-3x fa-drafting-compass text-secondary mb-4"></i>
+                            <h6 class="mb-3">Design et créativité</h6>
+                            <p class="mb-0">{{ getOfferCountByCategory('Design', 'créativité') }} Offres</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 wow fadeIn">
+                        <div class="row g-0 about-bg rounded overflow-hidden">
+                            <div class="col-6 text-start">
+                                <img class="img-fluid w-100" src="/../../assets/images/team1.jpg">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid" src="/../../assets/images/team6.jpg" style="width: 85%; margin-top: 15%;">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid" src="/../../assets/images/team5.jpg" style="width: 85%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeIn">
+                        <h1 class="mb-4">Trouvez des offres d'emploi et postulez facilement</h1>
+                        <p><i class="fa fa-check text-primary me-3"></i>Large base de données d'offres d'emploi</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Recherche avancée pour des résultats précis</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Postulation en quelques clics</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Suivi en temps réel de vos candidatures</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Notifications des étapes de votre candidature</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Planification simplifiée des entretiens</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Optimisation du temps de recherche d'emploi</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Opportunités d'évolution professionnelle</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Accès à des offres exclusives et à des opportunités cachées</p>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <div class="container-xxl py-5">
+            <div class="container" #offerList>
+                <h1 class="text-center mb-5 wow fadeInUp">Liste des offres récentes</h1>
+                <div class="tab-class text-center wow fadeInUp">
+                    <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+                        <li class="nav-item">
+                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
+                                <h6 class="mt-n1 mb-0">Tous</h6>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
+                                <h6 class="mt-n1 mb-0">Temps plein</h6>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
+                                <h6 class="mt-n1 mb-0">Temps partiel</h6>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content-offer">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            <ng-container *ngIf="filteredOffers && filteredOffers.length > 0">
+                                <div class="job-item p-4 mb-4"  *ngFor="let offer of filteredOffers.slice().reverse().slice(0, 5)">
+                                    <div class="row g-4">
+                                        <div class="col-md-4 d-flex">
+                                            <img class="flex-shrink-0 img-fluid border rounded"  [src]="createImgPath(offer.recruiter.company.logoPath)" alt="logo" style="width: 100px;">
+                                            <div class="text-start ps-4">
+                                                <h5 class="mb-3">{{offer.title}}</h5>
+                                                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{offer.city}}</span>
+                                                <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{offer.availability}}</span>
+                                                <span class="text-truncate me-3"><i class="fa-solid fa-file-signature me-2"></i>{{offer.contractType}}</span>
+                                                <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>{{offer.salary}} DH</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                            <div class="d-flex mb-3">
+                                                <!-- <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a> -->
+                                                <a class="btn btn-primary" [routerLink]="['/offer', offer.idOffer]">Détails de l'offre</a>
+                                            </div>
+                                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date limite: {{offer.endDate}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div *ngIf="filteredOffers.length === 0">
+                          <h6 class="text-center mt-4">Aucune offre trouvée</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid bg-white text-dark-50 footer mt-5 wow fadeIn">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h5 class="text-primary mb-4">Entreprise</h5>
+                        <a class="btn btn-link" href="">À propos de nous</a>
+                        <a class="btn btn-link" href="">Nous contacter</a>
+                        <a class="btn btn-link" href="">Nos services</a>
+                        <a class="btn btn-link" href="">Politique de confidentialité</a>
+                        <a class="btn btn-link" href="">Conditions d'utilisation</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h5 class="text-primary mb-4">Liens</h5>
+                        <a class="btn btn-link" href="">À propos de nous</a>
+                        <a class="btn btn-link" href="">Nous contacter</a>
+                        <a class="btn btn-link" href="">Nos services</a>
+                        <a class="btn btn-link" href="">Politique de confidentialité</a>
+                        <a class="btn btn-link" href="">Conditions d'utilisation</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h5 class="text-primary mb-4">Contact</h5>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Immeuble Founty park 1, cité Haute Founty Agadir</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>212662041189</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>sales@ultimate-ma.com</p>
+                        <div class="d-flex pt-2 text-dark-50">
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h5 class="text-primary mb-4">Newsletter</h5>
+                        <p>Inscrivez-vous à notre newsletter pour recevoir les dernières mises à jour.</p>
+                        <div class="position-relative mx-auto" style="max-width: 400px;">
+                            <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Votre adresse e-mail">
+                            <button type="button" class="btn btn-secondary py-2 position-absolute top-0 end-0 mt-2 me-2">S'inscrire</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

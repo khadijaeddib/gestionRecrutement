@@ -78,7 +78,7 @@
       </div>
       <a class="profile">
         <span class="text">{{userEmail}}</span>
-          <img src="/../../assets/images/user.png" alt="user">
+          <img [src]="createImgPath(recruiter.recImagePath)" alt="user">
           <!-- <ul class="dropdown-menu ">
             <li><i class='bx bx-log-out-circle'></i><a class="dropdown-item" href="#" >Se déconnecter</a></li>
           </ul> -->
@@ -92,28 +92,28 @@
         <li>
           <i class='bx bx-trending-up'></i>
           <span class="text">
-            <h3>120</h3>
+            <h3>{{newRecruiterCandidats}}</h3>
             <p>Nouveaux Candidats</p>
           </span>
         </li>
         <li>
           <i class='bx bxs-group' ></i>
           <span class="text">
-            <h3>2834</h3>
+            <h3>{{visitors}}</h3>
             <p>Visiteurs</p>
           </span>
         </li>
         <li>
           <i class='bx bx-list-plus'></i>
           <span class="text">
-            <h3>5</h3>
+            <h3>{{totalRecruiterOffers}}</h3>
             <p>Offres Publiées</p>
           </span>
         </li>
         <li>
           <i class='bx bxs-calendar-check' ></i>
           <span class="text">
-            <h3>54</h3>
+            <h3>{{totalRecruiterCandidatures}}</h3>
             <p>Total Candidatures</p>
           </span>
         </li>

@@ -10,9 +10,9 @@ export class CandidateServiceService {
   private baseUrl:string = 'https://localhost:7217/api/Candidate/';
   constructor(private http : HttpClient) { }
 
-  // getCandidates(): Observable<any> {
-  //   return this.http.get<any>(`${this.baseUrl}getCandidates`);
-  // }
+  getAllCandidates(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}getAllCandidates`);
+  }
 
   getCandidate(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}getCandidate/${id}`);
@@ -34,5 +34,9 @@ export class CandidateServiceService {
   getRecruiterCandidates(id: number, pageSize: number): Observable<any> {
     const params = new HttpParams().set('pageSize', String(pageSize));
     return this.http.get<any>(`${this.baseUrl}getRecruiterCandidates/${id}`, { params });
+  }
+
+  getAllRecruiterCandidates(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}getAllRecruiterCandidates/${id}`);
   }
 }

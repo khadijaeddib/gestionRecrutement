@@ -8,7 +8,6 @@
     <title>Admin dashboard</title>
 </head>
 <body>
-
   <!-- SIDEBAR -->
   <section id="sidebar" [ngClass]="status ? 'hide' : ''">
     <a routerLink="/admin" class="brand">
@@ -102,28 +101,28 @@
         <li>
           <i class='bx bx-trending-up'></i>
           <span class="text">
-            <h3>120</h3>
+            <h3>{{newCandidats}}</h3>
             <p>Nouveaux Candidats</p>
           </span>
         </li>
         <li>
           <i class='bx bxs-group' ></i>
           <span class="text">
-            <h3>2834</h3>
+            <h3>{{visitors}}</h3>
             <p>Visiteurs</p>
           </span>
         </li>
         <li>
           <i class='bx bx-list-plus'></i>
           <span class="text">
-            <h3>5</h3>
+            <h3>{{totalOffers}}</h3>
             <p>Offres Publiées</p>
           </span>
         </li>
         <li>
           <i class='bx bxs-calendar-check' ></i>
           <span class="text">
-            <h3>54</h3>
+            <h3>{{totalCandidatures}}</h3>
             <p>Total Candidatures</p>
           </span>
         </li>

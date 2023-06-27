@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/AuthService.service';
+import { CandidatureServiceService } from 'src/app/services/candidature-service.service';
+import { OfferServiceService } from 'src/app/services/offer-service.service';
 
 @Component({
   selector: 'app-candidate',
@@ -12,10 +14,34 @@ export class CandidateComponent {
   selectedLanguage = 'fr';
   userEmail: string | null = '';
 
-  constructor(private router: Router, private AuthService: AuthService) { }
+  @Input() candidate: any;
+
+  totalOffers!: number;
+  totalCandidateCandidatures!: number;
+  totalCandidateInterviews!: number;
+
+  constructor(private router: Router, private AuthService: AuthService, private offerService: OfferServiceService, private candidatureService: CandidatureServiceService) { }
 
   ngOnInit(): void {
     this.userEmail = sessionStorage.getItem('userEmail');
+
+    const userLoggedString = sessionStorage.getItem('userLogged');
+    if (userLoggedString) {
+      const userLogged = JSON.parse(userLoggedString);
+      this.candidate = userLogged;
+    }
+
+    this.offerService.getAllOffers().subscribe(offers => {
+      this.totalOffers = offers.length;
+    });
+
+    this.candidatureService.getAllCandidateCandidatures(this.candidate.idCand).subscribe(candiatures => {
+      this.totalCandidateCandidatures = candiatures.length;
+    });
+  }
+
+  public createImgPath = (serverPath: string) => { 
+    return `https://localhost:7217/Content/Candidate/Images/${serverPath}`; 
   }
 
   addToggle(){

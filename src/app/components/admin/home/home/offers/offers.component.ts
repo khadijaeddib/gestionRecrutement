@@ -197,5 +197,4 @@ export class OffersComponent implements OnInit {
       this.modalRef.close();
     }
   }
-
 }

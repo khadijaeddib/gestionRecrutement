@@ -30,7 +30,7 @@ export class AddCompanyComponent implements OnInit{
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    const allowedExtensions = ['.png'];
+    const allowedExtensions = ['.png', '.jpg', '.jpeg'];
     const fileExtension = file.name.split('.').pop()?.toLowerCase();
 
     if (allowedExtensions.indexOf(`.${fileExtension}`) === -1) {

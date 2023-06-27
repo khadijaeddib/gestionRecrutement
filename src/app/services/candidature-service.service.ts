@@ -18,6 +18,10 @@ export class CandidatureServiceService {
     return this.http.get<any>(`${this.baseUrl}getAllCandidatures`, { params });
   }
 
+  getCandidatures(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}getCandidatures`);
+  }
+
   getCandidature(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}getCandidature/${id}`);
   }
@@ -39,5 +43,13 @@ export class CandidatureServiceService {
     const params = new HttpParams().set('pageSize', String(pageSize));
     return this.http.get<any>(`${this.baseUrl}getRecruiterCandidatures/${id}`, { params });
   }  
+
+  getAllRecruiterCandidatures(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}getAllRecruiterCandidatures/${id}`);
+  }
+
+  getAllCandidateCandidatures(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}getAllCandidateCandidatures/${id}`);
+  }
 
 }

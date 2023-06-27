@@ -55,6 +55,10 @@ import { AdminAddOfferComponent } from './components/admin/home/home/offers/admi
 import { AdminEditOfferComponent } from './components/admin/home/home/offers/admin-edit-offer/admin-edit-offer.component';
 import { RecruiterAddCandidateComponent } from './components/recruiter/recruiter-candidates/recruiter-add-candidate/recruiter-add-candidate.component';
 import { RecruiterShowCandidateComponent } from './components/recruiter/recruiter-candidates/recruiter-show-candidate/recruiter-show-candidate.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { ContactComponent } from './components/welcome/contact/contact.component';
+import { ShowOfferDetailsComponent } from './components/welcome/show-offer-details/show-offer-details.component';
+import { OffersListComponent } from './components/welcome/offers-list/offers-list.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +101,11 @@ import { RecruiterShowCandidateComponent } from './components/recruiter/recruite
     AdminAddOfferComponent,
     AdminEditOfferComponent,
     RecruiterAddCandidateComponent,
-    RecruiterShowCandidateComponent
+    RecruiterShowCandidateComponent,
+    WelcomeComponent,
+    ContactComponent,
+    ShowOfferDetailsComponent,
+    OffersListComponent
   ],
   imports: [
     BrowserModule,
@@ -117,7 +125,8 @@ import { RecruiterShowCandidateComponent } from './components/recruiter/recruite
     NgSelectModule,
     NgxIntlTelInputModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    
   ],
   providers: [
     NgbActiveModal,

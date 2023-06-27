@@ -59,7 +59,6 @@ export class CandidaturesComponent implements OnInit {
     await this.getAllCandidatures();
   }
   
-
   public createImgPath = (serverPath: string) => { 
     return `https://localhost:7217/Content/Candidate/Images/${serverPath}`; 
   }
