@@ -1,10 +1,9 @@
-
 <div class="table-data">
   <div class="order">
     <div class="head">
       <h3>Candidatures récentes</h3>
-      <i class='bx bx-search' ></i>
-      <i class='bx bx-filter' ></i>
+      <!-- <i class='bx bx-search' ></i>
+      <i class='bx bx-filter' ></i> -->
     </div>
     <table>
       <thead>
@@ -26,35 +25,26 @@
       </tbody>
     </table>
   </div>
+</div>
 
-  <!-- <div class="todo">
-    <div class="head">
-      <h3>Todos</h3>
-      <i class='bx bx-plus' ></i>
-      <i class='bx bx-filter' ></i>
+<div class="table-data">
+  <div class="order">
+    <div class="chart-container">
+      <h3>Candidatures par offre</h3>
+      <canvas #applicationsPerOfferChart></canvas>
     </div>
-    <ul class="todo-list">
-      <li class="completed">
-        <p>Todo List</p>
-        <i class='bx bx-dots-vertical-rounded' ></i>
-      </li>
-      <li class="completed">
-        <p>Todo List</p>
-        <i class='bx bx-dots-vertical-rounded' ></i>
-      </li>
-      <li class="not-completed">
-        <p>Todo List</p>
-        <i class='bx bx-dots-vertical-rounded' ></i>
-      </li>
-      <li class="completed">
-        <p>Todo List</p>
-        <i class='bx bx-dots-vertical-rounded' ></i>
-      </li>
-      <li class="not-completed">
-        <p>Todo List</p>
-        <i class='bx bx-dots-vertical-rounded' ></i>
-      </li>
-    </ul>
-  </div> -->
+  </div>
+  <div class="todo">
+    <div class="chart-container">
+      <h3>Candidatures par candidat</h3>
+      <canvas #applicationsPerCandidateChart></canvas>
+    </div>
+  </div>
+  <div class="todo">
+    <div class="chart-container">
+      <h3>Distribution des statuts de candidature</h3>
+      <canvas #applicationStatusDistributionChart></canvas>
+    </div>
+  </div>
 </div>
 

@@ -24,7 +24,6 @@ import { CandidatesComponent } from './components/admin/home/home/candidates/can
 import { RecruitersComponent } from './components/admin/home/home/recruiters/recruiters.component';
 import { OffersComponent } from './components/admin/home/home/offers/offers.component';
 import { CandidaturesComponent } from './components/admin/home/home/candidatures/candidatures.component';
-import { InterviewsComponent } from './components/admin/home/home/interviews/interviews.component';
 import { CompaniesComponent } from './components/admin/home/home/companies/companies.component';
 import { ShowCandidateComponent } from './components/admin/home/home/candidates/show-candidate/show-candidate.component';
 import { ShowRecruiterComponent } from './components/admin/home/home/recruiters/show-recruiter/show-recruiter.component';
@@ -41,7 +40,6 @@ import { RecruiterDashboardComponent } from './components/recruiter/recruiter-da
 import { RecruiterCandidatesComponent } from './components/recruiter/recruiter-candidates/recruiter-candidates.component';
 import { RecruiterOffersComponent } from './components/recruiter/recruiter-offers/recruiter-offers.component';
 import { RecruiterCandidaturesComponent } from './components/recruiter/recruiter-candidatures/recruiter-candidatures.component';
-import { RecruiterInterviewsComponent } from './components/recruiter/recruiter-interviews/recruiter-interviews.component';
 import { AddOfferComponent } from './components/recruiter/recruiter-offers/add-offer/add-offer.component';
 import { EditOfferComponent } from './components/recruiter/recruiter-offers/edit-offer/edit-offer.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -59,6 +57,13 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ContactComponent } from './components/welcome/contact/contact.component';
 import { ShowOfferDetailsComponent } from './components/welcome/show-offer-details/show-offer-details.component';
 import { OffersListComponent } from './components/welcome/offers-list/offers-list.component';
+import { RecruiterInterviewComponent } from './components/recruiter/recruiter-interview/recruiter-interview.component';
+import { AddInterviewComponent } from './components/recruiter/recruiter-candidatures/add-interview/add-interview.component';
+import { ShowInterviewComponent } from './components/recruiter/recruiter-interview/show-interview/show-interview.component';
+import { EditInterviewComponent } from './components/recruiter/recruiter-interview/edit-interview/edit-interview.component';
+import { AdminShowInterviewComponent } from './components/admin/home/home/interviews/admin-show-interview/admin-show-interview.component';
+import { InterviewsComponent } from './components/admin/home/home/interviews/interviews.component';
+
 
 @NgModule({
   declarations: [
@@ -72,7 +77,6 @@ import { OffersListComponent } from './components/welcome/offers-list/offers-lis
     RecruitersComponent,
     OffersComponent,
     CandidaturesComponent,
-    InterviewsComponent,
     CompaniesComponent,
     ShowCandidateComponent,
     ShowRecruiterComponent,
@@ -89,7 +93,6 @@ import { OffersListComponent } from './components/welcome/offers-list/offers-lis
     RecruiterCandidatesComponent,
     RecruiterOffersComponent,
     RecruiterCandidaturesComponent,
-    RecruiterInterviewsComponent,
     AddOfferComponent,
     EditOfferComponent,
     EditRecruiterComponent,
@@ -105,7 +108,13 @@ import { OffersListComponent } from './components/welcome/offers-list/offers-lis
     WelcomeComponent,
     ContactComponent,
     ShowOfferDetailsComponent,
-    OffersListComponent
+    OffersListComponent,
+    RecruiterInterviewComponent,
+    AddInterviewComponent,
+    ShowInterviewComponent,
+    EditInterviewComponent,
+    AdminShowInterviewComponent,
+    InterviewsComponent
   ],
   imports: [
     BrowserModule,

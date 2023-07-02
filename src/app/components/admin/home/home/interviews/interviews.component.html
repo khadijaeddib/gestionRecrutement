@@ -1,23 +1,35 @@
 <div class="head-title">
   <div class="show-line">
     <p>Afficher par page :</p>
-    <select id="form-select-coins">
-      <option value="10" selected>10</option>
-      <option value="20">20</option>
-      <option value="30">30</option>
-      <option value="40">40</option>
-      <option value="50">50</option>
+    <select id="form-select-coins" (change)="onPageSizeChange($event)">
+      <option [value]="5" [selected]="pageSize === 5">5</option>
+      <option [value]="10" [selected]="pageSize === 10">10</option>
+      <option [value]="20" [selected]="pageSize === 20">20</option>
+      <option [value]="30" [selected]="pageSize === 30">30</option>
+      <option [value]="40" [selected]="pageSize === 40">40</option>
+      <option [value]="50" [selected]="pageSize === 50">50</option>
+      <option [value]="100" [selected]="pageSize === 100">100</option>
+      <option [value]="1000000000" [selected]="pageSize === 1000000000">All</option>
     </select>
   </div>
   <form class="form-inline">
-    <select id="Categorie" name="Categorie" class="input-categorie">
-      <option selected="selected" value="0">Chercher par <i class="bi bi-caret-down-fill"></i></option>
-      <option value="offerTitle">Titre d'offre d'emploi</option>
-      <option value="status">Statut</option>
-    </select>
-    <input id="keySearch" name="keySearch" type="text" class="form-control" placeholder="Saisie de mots clés" required="required">
-    <button type="button" class="search-btn"><i class='bx bx-search' ></i></button>
+        <select id="Categorie" name="Categorie" class="input-categorie" [(ngModel)]="searchCategory">
+          <option selected="selected" value="0">Chercher par <i class="bi bi-caret-down-fill"></i></option>
+          <option value="title">Titre d'offre d'emploi</option>
+          <option value="status">Statut</option>
+          <option value="interviewDate">Date d'entretien</option>
+          <option value="all">Tous</option>
+        </select>
+      <input id="keySearch" name="keySearch" type="text" class="form-control" placeholder="Saisie de mots clés" required [(ngModel)]="searchKeyword" (keyup.enter)="onSearch()">
+      <button type="button" class="search-btn" (click)="onSearch()"><i class='bx bx-search' ></i></button>
   </form>
+  <div class="form-inline sort">
+    <select id="interviewSort" name="interviewSort" class="input-categorie sort" [(ngModel)]="interviewSort" (change)="sortInterviewsByDate(interviewSort)">
+      <option selected="selected" value="none">Trier par <i class="bi bi-caret-down-fill"></i></option>
+      <option value="asc">Plus récent</option>
+      <option value="desc">Plus ancien</option>
+    </select>      
+  </div>
 </div>
 <div class="table-data">
   <div class="order">
@@ -30,44 +42,53 @@
           <th>Status</th>
           <th>Candidat</th>
           <th>Titre d'offre</th>
-          <th>Actions</th>
+          <!-- <th>Actions</th> -->
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>01</td>
-          <td> 21/03/2023</td>
-          <td>Agadir, founty</td>
-          <td>
-            <select id="status" name="status" class="input-categorie" [ngClass]="classColors[mySelectedValue]" (change)="onStatusChange($event)">
-              <option selected="selected" value="planned" class="status received">Planifié</option>
-              <option value="done" class="status hiring">Effectué</option>
-              <option value="cancelled" class="status refusal">Annulé</option>
+        <ng-container *ngIf="filteredInterviews && filteredInterviews.length > 0">
+        <tr *ngFor="let interview of filteredInterviews.slice(0, pageSize)">
+          <td>{{interview.idInterview}}</td>
+          <td>{{interview.interviewDate}}</td>
+          <td>{{interview.address}}</td>
+          <td><span class="status" [ngClass]="classColors[interview.status]">{{interview.status}}</span></td>
+          <!-- <td><select id="status" name="status" class="input-categorie" [ngClass]="classColors[interview.status]" [(ngModel)]="interview.status" (change)="onStatusChange(interview.idInterview, $event)">
+              <option value="Planifié" class="status Planifié">Planifié </option>
+              <option value="Reporté" class="status Reporté">Reporté </option>
+              <option value="Échoué" class="status Échoué">Échoué </option>
+              <option value="Réussi" class="status Réussi">Réussi </option>
+              <option value="Annulé" class="status Annulé">Annulé</option>
             </select>
-          </td>
+          </td> -->
           <td>
             <div class="d-flex align-items-center">
-              <img src="/../../assets/images/user.png" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
+              <img [src]="createImgPath(interview.candidature.candidate.candImagePath)" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
               <div class="ms-3">
-                <p class="fw-bold mb-1">John Doe</p>
-                <p class="text-muted mb-0">john.doe@gmail.com</p>
+                <p class="fw-bold mb-1">{{interview.candidature.candidate.fName}} {{interview.candidature.candidate.lName}}</p>
+                <p class="text-muted mb-0">{{interview.candidature.candidate.email}}</p>
               </div>
             </div>
           </td>
-          <td> Développeur(se) Frontend Vue/Angular/Reactjs </td>
+          <td> {{interview.candidature.offer.title}}  </td>
           <td>
-            <button type="button" class="btn btn-link btn-sm btn-rounded">
+            <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="showInterview(interview.candidature.candidate.idCand, interview)">
               <i class="bi bi-eye-fill"></i>
             </button>
-            <button type="button" class="btn btn-link btn-sm btn-rounded">
+            <!-- <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="editInterview(interview.idInterview)">
               <i class="bi bi-pencil-fill"></i>
-            </button>
-            <button type="button" class="btn btn-link btn-sm btn-rounded">
+            </button> -->
+            <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="deleteInterview(interview.idInterview)">
               <i class="bi bi-trash-fill"></i>
             </button>
           </td>
         </tr>
+      </ng-container>
       </tbody>
+      <tfoot *ngIf="filteredInterviews.length === 0">
+          <tr>
+          <td colspan="8" class="text-center">Aucun entretien trouvé</td>
+          </tr>
+         </tfoot>
     </table>
   </div>
 </div>

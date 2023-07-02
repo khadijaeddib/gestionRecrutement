@@ -19,7 +19,6 @@ import { RecruiterDashboardComponent } from './components/recruiter/recruiter-da
 import { RecruiterCandidatesComponent } from './components/recruiter/recruiter-candidates/recruiter-candidates.component';
 import { RecruiterOffersComponent } from './components/recruiter/recruiter-offers/recruiter-offers.component';
 import { RecruiterCandidaturesComponent } from './components/recruiter/recruiter-candidatures/recruiter-candidatures.component';
-import { RecruiterInterviewsComponent } from './components/recruiter/recruiter-interviews/recruiter-interviews.component';
 import { CandidateOfferComponent } from './components/candidate/candidate-offer/candidate-offer.component';
 import { CandidateCandidatureComponent } from './components/candidate/candidate-candidature/candidate-candidature.component';
 import { CandidateInterviewComponent } from './components/candidate/candidate-interview/candidate-interview.component';
@@ -27,6 +26,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ContactComponent } from './components/welcome/contact/contact.component';
 import { ShowOfferDetailsComponent } from './components/welcome/show-offer-details/show-offer-details.component';
 import { OffersListComponent } from './components/welcome/offers-list/offers-list.component';
+import { RecruiterInterviewComponent } from './components/recruiter/recruiter-interview/recruiter-interview.component';
 
 
 const routes: Routes = [
@@ -60,7 +60,7 @@ const routes: Routes = [
     { path: 'candidates', component: RecruiterCandidatesComponent },
     { path: 'offers', component: RecruiterOffersComponent },
     { path: 'candidatures', component: RecruiterCandidaturesComponent },
-    { path: 'interviews', component: RecruiterInterviewsComponent }
+    { path: 'interviews', component: RecruiterInterviewComponent }
   ] },
   { path: 'home', component: WelcomeComponent},
   { path: 'contact', component: ContactComponent },

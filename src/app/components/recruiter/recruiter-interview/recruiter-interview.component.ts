@@ -1,23 +1,29 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { NavigationStart, Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Candidate } from 'src/app/models/Candidate';
+import { Candidature } from 'src/app/models/Candidature';
 import { Interview } from 'src/app/models/Interview';
+import { Offer } from 'src/app/models/Offer';
 import { CandidateServiceService } from 'src/app/services/candidate-service.service';
 import { CandidatureServiceService } from 'src/app/services/candidature-service.service';
 import { InterviewServiceService } from 'src/app/services/interview-service.service';
 import { OfferServiceService } from 'src/app/services/offer-service.service';
+import { ShowInterviewComponent } from './show-interview/show-interview.component';
+import { EditInterviewComponent } from './edit-interview/edit-interview.component';
 
 interface ClassColors {
   [key: string]: string;
 }
 
 @Component({
-  selector: 'app-candidate-interview',
-  templateUrl: './candidate-interview.component.html',
-  styleUrls: ['./candidate-interview.component.css']
+  selector: 'app-recruiter-interview',
+  templateUrl: './recruiter-interview.component.html',
+  styleUrls: ['./recruiter-interview.component.css']
 })
-export class CandidateInterviewComponent implements OnInit{
+export class RecruiterInterviewComponent implements OnInit{
   mySelectedValue: string = 'Planifié'; // valeur initiale
   classColors: ClassColors = {
     Planifié: 'Planifié',
@@ -27,10 +33,10 @@ export class CandidateInterviewComponent implements OnInit{
     Annulé: 'Annulé'
   };
 
-  @Input() interview!:  any;
-  @Input() interviews!: any[];
+  interviews: Interview[] = [];
   response: any;
-  modalRef: NgbModalRef | undefined;
+  @Input() interview!: Interview;
+  @Input() modalRef: NgbModalRef | undefined; // Modal reference variable
 
   pageSize: number = 5; // Initial page size
   searchCategory: string = '0'; // Default to "Chercher par" option
@@ -39,10 +45,20 @@ export class CandidateInterviewComponent implements OnInit{
 
   interviewSort: string = 'none';
 
-  @Input() candidate: any;
+  errorMessage: string = '';
+
+  previousStatus: string = '';
+
+  @Input() recruiter: any;
+  // candidate: Candidate = new Candidate();
+  // offer: Offer = new Offer();
+  // candidature: Candidature = new Candidature();
+  // candidatures: Candidature[] = [];
+
+  @Output() interviewUpdated: EventEmitter<Interview> = new EventEmitter<Interview>();
 
   constructor(private http: HttpClient,private modalService: NgbModal, private router: Router, private candidatureService: CandidatureServiceService, private candidateService: CandidateServiceService, private offerService: OfferServiceService, private changeDetector: ChangeDetectorRef, private interviewService: InterviewServiceService) {
-    this.router.events.subscribe((event: any) => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         // Close the modal when navigating away
         this.closeModal();
@@ -54,14 +70,33 @@ export class CandidateInterviewComponent implements OnInit{
     const userLoggedString = sessionStorage.getItem('userLogged');
     if (userLoggedString) {
       const userLogged = JSON.parse(userLoggedString);
-      this.candidate = userLogged;
+      this.recruiter = userLogged;
     }
 
-    this.getCandidateInterviews(this.candidate.idCand);
+    this.getRecruiterInterviews(this.recruiter.idRec);
   }
 
   public createImgPath = (serverPath: string) => { 
     return `https://localhost:7217/Content/Candidate/Images/${serverPath}`; 
+  }
+
+  onStatusChange(id: number,event: any) {
+    this.mySelectedValue = event.target.value;
+    const formData = new FormData();
+    formData.append('status', this.mySelectedValue);
+    this.interviewService.editInterviewStatus(id, formData).subscribe(
+      (response) => {
+        // handle successful response
+        const index = this.interviews.findIndex(c => c.idInterview === id);
+        if (index !== -1) {
+          this.interviews[index].status = this.mySelectedValue;
+         }
+       },
+      (error) => {
+      // handle error response
+      this.errorMessage = "Statut n'est pas modifiée";
+      }
+    );
   }
 
   populateCandidatures(): void {
@@ -103,8 +138,8 @@ export class CandidateInterviewComponent implements OnInit{
     }
   }
 
-  getCandidateInterviews(id: number): void {
-    this.interviewService.getCandidateInterviews(id, this.pageSize).subscribe(
+  getRecruiterInterviews(id: number): void {
+    this.interviewService.getRecruiterInterviews(id, this.pageSize).subscribe(
       (interviews) => {
          // Handle the retrieved candidatures
         this.interviews = interviews;
@@ -155,7 +190,7 @@ export class CandidateInterviewComponent implements OnInit{
     const value = (event.target as HTMLSelectElement)?.value;
     if (value) {
       this.pageSize = Number(value);
-      this.getCandidateInterviews(this.candidate.idRec);
+      this.getRecruiterInterviews(this.recruiter.idRec);
     }
   }
 
@@ -172,12 +207,64 @@ export class CandidateInterviewComponent implements OnInit{
     });
   }
 
+  showInterview(id: number, interview: Interview): void {
+    this.candidateService.getCandidate(id).subscribe(
+      (candidate) => {
+        this.modalRef = this.modalService.open(ShowInterviewComponent);
+        this.modalRef.componentInstance.candidate = candidate;
+        this.modalRef.componentInstance.interview = interview;
+       },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  
+  deleteInterview(id: number) {
+    this.interviewService.deleteInterview(id).subscribe(
+      (response) => {
+        // handle successful deletion
+        this.getRecruiterInterviews(this.recruiter.idRec);
+      },
+      (error) => {
+        // handle error
+        console.error(error);
+      }
+    );
+  }
+
+  editInterview(id: number): void {
+    this.interviewService.getInterview(id).subscribe(
+      (interview) => {
+        this.modalRef = this.modalService.open(EditInterviewComponent);
+        this.modalRef.componentInstance.interview = interview;
+        this.modalRef.componentInstance.interviewUpdated.subscribe((updatedInterview: Interview) => {
+          // Update the company list after successful update
+          this.interviewService.getAllRecruiterInterviews(this.recruiter.idRec).subscribe(
+            (interviews) => {
+              this.interviews = interviews;
+              this.filteredInterviews = interviews; // Update the filteredOffers array as well
+              this.populateCandidatures();
+              this.populateCandidates();
+              this.populateOffers();
+            },
+            (error) => {
+              console.error(error);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
   closeModal() {
     if (this.modalRef) {
       console.log('modal closed')
       this.modalRef.close();
     }
   }
-
 
 }

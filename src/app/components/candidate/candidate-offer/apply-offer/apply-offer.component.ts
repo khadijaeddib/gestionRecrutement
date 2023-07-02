@@ -37,6 +37,7 @@ export class ApplyOfferComponent implements OnInit{
 
   constructor(private activeModal: NgbActiveModal, private modalService: NgbModal, private datePipe: DatePipe, private candidatureService: CandidatureServiceService){}
 
+  
   ngOnInit(): void {
     this.candidatures = [];
 

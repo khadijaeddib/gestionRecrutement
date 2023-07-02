@@ -1,0 +1,88 @@
+
+<div class="container-xl mt-4" [ngClass]="{'successMessage': formSubmitted}">
+    <form #addInterviewForm="ngForm" (ngSubmit)="addInterview()" *ngIf="!formSubmitted">
+        <div class="div-btn-close">
+          <button class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+            <i class="bi-exclamation-triangle-fill"></i>
+            <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <div class="text-center">
+            <img src="/../../assets/images/interview.jpg" class="img-fluid rounded" style="height: 5%;"  alt="join us">
+        </div>
+        <h2 class="mt-3">Planifier un entretien</h2>
+        <div class="mt-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <!-- <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                            <label class=" mb-1" for="lName"><h6>Nom complet du candidat</h6></label>
+                            <input class="form-control" id="lName" type="text" placeholder="Nom *" name="lName" [(ngModel)]="candidate.lName" #lName="ngModel" readonly/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class=" mb-1" for="fName"><h6>Prénom</h6></label>
+                            <input class="form-control" id="fName" type="text" placeholder="Prénom *" name="fName" [(ngModel)]="candidate.fName" #fName="ngModel" readonly>
+                        </div>
+                    </div> -->
+                    <div class="mb-3">
+                        <label class="mb-1 " for="email"><h6>Email du candidat</h6></label>
+                        <input class="form-control" id="email" type="email" placeholder="Email *" name="email" [(ngModel)]="candidate.email" #email="ngModel" email="true" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="mb-1 " for="title"><h6>Titre d'offre</h6></label>
+                        <input class="form-control" id="title" type="text" placeholder="Titre *" name="title" [(ngModel)]="offer.title" #title="ngModel" readonly>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                            <label class=" mb-1" for="interviewDate"><h6>Date d'entretien</h6></label>
+                            <input class="form-control" id="interviewDate" type="datetime-local" placeholder="Date d'entretien *" name="interviewDate" [(ngModel)]="interview.interviewDate" #interviewDate="ngModel" required>
+                            <div *ngIf="interviewDate.invalid && (interviewDate.dirty || interviewDate.touched)" class="text-danger">
+                                <small *ngIf="interviewDate.errors?.['required']">
+                                    * Format d'entretien est nécessaire 
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class=" mb-1" for="interviewFormat"><h6>Format d'entretien</h6></label>
+                            <select class="form-control" name="interviewFormat" id="interviewFormat" [(ngModel)]="interview.interviewFormat" #interviewFormat="ngModel" required>
+                                <option Value="" disabled selected >{{ interview.interviewFormat ? interview.interviewFormat : 'Sélectionnez le format d\'entretien *' }}</option>
+                                <option Value="Présentiel">Présentiel</option>
+                                <option Value="Distanciel">Distanciel</option>
+                            </select>
+                            <div *ngIf="interviewFormat.invalid && (interviewFormat.dirty || interviewFormat.touched)" class="text-danger">
+                                <small *ngIf="interviewFormat.errors?.['required']">
+                                    * Format d'entretien est nécessaire 
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class=" mb-1" for="address"><h6>Adresse d'entretien *</h6></label>
+                        <input class="form-control" id="address" type="text" placeholder="Motivation *" name="address" [(ngModel)]="interview.address" #address="ngModel" required>
+                        <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
+                            <small *ngIf="address.errors?.['required']">
+                                * Adresse d'entretien est nécessaire
+                            </small>
+                        </div>
+                    </div>
+                    <input type="hidden" name="idCandidature" [ngModel]="candidature.idCandidature" #idCandidature="ngModel">
+                    <input type="hidden" name="status" [ngModel]="interview.status" #status="ngModel">
+                    <div class="row gx-3 mb-3">
+                        <button class="btn-download col-md-2 mx-auto" data-mdb-ripple-color="dark" type="submit"><i class="bi bi-calendar3"></i>Planifier</button>
+                        <button type="button" class="btn-download col-md-2 mx-auto" (click)="closeModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Success message -->
+  <div *ngIf="formSubmitted" class="text-center message">
+    <h3 class="text-success">{{ successMessage1 }}</h3>
+    <p>{{ successMessage2 }}</p>
+    <button class="btn-download col-md-2 mx-auto" (click)="closeModal()">Fermer</button>
+  </div>
+</div>
+  
+  

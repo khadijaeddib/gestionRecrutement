@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/AuthService.service';
 import { CandidatureServiceService } from 'src/app/services/candidature-service.service';
+import { InterviewServiceService } from 'src/app/services/interview-service.service';
 import { OfferServiceService } from 'src/app/services/offer-service.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class CandidateComponent {
   totalCandidateCandidatures!: number;
   totalCandidateInterviews!: number;
 
-  constructor(private router: Router, private AuthService: AuthService, private offerService: OfferServiceService, private candidatureService: CandidatureServiceService) { }
+  constructor(private router: Router, private AuthService: AuthService, private offerService: OfferServiceService, private candidatureService: CandidatureServiceService, private interviewService: InterviewServiceService) { }
 
   ngOnInit(): void {
     this.userEmail = sessionStorage.getItem('userEmail');
@@ -37,6 +38,10 @@ export class CandidateComponent {
 
     this.candidatureService.getAllCandidateCandidatures(this.candidate.idCand).subscribe(candiatures => {
       this.totalCandidateCandidatures = candiatures.length;
+    });
+
+    this.interviewService.getAllCandidateInterviews(this.candidate.idCand).subscribe(interviews => {
+      this.totalCandidateInterviews = interviews.length;
     });
   }
 

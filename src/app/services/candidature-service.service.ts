@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CandidatureServiceService {
   private baseUrl:string = 'https://localhost:7217/api/Candidature/';
   constructor(private http : HttpClient) { }

@@ -7,7 +7,7 @@
     </button>
   </div>
     <div class="row">
-        <div class="col-md-4 mt-4" *ngFor="let recruiter of recruiters">
+        <div class="col-md-4 mt-4" *ngFor="let recruiter of recruiters; let i = index">
             <div class="card user-card">
                 <div class="card-header">
                     <h5>Profil</h5>
@@ -19,27 +19,29 @@
                     <h6 class="f-w-600 m-t-25 m-b-10">{{recruiter.fName}} {{recruiter.lName}}</h6>
                     <p class="text-muted">@{{recruiter.company.name}} | {{recruiter.email}}</p>
                     <hr>
-                    <p class="text-muted m-t-15">Niveau d'activité: 87%</p>
+                    <p class="text-muted m-t-15">Niveau d'activité: {{ activityLevels[i] }}%</p>
+                    <!-- <ul class="list-unstyled activity-leval">
+                      <li *ngFor="let level of activityLevels[i] | number:'1.0-0'; let j = index" [ngClass]="{'active': j < activityLevels[i] / 20 }"></li>
+                      <li *ngFor="let level of activityLevels[i] | number:'1.0-0'; let j = index" [ngClass]="{'inactive': j >= activityLevels[i] / 20 }"></li>
+                    </ul> -->
                     <ul class="list-unstyled activity-leval">
-                        <li class="active"></li>
-                        <li class="active"></li>
-                        <li class="active"></li>
-                        <li></li>
-                        <li></li>
+                      <ng-container *ngFor="let level of [].constructor(5); let j = index">
+                        <li [ngClass]="{'active': j < activityLevels[i] / 20, 'inactive': j >= activityLevels[i] / 20 }"></li>
+                      </ng-container>
                     </ul>
                     <div class="bg-c-blue counter-block m-t-10 p-20">
                         <div class="row">
                             <div class="col-4">
                               <i class="bi bi-calendar3"></i>
-                                <p>12</p>
+                                <p>{{totalRecruiterInterviews[i]}}</p>
                             </div>
                             <div class="col-4">
                                 <i class="bi bi-person-fill"></i>
-                                <p>62</p>
+                                <p>{{totalRecruiterCandidates[i]}}</p>
                             </div>
                             <div class="col-4">
-                              <i class="bi bi-file-post"></i>
-                                <p>9</p>
+                              <i class="bi bi-bag-plus-fill"></i>
+                                <p>{{totalRecruiterOffers[i]}}</p>
                             </div>
                         </div>
                     </div>

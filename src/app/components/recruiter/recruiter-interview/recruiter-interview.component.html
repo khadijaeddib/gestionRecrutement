@@ -17,14 +17,14 @@
             <option selected="selected" value="0">Chercher par <i class="bi bi-caret-down-fill"></i></option>
             <option value="title">Titre d'offre d'emploi</option>
             <option value="status">Statut</option>
-            <option value="dateCand">Date candidature</option>
+            <option value="interviewDate">Date d'entretien</option>
             <option value="all">Tous</option>
           </select>
         <input id="keySearch" name="keySearch" type="text" class="form-control" placeholder="Saisie de mots clés" required [(ngModel)]="searchKeyword" (keyup.enter)="onSearch()">
         <button type="button" class="search-btn" (click)="onSearch()"><i class='bx bx-search' ></i></button>
     </form>
     <div class="form-inline sort">
-      <select id="candidatureSort" name="candidatureSort" class="input-categorie sort" [(ngModel)]="candidatureSort" (change)="sortCandidaturesByDate(candidatureSort)">
+      <select id="interviewSort" name="interviewSort" class="input-categorie sort" [(ngModel)]="interviewSort" (change)="sortInterviewsByDate(interviewSort)">
         <option selected="selected" value="none">Trier par <i class="bi bi-caret-down-fill"></i></option>
         <option value="asc">Plus récent</option>
         <option value="desc">Plus ancien</option>
@@ -37,52 +37,57 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Status</th>
             <th>Date</th>
+            <th>Lieu</th>
+            <th>Status</th>
             <th>Candidat</th>
             <th>Titre d'offre</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="filteredCandidatures && filteredCandidatures.length > 0">
-          <tr *ngFor="let candidature of filteredCandidatures.slice(0, pageSize); let i = index">
-            <td>{{candidature.idCandidature}}</td>
-            <td><select id="status" name="status" class="input-categorie" [ngClass]="classColors[candidature.status]" [(ngModel)]="candidature.status" (change)="onStatusChange(candidature.idCandidature, $event)">
-                <option value="reçu" class="status reçu">Reçu</option>
-                <option value="encours" class="status encours">Encours</option>
-                <option value="convoqué" class="status convoqué">Convoqué</option>
-                <option value="embauché" class="status embauché">Embauché</option>
-                <option value="refusé" class="status refusé">Refusé</option>
+          <ng-container *ngIf="filteredInterviews && filteredInterviews.length > 0">
+          <tr *ngFor="let interview of filteredInterviews.slice(0, pageSize)">
+            <td>{{interview.idInterview}}</td>
+            <td>{{interview.interviewDate}}</td>
+            <td>{{interview.address}}</td>
+            <td><select id="status" name="status" class="input-categorie" [ngClass]="classColors[interview.status]" [(ngModel)]="interview.status" (change)="onStatusChange(interview.idInterview, $event)">
+                <option value="Planifié" class="status Planifié">Planifié </option>
+                <option value="Reporté" class="status Reporté">Reporté </option>
+                <option value="Échoué" class="status Échoué">Échoué </option>
+                <option value="Réussi" class="status Réussi">Réussi </option>
+                <option value="Annulé" class="status Annulé">Annulé</option>
               </select>
             </td>
-            <td> {{candidature.dateCand}}</td>
             <td>
               <div class="d-flex align-items-center">
-                <img [src]="createImgPath(candidature.candidate.candImagePath)" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
+                <img [src]="createImgPath(interview.candidature.candidate.candImagePath)" alt="user image" style="width: 45px; height: 45px" class="rounded-circle"/>
                 <div class="ms-3">
-                  <p class="fw-bold mb-1">{{candidature.candidate.fName}} {{candidature.candidate.lName}}</p>
-                  <p class="text-muted mb-0">{{candidature.candidate.email}}</p>
+                  <p class="fw-bold mb-1">{{interview.candidature.candidate.fName}} {{interview.candidature.candidate.lName}}</p>
+                  <p class="text-muted mb-0">{{interview.candidature.candidate.email}}</p>
                 </div>
               </div>
             </td>
-            <td> {{candidature.offer.title}} </td>
+            <td> {{interview.candidature.offer.title}}  </td>
             <td>
-              <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="showCandidate(candidature.candidate.idCand, candidature)">
+              <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="showInterview(interview.candidature.candidate.idCand, interview)">
                 <i class="bi bi-eye-fill"></i>
               </button>
-              <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="deleteCandidature(candidature.idCandidature)">
+              <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="editInterview(interview.idInterview)">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="deleteInterview(interview.idInterview)">
                 <i class="bi bi-trash-fill"></i>
               </button>
             </td>
           </tr>
         </ng-container>
         </tbody>
-        <tfoot *ngIf="filteredCandidatures.length === 0">
-          <tr>
-          <td colspan="8" class="text-center">Aucune candidature trouvée</td>
-          </tr>
-         </tfoot>
+        <tfoot *ngIf="filteredInterviews.length === 0">
+            <tr>
+            <td colspan="8" class="text-center">Aucun entretien trouvé</td>
+            </tr>
+           </tfoot>
       </table>
     </div>
   </div>

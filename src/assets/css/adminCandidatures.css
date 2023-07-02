@@ -24,3 +24,19 @@
   background: var(--red)!important;
 }
 
+.Planifié {
+  background: var(--yellow)!important;
+}
+.Annulé {
+  background: var(--orange)!important;
+}
+.Reporté {
+  background: var(--blue)!important;
+}
+.Réussi {
+  background: var(--green)!important;
+}
+.Échoué  {
+  background: var(--red)!important;
+}
+

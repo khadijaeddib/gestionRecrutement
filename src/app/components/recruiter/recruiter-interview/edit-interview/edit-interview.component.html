@@ -1,0 +1,61 @@
+<div class="container-xl px-4 mt-4">
+    <form #editInterviewForm="ngForm" (ngSubmit)="editInterview(interview.idInterview)">
+        <div class="row">
+            <div class="div-btn-close">
+                <button class="btn-close" data-dismiss="modal" (click)="close()"></button>
+            </div>
+            <div *ngIf="successMessage" class="alert alert-success alert-dismissible d-flex align-items-center fade show">
+                <i class="bi-check-circle-fill"></i>
+                <strong class="mx-2">Succès!</strong> {{ successMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                <i class="bi-exclamation-triangle-fill"></i>
+                <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class=" mb-1" for="interviewDate"><h6>Date d'entretien</h6></label>
+                            <input class="form-control" id="interviewDate" type="datetime-local" placeholder="Date d'entretien *" name="interviewDate" [(ngModel)]="interview.interviewDate" #interviewDate="ngModel" required/>
+                            <div *ngIf="interviewDate.invalid && (interviewDate.dirty || interviewDate.touched)" class="text-danger">
+                                <small *ngIf="interviewDate.errors?.['required']">
+                                    * Date d'entretien est nécessaire
+                                </small>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class=" mb-1" for="address"><h6>L'adresse d'entretien</h6></label>
+                            <input class="form-control" id="address" type="text" placeholder="Date d'entretien *" name="address" [(ngModel)]="interview.address" #address="ngModel" required/>
+                            <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
+                                <small *ngIf="address.errors?.['required']">
+                                    * L'adresse d'entretien est nécessaire
+                                </small>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class=" mb-1" for="interviewFormat"><h6>Format d'entretien</h6></label>
+                            <!-- <input class="form-control" id="interviewFormat" type="datetime-local" placeholder="Format d'entretien *" name="interviewFormat" [(ngModel)]="interview.interviewFormat" #interviewFormat="ngModel" required/> -->
+                            <select class="form-control" name="interviewFormat" id="interviewFormat" [(ngModel)]="interview.interviewFormat" #interviewFormat="ngModel" required>
+                                <option Value="" disabled selected >{{ interview.interviewFormat ? interview.interviewFormat : 'Sélectionnez le format d\'entretien *' }}</option>
+                                <option [ngValue]="'Présentiel'">Présentiel</option>
+                                <option [ngValue]="'Distanciel'">Distanciel</option>
+                            </select>
+                            <div *ngIf="interviewFormat.invalid && (interviewFormat.dirty || interviewFormat.touched)" class="text-danger">
+                                <small *ngIf="interviewFormat.errors?.['required']">
+                                    * Format d'entretien est nécessaire
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <button class="btn-download col-md-3 mx-auto" type="submit">Editer</button>
+                        <button type="button" class="btn-download col-md-3 mx-auto" (click)="close()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

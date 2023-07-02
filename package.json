@@ -26,6 +26,8 @@
         "@popperjs/core": "^2.11.7",
         "bootstrap": "^5.2.3",
         "bootstrap-icons": "^1.10.3",
+        "chart.js": "^3.7.0",
+        "chartjs-adapter-moment": "^1.0.1",
         "google-libphonenumber": "^3.2.32",
         "intl-tel-input": "^17.0.3",
         "moment": "^2.29.4",

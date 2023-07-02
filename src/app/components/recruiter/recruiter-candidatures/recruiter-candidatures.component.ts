@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Candidature } from 'src/app/models/Candidature';
@@ -7,6 +7,9 @@ import { CandidateServiceService } from 'src/app/services/candidate-service.serv
 import { CandidatureServiceService } from 'src/app/services/candidature-service.service';
 import { OfferServiceService } from 'src/app/services/offer-service.service';
 import { ShowCandidatureComponent } from './show-candidature/show-candidature.component';
+import { RecruiterInterviewComponent } from '../recruiter-interview/recruiter-interview.component';
+import { AddInterviewComponent } from './add-interview/add-interview.component';
+import { Interview } from 'src/app/models/Interview';
 
 interface ClassColors {
   [key: string]: string;
@@ -30,7 +33,7 @@ export class RecruiterCandidaturesComponent implements OnInit{
   candidatures: Candidature[] = [];
   response: any;
   @Input() candidature!: Candidature;
-  modalRef: NgbModalRef | undefined; // Modal reference variable
+  @Input() modalRef: NgbModalRef | undefined; // Modal reference variable
 
   pageSize: number = 5; // Initial page size
   searchCategory: string = '0'; // Default to "Chercher par" option
@@ -41,11 +44,15 @@ export class RecruiterCandidaturesComponent implements OnInit{
 
   errorMessage: string = '';
 
+  previousStatus: string = '';
+
   @Input() recruiter: any;
 
   @Output() candidatureUpdated: EventEmitter<Candidature> = new EventEmitter<Candidature>();
 
-  constructor(private http: HttpClient,private modalService: NgbModal, private router: Router, private candidatureService: CandidatureServiceService, private candidateService: CandidateServiceService, private offerService: OfferServiceService) {
+  interviewAdded: boolean = false; // Add a new property to keep track of whether or not an interview was added
+
+  constructor(private http: HttpClient,private modalService: NgbModal, private router: Router, private candidatureService: CandidatureServiceService, private candidateService: CandidateServiceService, private offerService: OfferServiceService, private changeDetector: ChangeDetectorRef, private elementRef: ElementRef) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         // Close the modal when navigating away
@@ -68,22 +75,64 @@ export class RecruiterCandidaturesComponent implements OnInit{
     return `https://localhost:7217/Content/Candidate/Images/${serverPath}`; 
   }
 
-  onStatusChange(id: number,event: any) {
+  resetCandidatureStatus(id: number) {
+    this.candidatureService.getCandidature(id).subscribe(
+      (response) => {
+        const index = this.candidatures.findIndex(c => c.idCandidature === id);
+        if (index !== -1) {
+          this.candidatures[index].status = response.status;
+          this.mySelectedValue = response.status; // Update the selected value
+        }
+      },
+      (error) => {
+        this.errorMessage = "Statut n'est pas modifié";
+      }
+    );
+  }  
+
+  onStatusChange(id: number, event: any) {
     this.mySelectedValue = event.target.value;
+    this.previousStatus = this.candidatures.find(c => c.idCandidature === id)?.status || ''; // Save the previous status
+  
+    if (this.mySelectedValue === 'convoqué') {
+      this.modalRef = this.modalService.open(AddInterviewComponent);
+      this.modalRef.componentInstance.modalRef = this.modalRef;
+      const index = this.candidatures.findIndex(c => c.idCandidature === id);
+      this.modalRef.componentInstance.candidature = this.candidatures[index];
+      this.modalRef.componentInstance.interviewAdded.subscribe((interview: Interview) => {
+        // Update the status when an interview is added
+        this.updateCandidatureStatus(id, this.mySelectedValue);
+      });
+      this.modalRef.dismissed.subscribe(() => {
+        // Reset the status when the modal is dismissed
+        console.log('Before reset:', this.candidatures[index].status); // Log the status before resetting
+        this.resetCandidatureStatus(id);
+        console.log('After reset:', this.candidatures[index].status); // Log the status after resetting
+      });
+      this.modalRef.componentInstance.modalClosed.subscribe(() => {
+        this.resetCandidatureStatus(id);
+      });
+    } else {
+      // Update the status if it's not "convoqué"
+      this.updateCandidatureStatus(id, this.mySelectedValue);
+    }
+  }
+  
+  updateCandidatureStatus(id: number, status: string) {
     const formData = new FormData();
-    formData.append('status', this.mySelectedValue);
+    formData.append('status', status);
     this.candidatureService.editCandidature(id, formData).subscribe(
       (response) => {
         // handle successful response
         const index = this.candidatures.findIndex(c => c.idCandidature === id);
         if (index !== -1) {
-          this.candidatures[index].status = this.mySelectedValue;
+          this.candidatures[index].status = status;
         }
       },
-     (error) => {
-     // handle error response
-      this.errorMessage = "Statut n'est pas modifiée";
-     }
+      (error) => {
+        // handle error response
+        this.errorMessage = "Statut n'est pas modifiée";
+      }
     );
   }
 
