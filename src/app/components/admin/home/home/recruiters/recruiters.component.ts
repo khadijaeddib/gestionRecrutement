@@ -45,7 +45,12 @@ export class RecruitersComponent implements OnInit {
     if (offers === 0) {
       return 0;
     }
-    const activityLevel = (((candidates / offers) + (interviews / offers)) / 2) * 100;
+    const recruiterIndex = 0;
+    const totalOffers = this.totalRecruiterOffers.reduce((a, b) => a + b, 0);
+    const totalCandidates = this.totalRecruiterCandidates.reduce((a, b) => a + b, 0);
+    const totalInterviews = this.totalRecruiterInterviews.reduce((a, b) => a + b, 0);
+    const activityLevel = (offers + candidates + interviews) / (totalOffers + totalCandidates + totalInterviews) * 100;
+
     return Math.round(activityLevel);
   }
 
@@ -77,7 +82,7 @@ export class RecruitersComponent implements OnInit {
         ).subscribe(results => {
           results.forEach((result, index) => {
             // Log the results of the methods
-            // console.log(`Recruiter ${this.recruiters[index].idRec}: offers=${result.offers.length}, candidates=${result.candidates.length}, interviews=${result.interviews.length}`);
+            console.log(`Recruiter ${this.recruiters[index].idRec}: offers=${result.offers.length}, candidates=${result.candidates.length}, interviews=${result.interviews.length}`);
   
             this.totalRecruiterOffers[index] = result.offers.length;
             this.totalRecruiterCandidates[index] = result.candidates.length;
