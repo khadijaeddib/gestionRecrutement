@@ -6,6 +6,9 @@ import { Offer } from 'src/app/models/Offer';
 import { OfferServiceService } from 'src/app/services/offer-service.service';
 import { RecruiterServiceService } from 'src/app/services/recruiter-service.service';
 import { ApplyOfferComponent } from './apply-offer/apply-offer.component';
+import { CandidatureServiceService } from 'src/app/services/candidature-service.service';
+import { Candidate } from 'src/app/models/Candidate';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
 
 @Component({
   selector: 'app-candidate-offer',
@@ -13,6 +16,8 @@ import { ApplyOfferComponent } from './apply-offer/apply-offer.component';
   styleUrls: ['./candidate-offer.component.css']
 })
 export class CandidateOfferComponent implements OnInit{
+  candidate: Candidate = new Candidate();
+  
   offers: Offer[] = [];
   // response: any;
   // @Input() offer: Offer | undefined;
@@ -28,7 +33,7 @@ export class CandidateOfferComponent implements OnInit{
 
   offerSortOrder: string = 'none';
 
-  constructor(private http: HttpClient,private modalService: NgbModal, private router: Router, private offerService: OfferServiceService, private recruiterService: RecruiterServiceService) {
+  constructor(private http: HttpClient,private modalService: NgbModal, private router: Router, private offerService: OfferServiceService, private recruiterService: RecruiterServiceService, private candidatureService: CandidatureServiceService) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         // Close the modal when navigating away
@@ -38,6 +43,12 @@ export class CandidateOfferComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    const userLoggedString = sessionStorage.getItem('userLogged');
+    if (userLoggedString) {
+      const userLogged = JSON.parse(userLoggedString);
+      this.candidate = userLogged;
+    }
+
     this.getAllOffers();
   }
 
@@ -137,29 +148,52 @@ export class CandidateOfferComponent implements OnInit{
   applyOffer(id: number): void {
     this.offerService.getOffer(id).subscribe(
       (offer) => {
-        this.modalRef = this.modalService.open(ApplyOfferComponent);
-        this.modalRef.componentInstance.offer = offer;
-        this.modalRef.componentInstance.offerApplied.subscribe((appliedOffer: Offer) => {
-          // Update the company list after successful update
-          // if (appliedOffer && appliedOffer.idOffer) {
-          //   this.modalRef.componentInstance.applyJob(appliedOffer.idOffer);
-          // }
-          this.offerService.getOffers().subscribe(
-            (offers) => {
-              this.offers = offers;
-              this.filteredOffers = offers; // Update the filteredOffers array as well
-            },
-            (error) => {
-              console.error(error);
+        // Check if the offer has expired
+        if (new Date() > new Date(offer.endDate)) {
+          // Show error message in modal
+          this.modalRef = this.modalService.open(ErrorModalComponent);
+          this.modalRef.componentInstance.errorMessage = 'La date limite pour postuler à cette offre est malheureusement dépassée.';
+          this.modalRef.componentInstance.errorMessage1 = 'Votre candidature ne peut pas être prise en compte à ce stade. Nous vous encourageons à consulter nos offres actuelles et à postuler à celles qui sont encore ouvertes.';
+          this.modalRef.componentInstance.errorMessage2 = 'Merci pour votre intérêt et votre compréhension.';
+        } else {
+          this.candidatureService.hasApplied(this.candidate.idCand, offer.idOffer).subscribe(hasApplied => {
+            if (hasApplied) {
+              // Show error message in modal
+              this.modalRef = this.modalService.open(ErrorModalComponent);
+              this.modalRef.componentInstance.errorMessage = 'Vous avez déjà soumis une candidature pour cette offre';
+              this.modalRef.componentInstance.errorMessage1 = 'Nous avons bien reçu votre candidature pour cette offre. Votre demande est en cours de traitement et notre équipe l\'examinera attentivement. Veuillez patienter pendant que nous évaluons votre profil. Nous vous contacterons si votre candidature est retenue pour la prochaine étape du processus de sélection.';
+              this.modalRef.componentInstance.errorMessage2 = 'Merci de votre intérêt et de votre compréhension.';
+            } else {
+              // Open modal
+              this.modalRef = this.modalService.open(ApplyOfferComponent);
+              this.modalRef.componentInstance.offer = offer;
+              this.modalRef.componentInstance.offerApplied.subscribe((appliedOffer: Offer) => {
+                // Update the company list after successful update
+                // if (appliedOffer && appliedOffer.idOffer) {
+                //   this.modalRef.componentInstance.applyJob(appliedOffer.idOffer);
+                // }
+                this.offerService.getOffers().subscribe(
+                  (offers) => {
+                    this.offers = offers;
+                    this.filteredOffers = offers; // Update the filteredOffers array as well
+                  },
+                  (error) => {
+                    console.error(error);
+                  }
+                );
+              });
             }
-          );
-        });
+          });
+        }
       },
       (error) => {
         console.error(error);
       }
     );
   }
+  
+  
+  
 
   closeModal() {
     if (this.modalRef) {

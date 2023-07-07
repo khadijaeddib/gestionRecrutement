@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavigationStart, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -15,28 +15,24 @@ import { InterviewServiceService } from 'src/app/services/interview-service.serv
   styleUrls: ['./add-interview.component.css']
 })
 export class AddInterviewComponent implements OnInit{
-
   candidate: Candidate = new Candidate();
   offer: Offer = new Offer();
   candidature: Candidature = new Candidature();
-  // candidatures: Candidature[] = [];
 
   interview: Interview = new Interview();
   interviews: Interview[] = [];
 
   errorMessage: string = '';
-  successMessage1: string = '';
-  successMessage2: string = '';
+  successMessage: string = '';
 
   @ViewChild('addInterviewForm') addInterviewForm!: NgForm;
-  // @Output() offerApplied: EventEmitter<any> = new EventEmitter<any>();
-  // @Output() offerApplied: EventEmitter<{ appliedOffer: Offer, idOffer: number }> = new EventEmitter<{ appliedOffer: Offer, idOffer: number }>();
   @Output() interviewAdded: EventEmitter<any> = new EventEmitter<any>();
 
   formSubmitted: boolean = false;
   modalRef: NgbModalRef | undefined;
   @Output() modalClosed: EventEmitter<void> = new EventEmitter<void>();
 
+  @Input() recruiter: any;
 
   constructor(private activeModal: NgbActiveModal, private candidatureService: CandidatureServiceService, private interviewService: InterviewServiceService,private modalService: NgbModal, private router: Router){
     this.router.events.subscribe((event) => {
@@ -48,6 +44,12 @@ export class AddInterviewComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    const userLoggedString = sessionStorage.getItem('userLogged');
+    if (userLoggedString) {
+      const userLogged = JSON.parse(userLoggedString);
+      this.recruiter = userLogged;
+    }
+
     this.interviews = [];
 
     if (this.candidature) {
@@ -65,11 +67,24 @@ export class AddInterviewComponent implements OnInit{
 
     const formData = new FormData();
 
-    // formData.append('status', this.candidature.status);
     formData.append('status', 'Planifié');
     formData.append('interviewDate', this.interview.interviewDate.toString());
     formData.append('address', this.interview.address);
     formData.append('interviewFormat', this.interview.interviewFormat);
+
+    const recruiterName = this.recruiter.fName +' ' +this.recruiter.lName; 
+
+    // Pass recruiter email and password
+    formData.append('recruiterEmail', this.recruiter.email);
+    formData.append('recruiterName', recruiterName);
+    // formData.append('recruiterPassword', this.recruiter.pass);
+
+    const candidateName = this.candidate.fName +' ' + this.candidate.lName; 
+
+    // Pass candidate email
+    formData.append('candidateEmail', this.candidate.email);
+    formData.append('candidateName', candidateName);
+
 
     if (this.candidature.idCandidature) {
       formData.append('idCandidature', this.candidature.idCandidature.toString());
@@ -77,8 +92,7 @@ export class AddInterviewComponent implements OnInit{
 
     this.interviewService.addInterview(formData).subscribe(
       (response) => {
-        this.successMessage1 = "Félicitations ! ";
-        this.successMessage2 = "Votre demande d'entretien a été soumise avec succès";
+        this.successMessage = "Votre demande d'entretien a été soumise avec succès";
         this.errorMessage = '';
         this.interviews.push(response);
         this.interviewAdded.emit(response);
@@ -88,20 +102,11 @@ export class AddInterviewComponent implements OnInit{
       (error) => {
         console.error(error);
         this.errorMessage = 'Veuillez remplir correctement tous les champs obligatoires';
-        this.successMessage1 = '';
-        this.successMessage2 = '';
+        this.successMessage = '';
       }
     );
+    
   }
-
-  // closeModal() {
-  //   console.log("close")
-  //   console.log(this.modalRef)
-
-  //   if (this.modalRef) {
-  //     this.modalRef.close();
-  //   }
-  // }
 
   closeModal() {
     if (this.modalRef) {

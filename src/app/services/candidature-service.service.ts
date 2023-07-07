@@ -53,4 +53,8 @@ export class CandidatureServiceService {
     return this.http.get<any>(`${this.baseUrl}getAllCandidateCandidatures/${id}`);
   }
 
+  hasApplied(candidateId: number, offerId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}hasApplied/${candidateId}/${offerId}`);
+  }  
+
 }

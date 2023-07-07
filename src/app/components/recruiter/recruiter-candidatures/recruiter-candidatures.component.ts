@@ -99,10 +99,17 @@ export class RecruiterCandidaturesComponent implements OnInit{
       this.modalRef.componentInstance.modalRef = this.modalRef;
       const index = this.candidatures.findIndex(c => c.idCandidature === id);
       this.modalRef.componentInstance.candidature = this.candidatures[index];
+      // this.modalRef.componentInstance.interviewAdded.subscribe((interview: Interview) => {
+      //   // Update the status when an interview is added
+      //   this.updateCandidatureStatus(id, this.mySelectedValue);
+      // });
+
       this.modalRef.componentInstance.interviewAdded.subscribe((interview: Interview) => {
         // Update the status when an interview is added
         this.updateCandidatureStatus(id, this.mySelectedValue);
+        this.closeModal();
       });
+      
       this.modalRef.dismissed.subscribe(() => {
         // Reset the status when the modal is dismissed
         console.log('Before reset:', this.candidatures[index].status); // Log the status before resetting

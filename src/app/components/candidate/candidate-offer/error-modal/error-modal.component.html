@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title text-danger">Erreur!!</h3>
+    <div class="div-btn-close">
+        <button class="btn-close" data-dismiss="modal" (click)="close()"></button>
+    </div>
+</div>
+<div class="modal-body text-center message">
+    <p class="text-danger">{{ errorMessage }}</p>
+    <p>{{ errorMessage1 }}</p>
+    <p>{{ errorMessage2 }}</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn-download col-md-2 mx-auto" (click)="close()">Cancel</button>
+</div>
+  
