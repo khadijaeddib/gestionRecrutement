@@ -28,10 +28,10 @@ export class OffersListComponent implements OnInit{
   offerSortOrder: string = 'none';
 
   @Input() recruiter: any;
-  
-  constructor(private http: HttpClient,private modalService: NgbModal, private router: Router, private offerService: OfferServiceService, private recruiterService: RecruiterServiceService, private AuthService:AuthService) {
 
-  }
+  selectedTab: string = 'all';
+  
+  constructor(private http: HttpClient,private modalService: NgbModal, private router: Router, private offerService: OfferServiceService, private recruiterService: RecruiterServiceService, private AuthService:AuthService) {}
   
   ngOnInit(): void {
     this.getOffers();
@@ -69,6 +69,15 @@ export class OffersListComponent implements OnInit{
       }
     );
   }
+
+  filterOffersByAvailability(availability: string): void {
+    this.selectedTab = availability;
+    if (availability === 'all') {
+      this.filteredOffers = this.offers;
+    } else {
+      this.filteredOffers = this.offers.filter(offer => offer.availability === availability);
+    }
+  }  
 
   offerOnSearch() {
     // Reset the filteredOffers array

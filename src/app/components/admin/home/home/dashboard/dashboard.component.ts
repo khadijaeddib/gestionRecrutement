@@ -153,7 +153,10 @@ export class DashboardComponent implements OnInit {
     const chartOptions: ChartOptions<'bar'> = {
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          ticks: {
+            precision: 0 // Display only whole numbers on the y-axis
+          }
         }
       }
     };

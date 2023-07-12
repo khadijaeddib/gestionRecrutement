@@ -27,12 +27,14 @@ import { ContactComponent } from './components/welcome/contact/contact.component
 import { ShowOfferDetailsComponent } from './components/welcome/show-offer-details/show-offer-details.component';
 import { OffersListComponent } from './components/welcome/offers-list/offers-list.component';
 import { RecruiterInterviewComponent } from './components/recruiter/recruiter-interview/recruiter-interview.component';
+import { ResetPasswordComponent } from './components/account/reset-password/reset-password.component';
 
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'lockScreen', component: LockScreenComponent },
+  { path: 'resetPassword', component: ResetPasswordComponent },
   { path: 'admin', component: HomeComponent,
     children:[
       { path: 'dashboard', component: DashboardComponent },

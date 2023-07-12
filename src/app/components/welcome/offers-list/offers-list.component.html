@@ -93,24 +93,23 @@
                 <div class="tab-class text-center wow fadeInUp">
                     <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
                         <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
+                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#" [class.active]="selectedTab === 'all'" (click)="filterOffersByAvailability('all')">
                                 <h6 class="mt-n1 mb-0">Tous</h6>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
-                                <h6 class="mt-n1 mb-0">Temps plein</h6>
+                            <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#" [class.active]="selectedTab === 'Sur site'" (click)="filterOffersByAvailability('Sur site')">
+                                <h6 class="mt-n1 mb-0">Sur site</h6>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
-                                <h6 class="mt-n1 mb-0">Temps partiel</h6>
+                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#" [class.active]="selectedTab === 'Hybride'" (click)="filterOffersByAvailability('Hybride')">
+                                <h6 class="mt-n1 mb-0">Hybride</h6>
                             </a>
                         </li>
                     </ul>
-
                     <div class="tab-content-offer">
-                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div id="tab-1" class="tab-pane fade show p-0" [class.active]="selectedTab === 'all'">
                             <ng-container *ngIf="filteredOffers && filteredOffers.length > 0">
                                 <div class="job-item p-4 mb-4"  *ngFor="let offer of filteredOffers">
                                     <div class="row g-4">
@@ -134,9 +133,25 @@
                                     </div>
                                 </div>
                             </ng-container>
+                            <div *ngIf="filteredOffers.length === 0">
+                                <h6 class="text-center mt-4">Aucune offre trouvée</h6>
+                            </div>
                         </div>
-                        <div *ngIf="filteredOffers.length === 0">
-                          <h6 class="text-center mt-4">Aucune offre trouvée</h6>
+                        <div id="tab-2" class="tab-pane fade p-0" [class.active]="selectedTab === 'sur site'">
+                            <ng-container *ngIf="filteredOffers.length > 0">
+                              <!-- Display filtered offers -->
+                            </ng-container>
+                            <div *ngIf="filteredOffers.length === 0">
+                              <h6 class="text-center mt-4">Aucune offre Sur site trouvée</h6>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tab-pane fade p-0" [class.active]="selectedTab === 'hybride'">
+                            <ng-container *ngIf="filteredOffers.length > 0">
+                              <!-- Display filtered offers -->
+                            </ng-container>
+                            <div *ngIf="filteredOffers.length === 0">
+                              <h6 class="text-center mt-4">Aucune offre hybride trouvée</h6>
+                            </div>
                         </div>
                     </div>
                 </div>

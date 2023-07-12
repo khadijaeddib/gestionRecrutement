@@ -14,17 +14,6 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}login`, formData);
   }
 
-  // login(formData: FormData): Observable<any> {
-  //   return this.http.post<any>(`${this.baseUrl}login`, formData).pipe(
-  //     tap(response => {
-  //       if (response.success) {
-  //         // Increment the visitor counter
-  //         this.http.post<any>(`${this.baseUrl}incrementVisitorCounter`, {}).subscribe();
-  //       }
-  //     })
-  //   );
-  // }
-
   logout() {
     return this.http.post('/api/auth/logout', {});
   }
@@ -43,6 +32,10 @@ export class AuthService {
 
   getTotalVisitors(): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}getTotalVisitors`);
+  }
+
+  resetPassword(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}resetPassword`, formData);
   }
   
 }

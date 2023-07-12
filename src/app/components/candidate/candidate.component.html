@@ -77,13 +77,13 @@
         </ul>
       </div>
       <a class="profile">
-        <span class="text">{{userEmail}}</span>
-          <img [src]="createImgPath(candidate.candImagePath)" data-bs-toggle="dropdown" aria-expanded="false">
-          <ul class="dropdown-menu ">
-            <li><i class='bx bxs-user'></i><a class="dropdown-item" href="#">Profil</a></li>
-            <li><i class='bx bx-log-out-circle'></i><a class="dropdown-item" (click)="logout()">Se déconnecter</a></li>
-          </ul>
-      </a>
+        <span class="text">{{email}}</span>
+        <img [src]="createImgPath()" data-bs-toggle="dropdown" aria-expanded="false">
+        <ul class="dropdown-menu">
+          <li><i class='bx bxs-user'></i><a class="dropdown-item" href="#" routerLink="/candidate/profile">Profil</a></li>
+          <li><i class='bx bx-log-out-circle'></i><a class="dropdown-item pe-pointer" (click)="logout()">Se déconnecter</a></li>
+        </ul>
+      </a>      
     </nav>
     <!-- NAVBAR -->
 

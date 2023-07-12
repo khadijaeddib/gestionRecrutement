@@ -1,1 +1,277 @@
-<p>candidate-profile works!</p>
+<div class="container-xl px-4 mt-4">
+    <form #editCandidateForm="ngForm" (ngSubmit)="editCandidate(candidate.idCand)">
+        <div class="row">
+            <div *ngIf="successMessage" class="alert alert-success alert-dismissible d-flex align-items-center fade show">
+                <i class="bi-check-circle-fill"></i>
+                <strong class="mx-2">Succès!</strong> {{ successMessage }}
+                <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+            </div>              
+            <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                <i class="bi-exclamation-triangle-fill"></i>
+                <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div class="col-xl-4">
+                <!-- Profile picture card-->
+                <div class="card mb-4 mb-xl-0">
+                    <h6 class="card-header">Image d'utilisateur</h6>
+                    <div class="card-body text-center">
+                        <!-- Profile picture image-->
+                        <img class="img-account-profile rounded-circle mb-2" [src]="prevImageSrc" width="150px" height="150px" alt="logo" id="prevImage">
+                        <!-- Profile picture help block-->
+                        <!-- <div class="small font-italic text-muted mb-4">Format PNG ou JPG OU JPEG</div> -->
+                        <!-- Profile picture upload button-->
+                        <input type="file" id="candImage" accept=".png, .jpg, .jpeg" (change)="onImageSelected($event)" name="candImage"  [(ngModel)]="candidate.candImage" #candImage="ngModel" required>
+                        <div *ngIf="candImage.invalid && (candImage.dirty || candImage.touched)" class="text-danger">
+                            <small *ngIf="candImage.errors?.['required']">
+                                * L'image est nécessaire
+                            </small>
+                            <small *ngIf="!candImageExtensionValid && editCandidateForm.controls['candImage'].errors?.['invalidExtension']">
+                                * Extensions de fichier autorisées : .png, .jpg, .jpeg
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <!-- Account details card-->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="lName"><h6>Nom</h6></label>
+                                <input class="form-control" id="lName" type="text" placeholder="Votre nom *" name="lName" [(ngModel)]="candidate.lName" #lName="ngModel" required pattern="[A-Za-z]+"/>
+                                <div *ngIf="lName.invalid && (lName.dirty || lName.touched)" class="text-danger">
+                                    <small *ngIf="lName.errors?.['required']">
+                                        * Votre nom est nécessaire
+                                    </small>
+                                    <small *ngIf="lName.errors?.['pattern']">
+                                        * Le nom ne doit contenir que des lettres
+                                      </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="fName"><h6>Prénom</h6></label>
+                                <input class="form-control" id="fName" type="text" placeholder="Votre prénom *" name="fName" [(ngModel)]="candidate.fName" #fName="ngModel" required pattern="[A-Za-z]+">
+                                <div *ngIf="fName.invalid && (fName.dirty || fName.touched)" class="text-danger">
+                                    <small *ngIf="fName.errors?.['required']">
+                                        * Votre prénom est nécessaire
+                                    </small>
+                                    <small *ngIf="fName.errors?.['pattern']">
+                                        * Le prénom ne doit contenir que des lettres
+                                      </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="mb-1 " for="email"><h6>Email </h6></label>
+                            <input class="form-control" id="email" type="email" placeholder="Votre email *" name="email" [(ngModel)]="candidate.email" #email="ngModel" email="true" required>
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                                <small *ngIf="email.errors?.['required']">
+                                    * Votre email est nécessaire
+                                </small>
+                                <small *ngIf="email.errors?.['email']">
+                                    * Email invalide
+                                </small>
+                            </div>
+                        </div>
+                            <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="age"><h6>Age</h6></label>
+                                <input class="form-control" id="age" type="text" placeholder="Votre âge (Ex: 20) *" name="age" [(ngModel)]="candidate.age" #age="ngModel" required>
+                                <div *ngIf="age.invalid && (age.dirty || age.touched)" class="text-danger">
+                                    <small *ngIf="age.errors?.['required']">
+                                        * Votre âge est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="phone"><h6>Numéro de téléphone</h6></label>
+                                <input class="form-control" id="phone" type="tel" placeholder="Votre numéro de téléphone" name="phone" [(ngModel)]="candidate.phone" #phone="ngModel" [pattern]="phonePattern" required>
+                                <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger">
+                                    <small *ngIf="phone.errors?.['required']">
+                                        * Numéro de téléphone est nécessaire
+                                    </small>
+                                    <small *ngIf="phone.errors?.['pattern']">
+                                        * Numéro de téléphone invalide
+                                      </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="mb-1 " for="address"><h6>Adresse </h6></label>
+                                <input class="form-control" id="address" type="text" placeholder="Votre adresse *" name="address" [(ngModel)]="candidate.address" #address="ngModel" required>
+                                <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
+                                    <small *ngIf="address.errors?.['required']">
+                                        * Votre adresse est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="cin"><h6>CIN</h6></label>
+                                <input class="form-control" id="cin" type="text" placeholder="Votre CIN" name="cin" [(ngModel)]="candidate.cin" #cin="ngModel" required>
+                                <div *ngIf="cin.invalid && (cin.dirty || cin.touched)" class="text-danger">
+                                    <small *ngIf="cin.errors?.['required']">
+                                        * CIN est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="studyDegree"><h6>Niveau d'étude</h6></label>
+                                <select class="form-control" name="studyDegree" id="studyDegree" [(ngModel)]="candidate.studyDegree" #studyDegree="ngModel" required>
+                                    <option [ngValue]="" disabled selected>{{candidate.studyDegree}}</option>
+                                    <option [ngValue]="'Bac+2'">Bac+2</option>
+                                    <option [ngValue]="'Bac+3'">Bac+3</option>
+                                    <option [ngValue]="'Bac+4'">Bac+4</option>
+                                    <option [ngValue]="'Bac+5'">Bac+5</option>
+                                    <option [ngValue]="'Bac+7'">Bac+7</option>
+                                </select>
+                                <div *ngIf="studyDegree.invalid && (studyDegree.dirty || studyDegree.touched)" class="text-danger">
+                                    <small *ngIf="studyDegree.errors?.['required']">
+                                        * Niveau d'étude est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="diploma"><h6>Diplôme</h6></label>
+                                <select class="form-control" name="diploma" id="diploma" [(ngModel)]="candidate.diploma" #diploma="ngModel"  required>
+                                    <option [ngValue]="" disabled selected>{{candidate.diploma}}</option>
+                                    <option [ngValue]="'Bachelor'">Bachelor : Bachelor</option>
+                                    <option [ngValue]="'DEUG : Diplôme d\'études universitaires générales'">DEUG : Diplôme d'études universitaires générales</option>
+                                    <option [ngValue]="'DEUST : Diplôme d\'Etudes Universitaires Scientifiques et Techniques'">DEUST : Diplôme d’Etudes Universitaires Scientifiques et Techniques</option>
+                                    <option [ngValue]="'DUT : Diplôme universitaire de Technologie'">DUT : Diplôme universitaire de Technologie</option>
+                                    <option [ngValue]="'BTS : Brevet de Technicien Supérieur'">BTS : Brevet de Technicien Supérieur</option>
+                                    <option [ngValue]="'DTS : Diplôme de Technicien Spécialisé'">DTS : Diplôme de Technicien Spécialisé</option>
+                                    <option [ngValue]="'DT : Diplôme de Technicien'">DT : Diplôme de Technicien</option>
+                                    <option [ngValue]="'LF : Licence Fondamentale'">LF : Licence Fondamentale</option>
+                                    <option [ngValue]="'LP : Licence Professionnelle'">LP : Licence Professionnelle</option>
+                                    <option [ngValue]="'LST : Licence Sciences et Techniques'">LST : Licence Sciences et Techniques</option>
+                                    <option [ngValue]="'MS : Master Spécialisé'">MS : Master Spécialisé</option>
+                                    <option [ngValue]="'MR : Master Recherche'">MR : Master Recherche</option>
+                                    <option [ngValue]="'MST : Master Sciences et Techniques'">MST : Master Sciences et Techniques</option>
+                                    <option [ngValue]="'IE : Ingénieur d\'Etat'">IE : Ingénieur d'Etat</option>
+                                    <option [ngValue]="'MBA : Master of Business Administration'">MBA : Master of Business Administration</option>
+                                    <option [ngValue]="'Doctorat'">Doctorat : Doctorat</option>
+                                </select>
+                                <div *ngIf="diploma.invalid && (diploma.dirty || diploma.touched)" class="text-danger">
+                                    <small *ngIf="diploma.errors?.['required']">
+                                        * Diplôme est nécessaire 
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="spec"><h6>Spécialité</h6></label>
+                                <select class="form-control" name="spec" id="spec" [(ngModel)]="candidate.spec" #spec="ngModel" required>
+                                    <option [ngValue]="" disabled selected>{{candidate.spec}}</option>
+                                    <option value="Développeur Web">Info - Développeur Web</option>
+                                    <option value="Développeur Full-Stack">Info - Développeur Full-Stack</option>
+                                    <option value="Intelligence Artificiell">Info - Intelligence Artificielle</option>
+                                    <option value="Data Science">Info - Data Science</option>
+                                    <option value="Design UX/UI">Info - Design UX/UI </option>
+                                    <option value="Programmation Mobile"> Info - Programmation Mobile</option>
+                                    <option value="Développement Logiciel">Info - Développement Logiciel</option>
+                                    <option value="Réseaux informatiques">Info - Réseaux informatiques</option>
+                                    <option value="Sécurité informatique">Info - Sécurité informatique</option>
+                                    <option value="Machine Learning">Info - Machine Learning</option>
+                                    <option value="Cloud computing">Info - Cloud computing</option>
+                                    <option value="Marketing digital"> Marketing digital</option>
+                                    <option value="Gestion de projets"> Gestion de projets</option>
+                                    <option value="IoT"> IoT (Internet of Things)</option>
+                                    <option value="Blockchain"> Blockchain</option>
+                                    <option value="Comptabilité">Comptabilité</option>
+                                    <option value="Finance"> Finance</option>
+                                    <option value="Gestion d'entreprise"> Gestion d'entreprise</option>
+                                    <option value="Gestion des ressources humaines">Gestion des ressources humaines </option>
+                                    <option value="Management">Management </option>
+                                    <option value="Marketing">Marketing </option>
+                                    <option value="Économie publique ">Économie publique </option>
+                                    <option value="Économie internationale">Économie internationale </option>
+                                    <option value="Économie d'entreprise">Économie d'entreprise </option>
+                                    <option value="Administration de bases de données"> Administration de bases de données </option>
+                                    <option value="Construction et travaux publics"> Construction et travaux publics</option>
+                                    <option value="Géotechnique"> Géotechnique</option>
+                                    <option value="Génie civil"> Génie civil</option>
+                                    <option value="Hydraulique et environnement"> Hydraulique et environnement</option>
+                                    <option value="Structure et matériaux"> Structure et matériaux</option>
+                                    <option value="Transports et mobilité"> Transports et mobilité</option>
+                                    <option value="Urbanisme et aménagement"> Urbanisme et aménagement</option>
+                                    <option value="Ingénierie du bâtiment"> Ingénierie du bâtiment</option>
+                                    <option value="Maintenance et réhabilitation des bâtiments"> Maintenance et réhabilitation des bâtiments</option>
+                                  </select>
+                                <div *ngIf="spec.invalid && (spec.dirty || spec.touched)" class="text-danger">
+                                    <small *ngIf="spec.errors?.['required']">
+                                        * Votre spécialité est nécessaire 
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class=" mb-1" for="expYears"><h6>Nombre d'année d'expérience</h6></label>
+                                <select class="form-control" name="expYears" id="expYears" [(ngModel)]="candidate.expYears" #expYears="ngModel"  required>
+                                    <option [ngValue]="" disabled selected>{{candidate.expYears}}</option>
+                                    <option value="Débutant">Débutant</option>
+                                    <option value="-1 ans">Moins d'un an</option>
+                                    <option value="1-3 ans">De 1 à 3 ans</option>
+                                    <option value="3-5 ans">De 3 à 5 ans</option>
+                                    <option value="5-10 ans">De 5 à 10 ans</option>
+                                    <option value="+10 ans">+10 ans</option>
+                                </select>
+                                <div *ngIf="expYears.invalid && (expYears.dirty || expYears.touched)" class="text-danger">
+                                    <small *ngIf="expYears.errors?.['required']">
+                                        * Nombre d'année d'expérience est nécessaire
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters-sm">
+                            <div class="col-sm-6 mb-3">
+                              <div class="card h-100">
+                                <div class="card-body">
+                                  <h6 class="d-flex align-items-center mb-3">Lettre de motivation</h6>
+                                  <iframe [src]="prevLMSrc" frameborder="0" style="width: 100%; height: 250px;"></iframe>
+                                  <input type="file" name="lmFile" id="lmFile" accept=".pdf" (change)="onLMFileSelected($event)"  [(ngModel)]="candidate.lmFile" #lmFile="ngModel" required/>
+                                  <div *ngIf="lmFile.invalid && (lmFile.dirty || lmFile.touched)" class="text-danger">
+                                    <small *ngIf="lmFile.errors?.['required']">
+                                      * Lettre de motivation est nécessaire
+                                    </small>
+                                    <small *ngIf="!LMExtensionValid && editCandidateForm.controls['lmFile'].errors?.['invalidExtension']">
+                                        * Extension de fichier autorisée : .pdf
+                                    </small>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                              <div class="card h-100">
+                                <div class="card-body">
+                                  <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Curriculum vitae</i></h6>
+                                  <iframe [src]="prevCVSrc" frameborder="0" style="width: 100%; height: 250px;"></iframe>
+                                  <input type="file" name="cvFile" id="cvFile" accept=".pdf" (change)="onCVFileSelected($event)"  [(ngModel)]="candidate.cvFile" #cvFile="ngModel" required/>
+                                  <div *ngIf="cvFile.invalid && (cvFile.dirty || cvFile.touched)" class="text-danger">
+                                    <small *ngIf="cvFile.errors?.['required']">
+                                      * CV est nécessaire 
+                                    </small>
+                                    <small *ngIf="!CVExtensionValid && editCandidateForm.controls['cvFile'].errors?.['invalidExtension']">
+                                        * Extension de fichier autorisée : .pdf
+                                    </small>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                            </div>
+                        </div>
+                        <!-- Save changes button-->
+                        <div class="row gx-3 mb-3">
+                            <button class="btn-download col-md-3 mx-auto" type="submit">Editer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

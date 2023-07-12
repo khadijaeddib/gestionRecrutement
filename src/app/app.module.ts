@@ -64,6 +64,7 @@ import { EditInterviewComponent } from './components/recruiter/recruiter-intervi
 import { AdminShowInterviewComponent } from './components/admin/home/home/interviews/admin-show-interview/admin-show-interview.component';
 import { InterviewsComponent } from './components/admin/home/home/interviews/interviews.component';
 import { ErrorModalComponent } from './components/candidate/candidate-offer/error-modal/error-modal.component';
+import { ResetPasswordComponent } from './components/account/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -116,7 +117,8 @@ import { ErrorModalComponent } from './components/candidate/candidate-offer/erro
     EditInterviewComponent,
     AdminShowInterviewComponent,
     InterviewsComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
