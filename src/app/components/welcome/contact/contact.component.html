@@ -88,38 +88,72 @@
                         tabindex="0"></iframe>
                     </div>
                     <div class="col-md-6">
+                        <div *ngIf="successMessage" class="alert alert-success alert-dismissible d-flex align-items-center fade show">
+                            <strong class="mx-2">Succès!</strong> {{ successMessage }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+                            <strong class="mx-2">Erreur!</strong> {{ errorMessage }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
                         <div class="wow fadeInUp">
-                            <form>
+                            <form #contactForm="ngForm" (ngSubmit)="send()">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="name" placeholder="Votre nom complet">
+                                            <input type="text" class="form-control" name="name" id="name" placeholder="Votre nom complet" [(ngModel)]="Contact.name" #name="ngModel" required pattern="[a-zA-Z\s]+">
                                             <label for="name">Nom complet</label>
+                                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                                                <small *ngIf="name.errors?.['required']">
+                                                    * Nom complet est nécessaire
+                                                </small>
+                                                <small *ngIf="name.errors?.['pattern']">
+                                                    * Nom complet doit contenir uniquement des lettres et des espaces
+                                                </small>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="email" class="form-control" id="email" placeholder="Votre email">
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Votre email" [(ngModel)]="Contact.email" #email="ngModel" email required>
                                             <label for="email">Email</label>
+                                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                                                <small *ngIf="email.errors?.['required']">
+                                                    * Email est nécessaire
+                                                </small>
+                                                <small *ngIf="email.errors?.['email']">
+                                                    * Email invalide
+                                                </small>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="subject" placeholder="Sujet">
+                                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" [(ngModel)]="Contact.subject" #subject="ngModel" required>
                                             <label for="subject">Sujet</label>
+                                            <div *ngIf="subject.invalid && (subject.dirty || subject.touched)" class="text-danger">
+                                                <small *ngIf="subject.errors?.['required']">
+                                                    * Sujet est nécessaire
+                                                </small>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Laissez un message ici" id="message" style="height: 150px"></textarea>
+                                            <textarea class="form-control" placeholder="Laissez un message ici" name="message" id="message" style="height: 150px" [(ngModel)]="Contact.message" #message="ngModel" required></textarea>
                                             <label for="message">Message</label>
+                                            <div *ngIf="message.invalid && (message.dirty || message.touched)" class="text-danger">
+                                                <small *ngIf="message.errors?.['required']">
+                                                    * Message est nécessaire
+                                                </small>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <button class="btn btn-primary w-100 py-3" type="submit">Envoyer</button>
                                     </div>
                                 </div>
-                            </form>
+                            </form>                            
                         </div>
                     </div>
                 </div>

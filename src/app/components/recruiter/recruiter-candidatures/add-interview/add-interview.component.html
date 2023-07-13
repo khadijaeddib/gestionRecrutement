@@ -59,11 +59,11 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class=" mb-1" for="address"><h6>Adresse d'entretien *</h6></label>
-                        <input class="form-control" id="address" type="text" placeholder="Motivation *" name="address" [(ngModel)]="interview.address" #address="ngModel" required>
+                        <label class=" mb-1" for="address"><h6>Adresse ou lien d'entretien *</h6></label>
+                        <input class="form-control" id="address" type="text" placeholder="Address *" name="address" [(ngModel)]="interview.address" #address="ngModel" required>
                         <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
                             <small *ngIf="address.errors?.['required']">
-                                * Adresse d'entretien est nécessaire
+                                * Adresse ou lien d'entretien est nécessaire
                             </small>
                         </div>
                     </div>

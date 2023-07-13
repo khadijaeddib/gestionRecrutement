@@ -28,6 +28,7 @@ import { ShowOfferDetailsComponent } from './components/welcome/show-offer-detai
 import { OffersListComponent } from './components/welcome/offers-list/offers-list.component';
 import { RecruiterInterviewComponent } from './components/recruiter/recruiter-interview/recruiter-interview.component';
 import { ResetPasswordComponent } from './components/account/reset-password/reset-password.component';
+import { ContactsComponent } from './components/admin/home/home/contacts/contacts.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,8 @@ const routes: Routes = [
       { path: 'offers', component: OffersComponent },
       { path: 'companies', component: CompaniesComponent },
       { path: 'candidatures', component: CandidaturesComponent },
-      { path: 'interviews', component: InterviewsComponent }
+      { path: 'interviews', component: InterviewsComponent },
+      { path: 'contacts', component: ContactsComponent }
     ] },
   { path: 'candidate', component: CandidateComponent,
     children:[
