@@ -80,7 +80,26 @@ export class RecruiterInterviewComponent implements OnInit{
     return `https://localhost:7217/Content/Candidate/Images/${serverPath}`; 
   }
 
-  onStatusChange(id: number,event: any) {
+  // onStatusChange(id: number,event: any) {
+  //   this.mySelectedValue = event.target.value;
+  //   const formData = new FormData();
+  //   formData.append('status', this.mySelectedValue);
+  //   this.interviewService.editInterviewStatus(id, formData).subscribe(
+  //     (response) => {
+  //       // handle successful response
+  //       const index = this.interviews.findIndex(c => c.idInterview === id);
+  //       if (index !== -1) {
+  //         this.interviews[index].status = this.mySelectedValue;
+  //        }
+  //      },
+  //     (error) => {
+  //     // handle error response
+  //     this.errorMessage = "Statut n'est pas modifiée";
+  //     }
+  //   );
+  // }
+
+  onStatusChange(id: number, event: any) {
     this.mySelectedValue = event.target.value;
     const formData = new FormData();
     formData.append('status', this.mySelectedValue);
@@ -90,14 +109,32 @@ export class RecruiterInterviewComponent implements OnInit{
         const index = this.interviews.findIndex(c => c.idInterview === id);
         if (index !== -1) {
           this.interviews[index].status = this.mySelectedValue;
-         }
-       },
+        }
+  
+        // Update the status of the candidature if needed
+        if (this.mySelectedValue === 'Réussi' || this.mySelectedValue === 'Échoué') {
+          const candidatureId = this.interviews[index].idCandidature;
+          const candidatureStatus = this.mySelectedValue === 'Réussi' ? 'embauché' : 'refusé';
+          const candidatureFormData = new FormData();
+          candidatureFormData.append('status', candidatureStatus);
+          this.candidatureService.editCandidature(candidatureId, candidatureFormData).subscribe(
+            (response) => {
+              // Handle successful response
+            },
+            (error) => {
+              // Handle error response
+              console.error(error);
+            }
+          );
+        }
+      },
       (error) => {
-      // handle error response
-      this.errorMessage = "Statut n'est pas modifiée";
+        // handle error response
+        this.errorMessage = "Statut n'est pas modifiée";
       }
     );
   }
+  
 
   populateCandidatures(): void {
     for (const interview of this.interviews) {

@@ -74,6 +74,22 @@ export class EditInterviewComponent implements OnInit{
         this.interviews.push(response);
         this.interviewUpdated.emit(response);
 
+        // Update the status of the interview to "reporté"
+        const statusFormData = new FormData();
+        statusFormData.append('status', 'Reporté');
+        this.interviewService.editInterviewStatus(id, statusFormData).subscribe(
+          (response) => {
+            // Handle successful response
+            const index = this.interviews.findIndex(c => c.idInterview === id);
+            if (index !== -1) {
+              this.interviews[index].status = 'Reporté';
+            }
+          },
+          (error) => {
+            // Handle error response
+            console.error(error);
+          }
+        );
       },
       (error) => {
         console.error(error);
