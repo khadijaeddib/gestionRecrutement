@@ -34,22 +34,32 @@ export class RecruiterComponent implements OnInit {
       this.recruiter = userLogged;
     }
 
-    this.candidateService.getAllRecruiterCandidates(this.recruiter.idRec).subscribe(candidates => {
-      this.newRecruiterCandidats = candidates.length;
-    });
+     // Retrieve data from server initially
+     this.updateData();
+
+     // Set up a timer to periodically retrieve data from server
+     setInterval(() => {
+       this.updateData();
+     }, 1000); // Update data every 10 seconds
+   }
   
-    this.offerService.getRecruiterOffers(this.recruiter.idRec).subscribe(offers => {
-      this.totalRecruiterOffers = offers.length;
-    });
+   updateData() {
+      this.candidateService.getAllRecruiterCandidates(this.recruiter.idRec).subscribe(candidates => {
+        this.newRecruiterCandidats = candidates.length;
+      });
+    
+      this.offerService.getRecruiterOffers(this.recruiter.idRec).subscribe(offers => {
+        this.totalRecruiterOffers = offers.length;
+      });
 
-    this.candidatureService.getAllRecruiterCandidatures(this.recruiter.idRec).subscribe(candiatures => {
-      this.totalRecruiterCandidatures = candiatures.length;
-    });
+      this.candidatureService.getAllRecruiterCandidatures(this.recruiter.idRec).subscribe(candiatures => {
+        this.totalRecruiterCandidatures = candiatures.length;
+      });
 
-    this.AuthService.getTotalVisitors().subscribe(totalVisitors => {
-      this.visitors = totalVisitors;
-    });
-  }
+      this.AuthService.getTotalVisitors().subscribe(totalVisitors => {
+        this.visitors = totalVisitors;
+      });
+   }
   
   public createImgPath = (serverPath: string) => { 
     return `https://localhost:7217/Content/Recruiter/${serverPath}`; 

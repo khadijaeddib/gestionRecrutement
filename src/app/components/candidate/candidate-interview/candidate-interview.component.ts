@@ -135,7 +135,7 @@ export class CandidateInterviewComponent implements OnInit{
     this.filteredInterviews = this.interviews.filter(interview => {
       if (this.searchCategory === 'interviewDate') {
          // Filter by dateCand
-        let interviewDate = new Date(this.interview.interviewDate);
+        let interviewDate = new Date(interview.interviewDate);
         let searchDate = new Date(this.searchKeyword);
         let interviewDateString = interviewDate.getFullYear() + '-' + (interviewDate.getMonth() + 1).toString().padStart(2, '0') + '-' + interviewDate.getDate().toString().padStart(2, '0');
         let searchDateString = searchDate.getFullYear() + '-' + (searchDate.getMonth() + 1).toString().padStart(2, '0') + '-' + searchDate.getDate().toString().padStart(2, '0');

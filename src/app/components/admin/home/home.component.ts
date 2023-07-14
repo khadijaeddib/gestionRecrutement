@@ -28,10 +28,20 @@ export class HomeComponent implements OnInit {
     // this.userEmail = localStorage.getItem('userEmail');
     this.userEmail = sessionStorage.getItem('userEmail');
 
+    // Retrieve data from server initially
+    this.updateData();
+
+    // Set up a timer to periodically retrieve data from server
+    setInterval(() => {
+      this.updateData();
+    }, 1000); // Update data every 10 seconds
+  }
+
+  updateData() {
     this.candidateService.getAllCandidates().subscribe(candidates => {
       this.newCandidats = candidates.length;
     });
-  
+
     this.offerService.getAllOffers().subscribe(offers => {
       this.totalOffers = offers.length;
     });

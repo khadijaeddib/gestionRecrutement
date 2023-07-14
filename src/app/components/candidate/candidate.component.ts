@@ -65,7 +65,17 @@ export class CandidateComponent {
         this.email = this.userEmail;
       }
     });   
-    
+
+   // Retrieve data from server initially
+   this.updateData();
+
+   // Set up a timer to periodically retrieve data from server
+   setInterval(() => {
+     this.updateData();
+   }, 1000); // Update data every 10 seconds
+ }
+
+ updateData() {
     this.offerService.getAllOffers().subscribe(offers => {
       this.totalOffers = offers.length;
     });
@@ -77,7 +87,7 @@ export class CandidateComponent {
     this.interviewService.getAllCandidateInterviews(this.candidate.idCand).subscribe(interviews => {
       this.totalCandidateInterviews = interviews.length;
     });
-  }
+ }
 
   public createImgPath = () => {
     return `https://localhost:7217/Content/Candidate/Images/${this.candImagePath}`;
